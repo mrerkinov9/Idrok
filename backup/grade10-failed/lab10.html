@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Idrok 10-sinf fizika kursi uchun o‘zbekcha interaktiv laboratoriyalar.">
+  <meta name="theme-color" content="#111a35">
+  <title>Idrok Interaktiv Laboratoriya</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="lab.css?v=1">
+  <link rel="stylesheet" href="phet-lab.css?v=6">
+</head>
+<body>
+  <aside class="sim-sidebar" id="simSidebar">
+    <div class="sim-side-head">
+      <a class="sim-brand" href="index.html" aria-label="Idrok bosh sahifasi">
+        <span><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M4 22h7l3.5-11L21 31l5-15 3 6h7"/></svg></span>
+        <b>IDROK</b>
+      </a>
+      <button id="closeSimMenu" type="button" aria-label="Menyuni yopish">×</button>
+    </div>
+
+    <p class="sim-nav-label">ASOSIY</p>
+    <nav class="sim-nav" aria-label="Asosiy menyu">
+      <a href="index.html#bosh"><span>⌂</span><b>Bosh sahifa</b></a>
+      <a href="physics10.html"><span>▤</span><b>10-sinf kursi</b></a>
+      <a class="active" href="labs10.html"><span>⌁</span><b>Laboratoriya</b><small>14</small></a>
+      <a href="index.html#reyting"><span>♜</span><b>Reyting</b></a>
+      <a href="index.html#hamjamiyat"><span>◎</span><b>Hamjamiyat</b></a>
+      <button id="simAiNav" type="button"><span>✦</span><b>Idrok AI</b><small>AI</small></button>
+    </nav>
+
+    <div class="sim-side-progress">
+      <span class="sim-progress-ring"><b id="simSidePercent">0%</b></span>
+      <div><b>Laboratoriya progressi</b><small id="simSideMeta">0 / 14 bajarildi</small></div>
+    </div>
+
+    <div class="sim-side-user">
+      <span id="simAvatar">IZ</span>
+      <div><b id="simUserName">Izlanuvchi</b><small><i id="simSideImpulse">0</i> Impulse</small></div>
+    </div>
+  </aside>
+
+  <button class="sim-menu-button" id="openSimMenu" type="button" aria-label="Menyuni ochish">☰</button>
+  <div class="sim-overlay" id="simOverlay"></div>
+
+  <header class="sim-header">
+    <div><small>IDROK INTERAKTIV LABORATORIYA</small><b id="headerLabName">Tajriba yuklanmoqda</b></div>
+    <div class="sim-header-actions">
+      <a class="catalog-button" href="labs10.html">Barcha tajribalar</a>
+      <span class="sim-impulse"><i>ϟ</i><b id="simImpulse">0</b></span>
+      <button id="simTheme" type="button" aria-label="Rang rejimini almashtirish"><span>☼</span><span>☾</span></button>
+    </div>
+  </header>
+
+  <main class="sim-page">
+    <section class="sim-hero">
+      <div class="sim-hero-copy">
+        <span class="sim-kicker" id="labKicker">10-SINF • VIRTUAL TAJRIBA</span>
+        <h1 id="labTitle">Laboratoriya yuklanmoqda…</h1>
+        <p id="labIntro">Bir necha soniya kuting.</p>
+        <div class="sim-hero-meta">
+          <span id="labNumber">01 / 14</span>
+          <span id="labRole">Tadqiqotchi</span>
+          <span id="labReward">+40 ϟ</span>
+        </div>
+      </div>
+      <a class="course-return" id="courseReturn" href="physics10.html">Mavzuga qaytish <span>→</span></a>
+    </section>
+
+    <section class="simulator-shell" aria-label="Interaktiv fizika simulyatsiyasi">
+      <div class="sim-stage-column">
+        <div class="sim-stage-toolbar">
+          <span><i></i> FIZIKA REAL VAQTDA</span>
+          <div>
+            <button id="simHint" type="button">Maslahat</button>
+            <button id="simPause" type="button"><span>Ⅱ</span> Pauza</button>
+            <button id="simReset" type="button"><span>↻</span> Qayta</button>
+          </div>
+        </div>
+        <div class="sim-canvas-wrap">
+          <canvas id="simCanvas" width="960" height="560" aria-label="Mavzuga mos interaktiv fizika tajribasi">
+            Brauzeringiz interaktiv laboratoriyani ko‘rsata olmadi.
+          </canvas>
+          <div class="sim-drag-hint" id="dragHint"><span>☝</span><b id="dragLabel">Jismni ushlang</b><small>Sudrang va tajribani o‘zingiz boshqaring</small></div>
+          <div class="sim-pulse" id="simPulse"></div>
+        </div>
+        <div class="sim-stage-footer">
+          <div class="sim-mode-tabs" role="group" aria-label="Kuzatuv rejimi">
+            <button class="active" data-view="scene" type="button">Tajriba</button>
+            <button data-view="vectors" type="button">Kuchlar</button>
+            <button data-view="graph" type="button">Grafik</button>
+          </div>
+          <p id="stageStatus">Jismni ushlab ko‘ring.</p>
+        </div>
+      </div>
+
+      <aside class="sim-control-panel" aria-label="Laboratoriya boshqaruvlari">
+        <div class="control-panel-head">
+          <span class="lab-symbol" id="labSymbol">01</span>
+          <div><small>JORIY MISSIYA</small><h2 id="panelTitle">Tajriba</h2><p id="panelRole">Tadqiqotchi rejimi</p></div>
+          <span class="lab-state" id="labState">FAOL</span>
+        </div>
+
+        <div class="dynamic-controls" id="dynamicControls"></div>
+
+        <div class="metric-grid">
+          <article><small id="metricALabel">PARAMETR A</small><strong id="metricA">0</strong></article>
+          <article><small id="metricBLabel">PARAMETR B</small><strong id="metricB">0</strong></article>
+          <article><small>TAJRIBA ANIQLIGI</small><strong id="metricProgress">0%</strong></article>
+          <article><small>URINISHLAR</small><strong id="metricActions">0</strong></article>
+        </div>
+
+        <button class="experiment-action" id="experimentAction" type="button">Tajribani boshlash</button>
+
+        <div class="sim-challenge" id="simChallenge">
+          <div><span>LAB TOPSHIRIG‘I</span><strong id="challengeReward">+40 ϟ</strong></div>
+          <h3 id="challengeTitle">Missiyani bajaring</h3>
+          <p id="challengeText">Parametrlarni sozlang va tajribani bajaring.</p>
+          <span class="challenge-progress"><i id="challengeProgress"></i></span>
+          <b id="challengeStatus">Tajriba boshlanmadi</b>
+        </div>
+      </aside>
+    </section>
+
+    <nav class="sim-next-nav" aria-label="Laboratoriyalar orasida o‘tish">
+      <a id="previousLab" href="labs10.html"><span>← Oldingi tajriba</span><b>Katalog</b></a>
+      <a id="nextLab" href="labs10.html"><span>Keyingi tajriba →</span><b>Katalog</b></a>
+    </nav>
+  </main>
+
+  <button class="sim-ai-launcher" id="simAiLauncher" type="button" aria-expanded="false" aria-label="Idrok AI yordamchisini ochish"><span>✦</span><i></i></button>
+  <aside class="sim-ai-panel" id="simAiPanel" aria-hidden="true">
+    <div class="sim-ai-head"><span>✦</span><div><b>Idrok AI</b><small>Laboratoriya yordamchisi</small></div><button id="closeSimAi" type="button" aria-label="Yopish">×</button></div>
+    <div class="sim-ai-context"><small>HOZIRGI TAJRIBA</small><b id="simAiContext">Fizika laboratoriyasi</b></div>
+    <div class="sim-ai-messages" id="simAiMessages"><div class="sim-ai-message"><span>✦</span><p>Jismni sudrang, parametrlarni o‘zgartiring. Qayerda qiyinchilik bo‘lsa, men izohlayman.</p></div></div>
+    <div class="sim-ai-prompts">
+      <button data-ai="explain" type="button">Hodisani tushuntir</button>
+      <button data-ai="formula" type="button">Formulani ayt</button>
+      <button data-ai="hint" type="button">Missiyaga yordam ber</button>
+    </div>
+  </aside>
+
+  <div class="sim-toast" id="simToast" role="status"></div>
+  <div class="sim-confetti" id="simConfetti" aria-hidden="true"></div>
+
+  <script src="assets/physics10/physics-content.js?v=2"></script>
+  <script src="lab-data10.js?v=2"></script>
+  <script src="phet-map10.js?v=2"></script>
+  <script src="phet-engine.js?v=2"></script>
+</body>
+</html>

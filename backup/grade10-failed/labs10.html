@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Idrok 10-sinf fizika kursining 14 ta interaktiv virtual laboratoriyasi.">
+  <meta name="theme-color" content="#111a35">
+  <title>Laboratoriyalar — Idrok</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="labs.css?v=4">
+</head>
+<body>
+  <aside class="labs-sidebar" id="labsSidebar">
+    <div class="labs-side-head">
+      <a class="labs-brand" href="index.html" aria-label="Idrok bosh sahifasi"><span><svg viewBox="0 0 40 40"><path d="M4 22h7l3.5-11L21 31l5-15 3 6h7"/></svg></span><b>IDROK</b></a>
+      <button id="closeLabsMenu" type="button" aria-label="Menyuni yopish">×</button>
+    </div>
+    <p class="labs-nav-label">ASOSIY</p>
+    <nav class="labs-nav" aria-label="Asosiy menyu">
+      <a href="index.html#bosh"><span>⌂</span><b>Bosh sahifa</b></a>
+      <a href="physics10.html"><span>▤</span><b>10-sinf kursi</b></a>
+      <a class="active" href="labs10.html"><span>⌁</span><b>Laboratoriya</b><small>14</small></a>
+      <a href="index.html#reyting"><span>♜</span><b>Reyting</b></a>
+      <a href="index.html#hamjamiyat"><span>◎</span><b>Hamjamiyat</b></a>
+      <button id="labsAiNav" type="button"><span>✦</span><b>Idrok AI</b><small>AI</small></button>
+    </nav>
+    <div class="labs-side-progress"><span><b id="labsSidePercent">0%</b></span><div><b>Laboratoriya progressi</b><small id="labsSideMeta">0 / 14 bajarildi</small></div></div>
+    <div class="labs-side-user"><span id="labsAvatar">IZ</span><div><b id="labsUserName">Izlanuvchi</b><small><i id="labsSideImpulse">0</i> Impulse</small></div></div>
+  </aside>
+  <button class="labs-menu-button" id="openLabsMenu" type="button" aria-label="Menyuni ochish">☰</button>
+  <div class="labs-overlay" id="labsOverlay"></div>
+
+  <header class="labs-header">
+    <div><small>IDROK LABORATORIYA</small><b>10-sinf fizika tajribalari</b></div>
+    <div><span class="labs-impulse"><i>ϟ</i><b id="labsImpulse">0</b></span><button id="labsTheme" type="button" aria-label="Rang rejimini almashtirish"><span>☼</span><span>☾</span></button></div>
+  </header>
+
+  <main class="labs-page">
+    <section class="labs-hero">
+      <div class="labs-hero-copy">
+        <span class="labs-kicker">10-SINF • VIRTUAL LABORATORIYA</span>
+        <h1>Fizikani tomosha qilmang.<br><em>Uni boshqaring.</em></h1>
+        <p>14 ta bob darslariga doir virtual laboratoriyalarda parametrlarni o‘zgartiring, kuchlarni boshqaring va fizik qonunlarni o‘zingiz kashf eting.</p>
+        <div class="labs-hero-actions"><a id="resumeLab" href="lab10.html?lesson=l1">Tajribani davom ettirish <span>→</span></a><a href="physics10.html">Kurs xaritasi</a></div>
+      </div>
+      <div class="labs-orbit" aria-hidden="true"><span class="orbit-core">IDROK<small>LAB</small></span><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    </section>
+
+    <section class="labs-stat-row" aria-label="Laboratoriya statistikasi">
+      <article><span>14</span><div><b>Asosiy tajriba</b><small>Har bir mavzuga alohida</small></div></article>
+      <article><span id="labsDone">0</span><div><b>Yakunlangan</b><small id="labsDoneMeta">0% progress</small></div></article>
+      <article><span>0</span><div><b>Bonus laboratoriya</b><small>Tez orada qo‘shiladi</small></div></article>
+    </section>
+
+    <section class="labs-library">
+      <div class="labs-library-head">
+        <div><span>TAJRIBALAR KUTUBXONASI</span><h2>14 ta takrorlanmas tajriba.</h2><p>Istalgan simulyatsiyani erkin ochishingiz mumkin.</p></div>
+        <label class="labs-search"><span>⌕</span><input id="labsSearch" type="search" placeholder="Tajriba yoki mavzuni izlash…" autocomplete="off"></label>
+      </div>
+      <div class="chapter-filters" id="chapterFilters"></div>
+      <div class="labs-grid" id="labsGrid"></div>
+      <p class="labs-empty" id="labsEmpty">Bunday tajriba topilmadi.</p>
+    </section>
+  </main>
+
+  <button class="labs-menu-button" id="labsAi" style="display:none;"></button>
+
+  <script src="assets/physics10/physics-content.js?v=2"></script>
+  <script src="lab-data10.js?v=2"></script>
+  <script src="phet-map10.js?v=2"></script>
+  <script src="labs10.js?v=2"></script>
+</body>
+</html>

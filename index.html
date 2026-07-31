@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Idrok — fizika va muhandislikni o‘zbek tilida o‘rganish platformasi." />
+  <title>Idrok — O‘zbekcha fizika va muhandislik</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=4" />
+  <link rel="stylesheet" href="focus-widget.css?v=1" />
+</head>
+<body>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-top">
+      <a class="brand" href="#bosh" aria-label="Idrok bosh sahifasi">
+        <span class="brand-mark brand-pulse"><svg viewBox="0 0 34 34"><path d="M3 18h7l3-9 6 17 4-11 3 3h5"/></svg></span><span>IDROK</span>
+      </a>
+      <button class="sidebar-close" id="sidebarClose" aria-label="Menyuni yopish">×</button>
+    </div>
+    <p class="nav-label">ASOSIY</p>
+    <nav class="side-nav" aria-label="Asosiy menyu">
+      <a class="active" href="#bosh"><span><svg viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5V21h-6v-6H9v6H3Z"/></svg></span><b>Bosh sahifa</b></a>
+      <a href="#kurslar"><span><svg viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5Zm0 0v16M8 7h8M8 11h7"/></svg></span><b>Kurslar</b><small>6</small></a>
+      <a href="labs.html"><span><svg viewBox="0 0 24 24"><path d="M9 3v5l-5 9a3 3 0 0 0 2.6 4.5h10.8A3 3 0 0 0 20 17l-5-9V3M8 13h8M8 3h8"/></svg></span><b>Laboratoriya</b><small>144</small></a>
+      <a href="garden.html"><span><svg viewBox="0 0 24 24"><path d="M12 21V9m0 5c-5 0-8-3-8-8 5 0 8 3 8 8Zm0-4c5 0 8-3 8-8-5 0-8 3-8 8Z"/></svg></span><b>Mening bog‘im</b><small>YANGI</small></a>
+      <a href="#imkoniyatlar"><span><svg viewBox="0 0 24 24"><path d="M5 3h14v18H5zM8 7h8M8 11h5M8 15h7"/></svg></span><b>O‘quv tizimi</b></a>
+      <a href="#reyting"><span><svg viewBox="0 0 24 24"><path d="M8 21v-7H3v7m18 0V9h-5v12m-3 0V3H8v18"/></svg></span><b>Reyting</b></a>
+      <a href="#hamjamiyat"><span><svg viewBox="0 0 24 24"><path d="M16 20v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2m7-10a4 4 0 1 0 0-8 4 4 0 0 0 0 8m13 10v-2a4 4 0 0 0-3-3.87M16 2.13a4 4 0 0 1 0 7.75"/></svg></span><b>Hamjamiyat</b></a>
+      <button id="homeAiNav" type="button"><span class="nav-ai-icon">✦</span><b>Idrok AI</b><small>AI</small></button>
+    </nav>
+    <p class="nav-label">IDROK</p>
+    <nav class="side-nav">
+      <a href="#haqida"><span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-10h.01"/></svg></span><b>Biz haqimizda</b></a>
+      <button data-open-dashboard><span><svg viewBox="0 0 24 24"><path d="M4 19V9m6 10V5m6 14v-7m4 7H2"/></svg></span><b>Mening natijam</b></button>
+    </nav>
+    <div class="sidebar-progress">
+      <div class="progress-orbit"><strong id="sideProgress">0%</strong></div>
+      <div><b>Davom eting!</b><p>Birinchi darsingizni boshlang.</p></div>
+    </div>
+    <button class="sidebar-account" id="accountButton"><span class="account-avatar" id="accountAvatar">IZ</span><span><b id="accountName">Mehmon</b><small id="accountStatus">Kirish yoki ro‘yxatdan o‘tish</small></span><i>›</i></button>
+  </aside>
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+  <div class="page-shell">
+  <header class="site-header">
+    <button class="menu-button" id="menuButton" aria-label="Menyuni ochish">☰</button>
+    <div class="header-search"><span>⌕</span><input type="search" placeholder="Kurslar va mavzularni qidirish..."></div>
+    <div class="header-actions">
+      <button class="icon-button" id="themeButton" aria-label="Rang rejimini almashtirish">☼</button>
+      <div class="impulse-pill" id="headerImpulse"><span>ϟ</span><b>0</b><small>IMPULSE</small></div>
+      <button class="button button-small button-outline" id="headerAuthButton">Kirish</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="home-dashboard" id="bosh">
+      <div class="welcome-row reveal">
+        <div><span class="dashboard-kicker">IDROK / BOSH SAHIFA</span><h1>Xush kelibsiz, <em id="welcomeName">izlanuvchi!</em></h1><p>Bugun yangi bir narsani tushunish uchun ajoyib kun.</p><div class="welcome-actions"><a class="button button-primary" href="#kurslar">Bugungi darsni boshlash <span>▶</span></a><a class="plain-link" href="#reyting">Reytingni ko‘rish →</a></div></div>
+        <div class="daily-card"><span class="daily-label">BUGUNGI MAQSAD</span><div class="daily-main"><span class="daily-bolt">ϟ</span><div><strong>80 Impulse</strong><small>Kunlik maqsad</small></div><b id="dailyPercent">0%</b></div><div class="daily-track"><i id="dailyTrack"></i></div><p>Bir darsni yakunlang va seriyani davom ettiring.</p></div>
+      </div>
+
+      <div class="mission-banner reveal"><span class="mission-icon">⚛</span><div><b>Bugungi missiya</b><p>9-sinf fizika kursining navbatdagi darsini yakunlang.</p></div><button id="demoButton">Boshlash <span>→</span></button></div>
+
+      <a class="home-garden-card reveal" href="garden.html">
+        <span class="home-garden-art" aria-hidden="true"><i></i><i></i><i></i><b>✿</b></span>
+        <span class="home-garden-copy"><small>FOKUS MAYDONI</small><strong>Mening bog‘im</strong><em id="homeGardenMessage">Birinchi niholingizni eking va dars bilan o‘stiring.</em></span>
+        <span class="home-garden-metric"><b id="homeGardenPlants">0</b><small>o‘simlik</small></span>
+        <span class="home-garden-metric"><b id="homeGardenFocus">0</b><small>daqiqa fokus</small></span>
+        <span class="home-garden-arrow">→</span>
+      </a>
+
+      <div class="dashboard-block reveal">
+        <div class="block-title"><span><i>▥</i> Natijalar</span><button data-open-dashboard>Batafsil →</button></div>
+        <div class="analytics-grid">
+          <article><small>Jami Impulse</small><strong id="homeImpulse">0</strong><span class="trend positive">↗ Bilim energiyasi</span></article>
+          <article><small>Yakunlangan darslar</small><strong id="homeCompleted">0</strong><span>Faollik natijasi</span></article>
+          <article><small>To‘g‘ri javoblar</small><strong id="homeAccuracy">0%</strong><span>Test aniqligi</span></article>
+          <article><small>Hozirgi liga</small><strong class="league-value" id="homeLeague">Uchqun</strong><span>Keyingi: Tok ligasi</span></article>
+        </div>
+      </div>
+
+      <div class="study-grid reveal">
+        <div class="study-plan"><div class="block-title"><span><i>☷</i> Bugungi o‘quv reja</span><a href="#kurslar">Barcha kurslar →</a></div><div class="plan-item"><span class="plan-number">01</span><div><b>7-sinf Fizika</b><small>62 dars • 5 bob • 100+ ϟ</small></div><div class="mini-progress"><i id="homePhysics7Track"></i></div><button data-course-launch="physics7">Boshlash</button></div><div class="plan-item"><span class="plan-number purple">02</span><div><b>8-sinf Fizika</b><small>60 dars • 5 bob • 100+ ϟ</small></div><div class="mini-progress"><i id="homePhysics8Track"></i></div><button data-course-launch="physics8">Boshlash</button></div><div class="plan-item"><span class="plan-number">03</span><div><b>9-sinf Fizika</b><small>Navbatdagi dars • 35–55 daqiqa • 100+ ϟ</small></div><div class="mini-progress"><i id="homePhysicsTrack"></i></div><button data-course-launch="mexanika">Davom etish</button></div><div class="plan-item"><span class="plan-number">04</span><div><b>10-sinf Fizika</b><small>59 dars • 7 bob • 100+ ϟ</small></div><div class="mini-progress"><i id="homePhysics10Track"></i></div><button data-course-launch="physics10">Boshlash</button></div></div>
+        <aside class="streak-card"><span>⚡</span><div><small>KUNLIK SERIYA</small><strong id="homeStreak">1 kun</strong><p>Har kuni o‘rganing va Impulse bonusini oshiring.</p></div></aside>
+      </div>
+    </section>
+
+    <section class="section courses-section" id="kurslar">
+      <div class="section-heading reveal">
+        <div><div class="eyebrow"><span></span> OMMABOP KURSLAR</div><h2>Qiziqishingni<br><em>kashf et</em></h2></div>
+        <div class="filter-row" id="filterRow">
+          <button class="filter active" data-filter="all">Barchasi</button><button class="filter" data-filter="fizika">Fizika</button><button class="filter" data-filter="muhandislik">Muhandislik</button>
+        </div>
+      </div>
+      <div class="course-grid" id="courseGrid"></div>
+    </section>
+
+    <section class="section experience" id="imkoniyatlar">
+      <div class="experience-panel reveal">
+        <div class="experience-copy">
+          <div class="eyebrow light"><span></span> IDROK TAJRIBASI</div>
+          <h2>Har bir mavzu —<br><em>yangi kashfiyot.</em></h2>
+          <p>Murakkab formulalarni oddiy misollar, animatsiyalar va amaliy topshiriqlar bilan tushun.</p>
+          <div class="feature-list">
+            <div><b>01</b><span><strong>Qisqa va lo‘nda darslar</strong><small>Har kuni atigi 15 daqiqa</small></span></div>
+            <div><b>02</b><span><strong>Amaliy tajribalar</strong><small>Uyda bajarish mumkin</small></span></div>
+            <div><b>03</b><span><strong>Natijani kuzatish</strong><small>O‘sishingni aniq ko‘r</small></span></div>
+          </div>
+        </div>
+        <div class="lesson-preview">
+          <div class="preview-top"><span>3-DARS</span><span>08:42</span></div>
+          <div class="pendulum"><span class="pivot"></span><span class="string"></span><span class="bob"></span></div>
+          <div class="preview-bottom"><p>Mayatnik va energiya</p><div class="progress"><i style="width:68%"></i></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section leaderboard-section" id="reyting">
+      <div class="section-heading reveal">
+        <div><div class="eyebrow"><span></span> IDROK LIGASI</div><h2>Bilim kuchi<br><em>reytingi.</em></h2></div>
+        <p class="leader-intro">Darslarni yakunlang, Impulse to‘plang va Idrok ligasida yuqorilang. Murakkab kurslar ko‘proq Impulse beradi.</p>
+      </div>
+      <div class="league-grid reveal">
+        <div class="league-card"><div class="league-head"><span>HAFTALIK REYTING</span><span class="live-dot">● JONLI</span></div><div class="leader-tabs" id="leaderTabs"><button class="active" data-leader-mode="overall">Umumiy</button><button data-leader-mode="impulse">Impulse</button><button data-leader-mode="garden">Bog‘</button></div><div class="leader-list" id="leaderList"></div></div>
+        <aside class="impulse-guide"><span class="bolt-big">ϟ</span><p>IMPULSE TIZIMI</p><h3>Har bir bilim<br>harakatga aylanadi.</h3><div class="reward-row"><span>Boshlang‘ich kurs</span><b>+80 ϟ</b></div><div class="reward-row"><span>O‘rta kurs</span><b>+140 ϟ</b></div><div class="reward-row"><span>Murakkab kurs</span><b>+240 ϟ</b></div><small>Testni to‘g‘ri yechish kurs Impulse’ini to‘liq beradi.</small></aside>
+      </div>
+    </section>
+
+    <section class="section community" id="hamjamiyat">
+      <div class="community-card reveal">
+        <p class="big-quote">“</p><blockquote>Ilm — bu faqat formulalar emas.<br>Bu dunyoni <em>boshqacha ko‘rish</em> qobiliyati.</blockquote>
+        <div class="community-meta"><span>IDROK MANIFESTI</span><button class="button button-primary" data-open-dashboard>Mening natijam →</button></div>
+      </div>
+    </section>
+
+    <section class="section about-section" id="haqida">
+      <div class="about-number reveal">IDROK / 01</div>
+      <div class="about-grid reveal">
+        <div><div class="eyebrow"><span></span> BIZ HAQIMIZDA</div><h2>O‘zbek tilida<br><em>buyuk g‘oyalar.</em></h2></div>
+        <div class="about-copy"><p>Idrok — yoshlarning fizika, muhandislik va zamonaviy fanlarni o‘zbek tilida chuqur tushunishi uchun yaratilayotgan ta’lim platformasi.</p><p>Bizning maqsadimiz formulani shunchaki yodlatish emas, balki uning qanday ishlashini tajriba va amaliyot orqali ko‘rsatish.</p><a href="#kurslar">Kurslarni ko‘rish <span>→</span></a></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <a class="brand" href="#bosh"><span class="brand-mark brand-pulse"><svg viewBox="0 0 34 34"><path d="M3 18h7l3-9 6 17 4-11 3 3h5"/></svg></span><span>IDROK</span></a>
+    <p>Kelajakni tushunadigan avlod uchun.</p><span>© 2026 IDROK</span>
+  </footer>
+
+  <div class="modal" id="courseModal" aria-hidden="true">
+    <div class="modal-backdrop" data-close-modal></div>
+    <article class="modal-card lesson-modal">
+      <button class="modal-close" data-close-modal aria-label="Yopish">×</button>
+      <span class="modal-kicker" id="modalKicker"></span><h2 id="modalTitle"></h2><p id="modalDescription"></p>
+      <div class="lesson-box"><h3>Bugungi mini dars</h3><p id="lessonText"></p><div class="lesson-fact" id="lessonFact"></div></div>
+      <div class="quiz-box" id="quizBox"></div>
+    </article>
+  </div>
+
+  <div class="modal" id="dashboardModal" aria-hidden="true">
+    <div class="modal-backdrop" data-close-dashboard></div>
+    <article class="modal-card dashboard-card">
+      <button class="modal-close" data-close-dashboard aria-label="Yopish">×</button>
+      <span class="modal-kicker">SHAXSIY NATIJA</span><h2>Salom, izlanuvchi!</h2><p>Darslarni yakunlaganing sari natijang shu yerda saqlanadi.</p>
+      <div class="dashboard-stats"><div><strong id="completedCount">0</strong><span>Tugallangan dars</span></div><div><strong id="impulseCount">0 ϟ</strong><span>Jami Impulse</span></div><div><strong id="streakCount">1</strong><span>Kunlik seriya</span></div></div>
+      <a class="dashboard-garden" href="garden.html"><span>✿</span><div><small>MENING BOG‘IM</small><b id="dashboardGardenName">Nihollar hovlisi</b><em id="dashboardGardenMeta">0 o‘simlik · 0 daqiqa fokus</em></div><strong id="dashboardGardenPoints">0 ball</strong><i>→</i></a>
+      <div class="dashboard-physics">
+        <div class="dashboard-physics-head"><span><b>7-sinf Fizika</b><small id="dashboardPhysics7Meta">0 / 62 dars</small></span><strong id="dashboardPhysics7Percent">0%</strong></div>
+        <div class="dashboard-physics-track"><i id="dashboardPhysics7Track"></i></div>
+        <div class="dashboard-current"><span>DAVOM ETTIRISH</span><b id="dashboardCurrentLesson7">1-dars: Fizika taraqqiyoti</b></div>
+      </div>
+      <div class="dashboard-physics">
+        <div class="dashboard-physics-head"><span><b>8-sinf Fizika</b><small id="dashboardPhysics8Meta">0 / 60 dars</small></span><strong id="dashboardPhysics8Percent">0%</strong></div>
+        <div class="dashboard-physics-track"><i id="dashboardPhysics8Track"></i></div>
+        <div class="dashboard-current"><span>DAVOM ETTIRISH</span><b id="dashboardCurrentLesson8">1-dars: Jismlarning zaryadlanishi</b></div>
+      </div>
+      <div class="dashboard-physics">
+        <div class="dashboard-physics-head"><span><b>9-sinf Fizika</b><small id="dashboardPhysicsMeta">0 / 59 dars</small></span><strong id="dashboardPhysicsPercent">0%</strong></div>
+        <div class="dashboard-physics-track"><i id="dashboardPhysicsTrack"></i></div>
+        <div class="dashboard-current"><span>DAVOM ETTIRISH</span><b id="dashboardCurrentLesson">1-dars: Molekulyar-kinetik nazariya</b></div>
+        <div class="dashboard-chapters" id="dashboardChapters"></div>
+      </div>
+      <div class="dashboard-physics">
+        <div class="dashboard-physics-head"><span><b>10-sinf Fizika</b><small id="dashboardPhysics10Meta">0 / 59 dars</small></span><strong id="dashboardPhysics10Percent">0%</strong></div>
+        <div class="dashboard-physics-track"><i id="dashboardPhysics10Track"></i></div>
+        <div class="dashboard-current"><span>DAVOM ETTIRISH</span><b id="dashboardCurrentLesson10">1-dars: Kuchlarni qo‘shish</b></div>
+      </div>
+      <div class="dashboard-actions"><a class="button button-primary full" href="physics7.html">7-sinf fizikasini davom ettirish →</a><button class="button button-outline full" id="logoutButton">Hisobdan chiqish</button></div>
+    </article>
+  </div>
+
+  <div class="modal" id="authModal" aria-hidden="true">
+    <div class="modal-backdrop" data-close-auth></div>
+    <article class="modal-card auth-card">
+      <button class="modal-close" data-close-auth aria-label="Yopish">×</button>
+      <div class="auth-brand"><span class="brand-mark">I</span><span><b>IDROK</b><small>BILIM MAYDONI</small></span></div>
+      <div class="auth-tabs"><button class="active" data-auth-tab="login">Kirish</button><button data-auth-tab="register">Hisob yaratish</button></div>
+      <form id="loginForm" class="auth-form"><h2>Qaytganingizdan xursandmiz.</h2><p>Impulse yig‘ishni davom ettirish uchun kiring.</p><label>Email manzil<input type="email" name="email" placeholder="siz@email.uz" required></label><label>Parol<input type="password" name="password" placeholder="Kamida 6 ta belgi" required minlength="6"></label><button class="button button-primary full" type="submit">Kirish <span>→</span></button><div class="form-message"></div></form>
+      <form id="registerForm" class="auth-form hidden"><h2>Idrok safini boshlang.</h2><p>Bepul hisob yarating va birinchi Impulse’ingizni oling.</p><label>Ism va familiyangiz<input type="text" name="name" placeholder="Ism Familiya" required minlength="3"></label><label>Email manzil<input type="email" name="email" placeholder="siz@email.uz" required></label><label>Parol<input type="password" name="password" placeholder="Kamida 6 ta belgi" required minlength="6"></label><button class="button button-primary full" type="submit">Hisob yaratish <span>+50 ϟ</span></button><div class="form-message"></div></form>
+      <p class="auth-note">Davom etish orqali Idrok foydalanish shartlariga rozilik bildirasiz.</p>
+    </article>
+  </div>
+
+  <button class="home-ai-launcher" id="homeAiLauncher" type="button" aria-label="Idrok AI yordamchisini ochish" aria-expanded="false"><span><i></i><b>✦</b></span><em>Idrok AI</em></button>
+  <aside class="home-ai-panel" id="homeAiPanel" aria-hidden="true" aria-label="Idrok AI">
+    <header><span class="home-ai-orb"><i></i><b>✦</b></span><div><b>Idrok AI</b><small><i></i> Fizika yordamchisi</small></div><button id="homeAiClose" type="button" aria-label="Yopish">×</button></header>
+    <div class="home-ai-context"><span>HOZIRGI MAVZU</span><b id="homeAiContext">9-sinf fizika</b></div>
+    <div class="home-ai-messages" id="homeAiMessages" aria-live="polite"><div class="home-ai-message assistant"><span>✦</span><p>Salom! Fizika mavzusini tushuntirish, formulani izohlash yoki quizga tayyorlanishda yordam beraman.</p></div></div>
+    <div class="home-ai-prompts">
+      <button type="button" data-home-ai="explain">Mavzuni tushuntir</button><button type="button" data-home-ai="rule">Asosiy qoida</button><button type="button" data-home-ai="formula">Formulani tushuntir</button><button type="button" data-home-ai="example">Misolni tushuntir</button><button type="button" data-home-ai="quiz">Quizga tayyorla</button>
+    </div>
+    <form id="homeAiForm"><input id="homeAiInput" maxlength="240" autocomplete="off" placeholder="Savolingizni yozing…" aria-label="Idrok AI uchun savol"><button type="submit" aria-label="Yuborish">↑</button></form>
+    <p class="home-ai-note">Idrok AI kurs ma’lumotlari asosida ishlaydi.</p>
+  </aside>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="assets/physics/physics-content.js?v=5"></script>
+  <script src="assets/physics/physics-content-fixes.js?v=6"></script>
+  <script>window.PHYSICS_COURSE9 = window.PHYSICS_COURSE;</script>
+  <script src="assets/physics7/physics-content.js?v=1"></script>
+  <script src="assets/physics7/physics-content-fixes.js?v=1"></script>
+  <script>window.PHYSICS_COURSE7 = window.PHYSICS_COURSE;</script>
+  <script src="assets/physics8/physics-content.js?v=1"></script>
+  <script>window.PHYSICS_COURSE8 = window.PHYSICS_COURSE;</script>
+  <script src="assets/physics10/physics-content.js?v=21"></script>
+  <script src="assets/physics10/physics-content-enrichment.js?v=20"></script>
+  <script>window.PHYSICS_COURSE10 = window.PHYSICS_COURSE; window.PHYSICS_COURSE = window.PHYSICS_COURSE9;</script>
+  <script src="garden-catalog.js?v=1"></script>
+  <script src="garden-core.js?v=1"></script>
+  <script src="app.js?v=11"></script>
+  <script src="focus-widget.js?v=1"></script>
+  </div>
+</body>
+</html>

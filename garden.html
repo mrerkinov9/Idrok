@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="description" content="Idrok 3D bilim bog‘i — fokus qiling, o‘simlik o‘stiring va o‘z bog‘ingizni erkin yarating.">
+  <meta name="theme-color" content="#0d1734">
+  <title>3D Mening bog‘im — Idrok</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="garden.css?v=3">
+  <link rel="stylesheet" href="focus-widget.css?v=1">
+</head>
+<body>
+  <aside class="garden-sidebar" id="gardenSidebar">
+    <div class="garden-brand-row">
+      <a class="garden-brand" href="index.html#bosh"><span><svg viewBox="0 0 34 34" aria-hidden="true"><path d="M3 18h7l3-9 6 17 4-11 3 3h5"/></svg></span><b>IDROK</b></a>
+      <button id="closeGardenMenu" type="button" aria-label="Menyuni yopish">×</button>
+    </div>
+    <p class="side-label">ASOSIY</p>
+    <nav aria-label="Asosiy menyu">
+      <a href="index.html#bosh"><span>⌂</span>Bosh sahifa</a>
+      <a href="index.html#kurslar"><span>▤</span>Kurslar</a>
+      <a href="labs.html"><span>⌁</span>Laboratoriya</a>
+      <a class="active" href="garden.html"><span>✿</span>Mening bog‘im <small>3D</small></a>
+      <a href="index.html#reyting"><span>♜</span>Reyting</a>
+    </nav>
+
+    <div class="side-world-card">
+      <div><span>BOG‘ DARAJASI</span><b id="sideGardenLevel">1</b></div>
+      <strong id="sideGardenName">Nihollar vodiysi</strong>
+      <div class="side-world-track"><i id="sideGardenTrack"></i></div>
+      <small id="sideGardenNext">Keyingi kengayish: 280 ϟ</small>
+    </div>
+    <button class="side-missions" id="openMissions" type="button"><span>⚑</span><div><b>Kunlik vazifalar</b><small id="missionSideMeta">0 / 4 bajarildi</small></div><i>›</i></button>
+    <div class="garden-side-account"><span id="gardenAvatar">IZ</span><div><b id="gardenUserName">Izlanuvchi</b><small id="gardenAccountMeta">Mahalliy bog‘</small></div></div>
+  </aside>
+  <button class="garden-overlay" id="gardenOverlay" type="button" aria-label="Menyuni yopish"></button>
+
+  <div class="garden-shell">
+    <header class="garden-topbar">
+      <button class="garden-menu-button" id="openGardenMenu" type="button" aria-label="Menyuni ochish">☰</button>
+      <div class="topbar-title"><small>IDROK / 3D BILIM BOG‘I</small><b>Fokus qil. O‘stir. O‘z dunyongni yarat.</b></div>
+      <div class="garden-top-actions">
+        <button id="gardenTheme" type="button" aria-label="Rang rejimini almashtirish">☾</button>
+        <span class="garden-impulse"><i>ϟ</i><b id="gardenImpulse">0</b><small>IMPULSE</small></span>
+      </div>
+    </header>
+
+    <main class="garden-main">
+      <section class="garden-command">
+        <div class="command-copy">
+          <span>MENING 3D BOG‘IM</span>
+          <h1 id="gardenTitle">Nihollar vodiysi</h1>
+          <p id="gardenMessage" role="status">Sichqoncha bilan dunyoni aylantiring, do‘kondan element tanlab yerga joylashtiring.</p>
+        </div>
+        <div class="garden-live-stats" aria-label="Bog‘ statistikasi">
+          <div><small>GULLAGAN</small><b id="grownPlants">0</b><i>✿</i></div>
+          <div><small>FOKUS</small><b id="totalFocus">0 daq</b><i>◷</i></div>
+          <div><small>GO‘ZALLIK</small><b id="gardenPoints">0</b><i>✦</i></div>
+          <div><small>XILMA-XILLIK</small><b id="gardenDiversity">0 tur</b><i>❖</i></div>
+        </div>
+        <div class="command-actions">
+          <button id="openHow" type="button">Qanday boshqariladi?</button>
+          <button class="primary" id="openShop" type="button">＋ Bog‘ni bezash</button>
+        </div>
+      </section>
+
+      <section class="garden-game-layout">
+        <div class="garden-world-card" id="gardenWorldCard">
+          <canvas id="gardenCanvas" aria-label="Erkin boshqariladigan uch o‘lchamli bilim bog‘i"></canvas>
+          <div class="world-loading" id="worldLoading"><span class="loading-seed">🌍</span><b>Idrok dunyosi tayyorlanmoqda…</b><small>Tog‘lar, bog‘lar va qo‘shnilar yuklanmoqda</small><i></i></div>
+          <div class="world-vignette" aria-hidden="true"></div>
+
+          <div class="world-top-left">
+            <button class="world-badge world-map-open" id="openWorldMap" type="button"><i></i> IDROK DUNYOSI</button>
+            <span class="world-size" id="worldSize">24 × 24 maydon</span>
+          </div>
+          <div class="world-weather" id="worldWeather"><span>☀</span><div><small>HOZIRGI MUHIT</small><b>Yorqin kun</b></div></div>
+
+          <div class="camera-tools" aria-label="Kamera boshqaruvlari">
+            <button id="cameraHome" type="button" aria-label="Kamerani boshlang‘ich holatga qaytarish">⌂</button>
+            <button id="cameraLeft" type="button" aria-label="Bog‘ni chapga aylantirish">↶</button>
+            <button id="cameraRight" type="button" aria-label="Bog‘ni o‘ngga aylantirish">↷</button>
+            <button id="cameraZoomIn" type="button" aria-label="Yaqinlashtirish">＋</button>
+            <button id="cameraZoomOut" type="button" aria-label="Uzoqlashtirish">−</button>
+            <button id="cameraExplore" type="button" aria-label="Dunyoni yuqoridan ko‘rish">⌘</button>
+          </div>
+
+          <div class="environment-tools" aria-label="Bog‘ muhiti">
+            <button class="active" data-time="day" type="button"><span>☀</span><small>Kun</small></button>
+            <button data-time="sunset" type="button"><span>◐</span><small>Shom</small></button>
+            <button data-time="night" type="button"><span>☾</span><small>Tun</small></button>
+            <button id="qualityToggle" type="button"><span>◆</span><small>Sifat</small></button>
+            <button id="soundToggle" type="button"><span>♫</span><small>Ovoz</small></button>
+          </div>
+
+          <div class="world-help" id="worldHelp"><span>🖱</span><p><b>Sudrang — kamera</b><small>O‘ng tugma bilan aylantiring · g‘ildirak bilan yaqinlashing</small></p><button id="closeWorldHelp" type="button" aria-label="Maslahatni yopish">×</button></div>
+          <div class="visit-banner" id="visitBanner" aria-hidden="true"><span>👁</span><div><small>TASHRIF REJIMI</small><b id="visitGardenName">Qo‘shni bog‘i</b></div><button id="returnHomePlot" type="button">O‘z bog‘imga qaytish</button></div>
+          <div class="placement-tip" id="placementTip" aria-hidden="true"><span id="placementIcon">✿</span><div><small>JOYLASHTIRISH</small><b id="placementName">Atirgul</b></div><em id="placementState">Yashil joyga bosing</em></div>
+
+          <div class="selection-panel" id="selectionPanel" aria-hidden="true">
+            <span class="selection-art" id="selectionArt">✿</span>
+            <div><small>TANLANGAN ELEMENT</small><b id="selectionName">Atirgul</b><em id="selectionMeta">20 daqiqa · 1×1</em></div>
+            <button id="moveSelected" type="button">↔ Ko‘chirish</button>
+            <button id="rotateSelected" type="button">↻ Aylantirish</button>
+            <button id="focusSelected" class="focus-action" type="button">◷ O‘stirish</button>
+            <button id="sellSelected" class="danger" type="button">Sotish</button>
+            <button id="clearSelection" type="button" aria-label="Tanlovni yopish">×</button>
+          </div>
+
+          <div class="history-tools">
+            <button id="undoGarden" type="button" disabled aria-label="Oxirgi joylashuvni bekor qilish">↶ <span>Bekor qilish</span></button>
+            <button id="redoGarden" type="button" disabled aria-label="Joylashuvni qaytarish">↷ <span>Qaytarish</span></button>
+          </div>
+        </div>
+
+        <aside class="garden-shop" id="gardenShop">
+          <header><div><span>BOG‘ DO‘KONI</span><h2>Dunyongizni yarating</h2></div><button id="closeShop" type="button" aria-label="Do‘konni yopish">×</button></header>
+          <div class="shop-balance"><span>Balansingiz</span><b><i>ϟ</i> <em id="shopImpulse">0</em></b></div>
+          <div class="shop-tabs" id="shopTabs">
+            <button class="active" data-shop="plant" type="button">O‘simliklar</button>
+            <button data-shop="decor" type="button">Bezaklar</button>
+          </div>
+          <div class="shop-filters" id="shopFilters"></div>
+          <div class="shop-list" id="shopList"></div>
+          <div class="shop-economy"><span>⚖</span><p><b>Adolatli iqtisodiyot</b><small>Murakkab va uzoq fokusli o‘simlik ko‘proq go‘zallik balli beradi.</small></p></div>
+        </aside>
+      </section>
+
+      <section class="garden-bottom-row">
+        <article class="focus-card">
+          <span class="focus-orbit"><i></i><b id="focusCardIcon">🌱</b></span>
+          <div><small>HOZIRGI FOKUS</small><h2 id="heroFocusMinutes">0 daqiqa</h2><p id="heroFocusStatus">Yangi nihol eking va dars bilan o‘stiring.</p></div>
+          <a href="physics8.html">Darsga o‘tish <b>→</b></a>
+        </article>
+        <article class="expand-card">
+          <div><small>MAYDON KENGAYISHI</small><h2 id="expandName">Keng yashil hovli</h2><p id="expandMeta">36 × 36 katak · 280 Impulse</p></div>
+          <button id="expandGarden" type="button">Maydonni kengaytirish <span>⤢</span></button>
+        </article>
+      </section>
+    </main>
+  </div>
+
+  <aside class="missions-drawer" id="missionsDrawer" aria-hidden="true">
+    <header><div><span>BOG‘BON VAZIFALARI</span><h2>Yangi maqsadlar</h2></div><button id="closeMissions" type="button" aria-label="Vazifalarni yopish">×</button></header>
+    <p>Fokus va dizayn orqali vazifalarni bajaring. Mukofotni bir marta olish mumkin.</p>
+    <div id="missionsList"></div>
+  </aside>
+  <button class="drawer-backdrop" id="drawerBackdrop" type="button" aria-label="Vazifalarni yopish"></button>
+
+  <div class="garden-modal" id="worldMapModal" aria-hidden="true">
+    <div class="garden-modal-backdrop" data-close-world-map></div>
+    <article class="world-map-card">
+      <button class="garden-modal-close" data-close-world-map type="button" aria-label="Xaritani yopish">×</button>
+      <span class="modal-kicker">IDROK OPEN WORLD</span>
+      <h2>Bog‘lar vodiysi</h2>
+      <p>Boshqa bog‘bonlarning hududlarini ko‘ring. Tashrif rejimida ularning bog‘ini o‘zgartirib bo‘lmaydi.</p>
+      <label class="world-search-label" for="worldSearch">Bog‘bonni qidirish</label>
+      <input class="world-search" id="worldSearch" type="search" placeholder="Ism bo‘yicha qidiring…" autocomplete="off">
+      <div class="world-map-visual" id="worldMapVisual" aria-label="Idrok bog‘lari xaritasi"></div>
+      <div class="world-plot-list" id="worldPlotList"></div>
+    </article>
+  </div>
+
+  <div class="garden-modal" id="focusModal" aria-hidden="true">
+    <div class="garden-modal-backdrop" data-close-focus></div>
+    <article>
+      <button class="garden-modal-close" data-close-focus type="button" aria-label="Yopish">×</button>
+      <div class="focus-plant-preview" id="focusPlantPreview">🌱</div>
+      <span class="modal-kicker">FOKUS SESSIYASI</span>
+      <h2 id="focusTitle">Atirgulni o‘stirish</h2>
+      <p id="focusDescription"></p>
+      <div class="focus-rules"><div><span>◷</span><b id="focusDuration">20 daqiqa</b><small>Faol o‘rganish</small></div><div><span>✿</span><b>4 bosqich</b><small>Urug‘dan gulgacha</small></div><div><span>⚑</span><b>90 soniya</b><small>Qaytish imkoniyati</small></div></div>
+      <div class="focus-warning">Timer faqat kurs, quiz yoki laboratoriya sahifasida faol bo‘lganingizda hisoblanadi.</div>
+      <button class="focus-start" id="startFocus" type="button">Fokusni boshlash <span>→</span></button>
+    </article>
+  </div>
+
+  <div class="garden-modal" id="howModal" aria-hidden="true">
+    <div class="garden-modal-backdrop" data-close-how></div>
+    <article class="how-card">
+      <button class="garden-modal-close" data-close-how type="button" aria-label="Yopish">×</button>
+      <span class="modal-kicker">3D BOSHQARUV</span><h2>Bog‘ni erkin yarating</h2>
+      <div class="control-guide">
+        <div><span>🖱</span><b>Kamerani surish</b><small>Bo‘sh joyni chap tugma bilan sudrang.</small></div>
+        <div><span>↻</span><b>Dunyoni aylantirish</b><small>O‘ng tugma bilan sudrang yoki aylantirish tugmalaridan foydalaning.</small></div>
+        <div><span>✿</span><b>Ekish va bezash</b><small>Do‘kondan element tanlang, yashil ko‘rsatkich chiqqan yerga bosing.</small></div>
+        <div><span>☝</span><b>Elementni tanlash</b><small>O‘simlikni bosing, keyin ko‘chiring, aylantiring yoki fokus bilan o‘stiring.</small></div>
+      </div>
+    </article>
+  </div>
+
+  <div class="garden-toast" id="gardenToast" role="status"></div>
+  <script src="garden-catalog.js?v=3"></script>
+  <script src="garden-core.js?v=3"></script>
+  <script type="module" src="garden.js?v=8"></script>
+  <script src="focus-widget.js?v=1"></script>
+</body>
+</html>

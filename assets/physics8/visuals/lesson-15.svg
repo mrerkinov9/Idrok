@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img">
+  <defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#0b1630"/><stop offset="1" stop-color="#172143"/></linearGradient><linearGradient id="mag"><stop stop-color="#357be8"/><stop offset=".5" stop-color="#357be8"/><stop offset=".5" stop-color="#ed4e75"/><stop offset="1" stop-color="#ed4e75"/></linearGradient></defs>
+  <rect width="1200" height="675" rx="36" fill="url(#bg)"/><circle cx="80" cy="70" r="210" fill="#18a9a1" opacity=".15"/><circle cx="1120" cy="650" r="260" fill="#18b8aa" opacity=".1"/>
+  <rect x="48" y="45" width="90" height="50" rx="16" fill="#18a9a1"/><text x="93" y="79" text-anchor="middle" fill="#fff" font-family="Inter,Arial" font-size="22" font-weight="850">15</text>
+  <text x="165" y="80" fill="#fff" font-family="Inter,Arial" font-size="25" font-weight="800">8-SINF FIZIKA</text>
+  <g font-family="Inter,Arial"><path d="M210 210H650V440H210Z" fill="none" stroke="#dce6ff" stroke-width="10"/><path d="M210 280h55m0-35v70m32-50v30M650 315h-85" stroke="#ffc35b" stroke-width="10"/><rect x="424" y="175" width="150" height="70" rx="18" fill="#7557ff"/><path d="M380 210h110" stroke="#fff" stroke-width="8"/><circle cx="440" cy="440" r="55" fill="#13aaa2"/><text x="440" y="458" text-anchor="middle" fill="#fff" font-size="48">A</text></g>
+  <rect x="760" y="145" width="390" height="390" rx="34" fill="#ffffff0d" stroke="#ffffff27" stroke-width="3"/>
+  <text x="800" y="205" fill="#18a9a1" font-family="Inter,Arial" font-size="18" font-weight="850" letter-spacing="2">MAVZUGA OID MODEL</text>
+  <foreignObject x="800" y="235" width="310" height="145"><div xmlns="http://www.w3.org/1999/xhtml" style="font:800 31px/1.2 Inter,Arial;color:white">Elektr qarshilik</div></foreignObject>
+  <path d="M800 405H1110" stroke="#ffffff25" stroke-width="2"/>
+  <foreignObject x="800" y="430" width="310" height="70"><div xmlns="http://www.w3.org/1999/xhtml" style="font:700 24px/1.25 Inter,Arial;color:#cbd7f5">R = ρl/S</div></foreignObject>
+  <text x="65" y="625" fill="#afbcda" font-family="Inter,Arial" font-size="19">Idrok • formulani chizma va tajriba bilan tushuning</text>
+  </svg>

@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Idrok gaz xossalari uchun real vaqtli interaktiv fizika laboratoriyasi.">
+  <meta name="theme-color" content="#111a35">
+  <title>Gaz xossalari — Idrok Laboratoriya</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="lab.css?v=2">
+  <link rel="stylesheet" href="gas-lab.css?v=1">
+</head>
+<body class="gas-lab-page">
+  <aside class="sim-sidebar" id="gasSidebar">
+    <div class="sim-side-head">
+      <a class="sim-brand" href="index.html" aria-label="Idrok bosh sahifasi">
+        <span><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M4 22h7l3.5-11L21 31l5-15 3 6h7"/></svg></span>
+        <b>IDROK</b>
+      </a>
+      <button id="closeGasMenu" type="button" aria-label="Menyuni yopish">×</button>
+    </div>
+
+    <p class="sim-nav-label">ASOSIY</p>
+    <nav class="sim-nav" aria-label="Asosiy menyu">
+      <a href="index.html#bosh"><span>⌂</span><b>Bosh sahifa</b></a>
+      <a href="physics.html"><span>▤</span><b>9-sinf kursi</b></a>
+      <a class="active" href="labs.html"><span>⌁</span><b>Laboratoriya</b><small>59</small></a>
+      <a href="index.html#reyting"><span>♜</span><b>Reyting</b></a>
+      <a href="index.html#hamjamiyat"><span>◎</span><b>Hamjamiyat</b></a>
+      <button id="gasAiNav" type="button"><span>✦</span><b>Idrok AI</b><small>AI</small></button>
+    </nav>
+
+    <div class="sim-side-progress">
+      <span class="sim-progress-ring"><b id="gasSidePercent">0%</b></span>
+      <div><b>Laboratoriya progressi</b><small id="gasSideMeta">0 / 59 bajarildi</small></div>
+    </div>
+
+    <div class="sim-side-user">
+      <span id="gasAvatar">IZ</span>
+      <div><b id="gasUserName">Izlanuvchi</b><small><i id="gasSideImpulse">0</i> Impulse</small></div>
+    </div>
+  </aside>
+
+  <button class="sim-menu-button" id="openGasMenu" type="button" aria-label="Menyuni ochish">☰</button>
+  <div class="sim-overlay" id="gasOverlay"></div>
+
+  <header class="sim-header gas-header">
+    <div><small>IDROK REAL LAB</small><b>Gaz xossalari</b></div>
+    <div class="sim-header-actions">
+      <a class="catalog-button" href="labs.html">Barcha tajribalar</a>
+      <span class="sim-impulse"><i>ϟ</i><b id="gasImpulse">0</b></span>
+      <button id="gasTheme" type="button" aria-label="Rang rejimini almashtirish"><span>☼</span><span>☾</span></button>
+    </div>
+  </header>
+
+  <main class="sim-page gas-page-main">
+    <section class="sim-hero gas-hero">
+      <div class="sim-hero-copy">
+        <span class="sim-kicker">1-BOB • 5-TAJRIBA • MOLEKULYAR FIZIKA</span>
+        <h1>Gaz xossalari laboratoriyasi</h1>
+        <p>Nasos bilan zarralar kiriting, porshenni suring va gazni qizdiring. Bosim, hajm va temperatura qanday bog‘lanishini molekulalarning o‘zidan kuzating.</p>
+        <div class="sim-hero-meta"><span>05 / 59</span><span>Gaz muhandisi</span><span>+45 ϟ</span></div>
+      </div>
+      <a class="course-return" href="physics.html#l5">Mavzuga qaytish <span>→</span></a>
+    </section>
+
+    <section class="gas-simulator" aria-label="Gaz xossalari interaktiv simulyatsiyasi">
+      <div class="gas-topbar">
+        <div class="gas-live"><i></i><span>MOLEKULALAR REAL VAQTDA</span><b id="gasRunState">ISHLAMOQDA</b></div>
+        <div class="gas-timing" role="group" aria-label="Vaqt boshqaruvlari">
+          <button id="gasPause" type="button" aria-pressed="false"><span>Ⅱ</span> Pauza</button>
+          <button id="gasStep" type="button" disabled><span>▷</span> Qadam</button>
+          <button id="gasReset" type="button"><span>↻</span> Qayta</button>
+        </div>
+      </div>
+
+      <div class="gas-workbench">
+        <div class="gas-stage-side">
+          <div class="gas-canvas-wrap">
+            <canvas id="gasCanvas" width="1100" height="700" aria-label="Gaz molekulalari, porshen, nasos, termometr va manometrli interaktiv kamera">
+              Brauzeringiz ushbu simulyatsiyani ko‘rsata olmadi.
+            </canvas>
+            <div class="gas-stage-tip" id="gasStageTip"><b>1</b><span>Nasos dastagini pastga tortib gaz kiriting</span></div>
+          </div>
+          <div class="gas-observation" aria-live="polite">
+            <span id="gasObservationIcon">●</span>
+            <p id="gasObservation">Zarralar devorlarga urilganda bosim hosil bo‘ladi. Nasosni sinab ko‘ring.</p>
+          </div>
+          <div class="gas-viewbar">
+            <div role="group" aria-label="Ko‘rinish rejimi">
+              <button class="active" data-gas-view="lab" type="button">Tajriba</button>
+              <button data-gas-view="graph" type="button">Jonli grafik</button>
+            </div>
+            <span><kbd>R</kbd> qayta boshlash</span>
+          </div>
+        </div>
+
+        <aside class="gas-controls" aria-label="Gaz laboratoriyasi boshqaruvlari">
+          <section class="gas-panel gas-particles-panel">
+            <div class="gas-panel-title"><div><small>ZARRACHALAR</small><h2>Gaz tarkibi</h2></div><span id="totalParticles">50 ta</span></div>
+            <div class="gas-species" role="radiogroup" aria-label="Nasos uchun zarracha turi">
+              <label class="selected" data-species-card="heavy"><input type="radio" name="species" value="heavy" checked><i class="heavy-dot"></i><span><b>Og‘ir</b><small>sekinroq</small></span><strong id="heavyCount">50</strong></label>
+              <label data-species-card="light"><input type="radio" name="species" value="light"><i class="light-dot"></i><span><b>Yengil</b><small>tezroq</small></span><strong id="lightCount">0</strong></label>
+            </div>
+            <div class="gas-count-actions">
+              <button id="removeParticles" type="button" aria-label="Tanlangan zarralardan o‘ntasini chiqarish">−10</button>
+              <p><b>Nasos</b><small>Dastakni sudrang yoki qo‘shing</small></p>
+              <button id="addParticles" type="button" aria-label="Tanlangan zarralardan o‘ntasini qo‘shish">+10</button>
+            </div>
+          </section>
+
+          <section class="gas-panel gas-instruments-panel">
+            <div class="gas-reading-grid">
+              <article><small>TEMPERATURA</small><strong id="temperatureReadout">300 K</strong><i class="temp-line"></i></article>
+              <article><small>BOSIM</small><strong id="pressureReadout">1.4 atm</strong><i class="pressure-line"></i></article>
+              <article><small>HAJM</small><strong id="volumeReadout">68 L</strong><i class="volume-line"></i></article>
+            </div>
+            <label class="gas-heat-control" for="heatControl">
+              <span><b>Issiqlik boshqaruvi</b><output id="heatOutput" for="heatControl">Neytral</output></span>
+              <input id="heatControl" type="range" min="-100" max="100" step="1" value="0">
+              <small><i>SOVITISH</i><i>NEYTRAL</i><i>QIZDIRISH</i></small>
+            </label>
+          </section>
+
+          <section class="gas-panel gas-options-panel">
+            <label><input id="freePiston" type="checkbox"><span><b>Porshen erkin</b><small>Bosim porshenni o‘zi suradi</small></span></label>
+            <label><input id="showVectors" type="checkbox"><span><b>Tezlik vektorlari</b><small>Zarralar tezligini ko‘rsatadi</small></span></label>
+            <label><input id="showRuler" type="checkbox"><span><b>Hajm shkalasi</b><small>Kamera kengligini o‘lchaydi</small></span></label>
+            <label><input id="showCollisions" type="checkbox"><span><b>To‘qnashuv hisoblagichi</b><small id="collisionReadout">0 ta/s</small></span></label>
+          </section>
+
+          <section class="gas-mission" id="gasMission">
+            <div><span>LAB MISSIYASI</span><strong>+45 ϟ</strong></div>
+            <h3>Ideal gazni boshqaring</h3>
+            <p>Gazni xavfsiz qizdirib, uchta shartni bir vaqtda bajaring.</p>
+            <ul>
+              <li id="goalParticles"><i></i><span>Kamida 70 ta zarracha</span><b id="goalParticlesValue">50 / 70</b></li>
+              <li id="goalTemperature"><i></i><span>420–520 K temperatura</span><b id="goalTemperatureValue">300 K</b></li>
+              <li id="goalPressure"><i></i><span>2.5–5.5 atm bosim</span><b id="goalPressureValue">1.4 atm</b></li>
+            </ul>
+            <span class="gas-mission-progress"><i id="gasMissionProgress"></i></span>
+            <b id="gasMissionStatus">Nasosdan boshlang</b>
+          </section>
+        </aside>
+      </div>
+    </section>
+
+    <nav class="sim-next-nav" aria-label="Laboratoriyalar orasida o‘tish">
+      <a href="lab.html?lesson=l4"><span>← Oldingi tajriba</span><b>Molekula balans taxtasi</b></a>
+      <a href="lab.html?lesson=l6"><span>Keyingi tajriba →</span><b>Kelvin minorasi</b></a>
+    </nav>
+  </main>
+
+  <button class="sim-ai-launcher" id="gasAiLauncher" type="button" aria-expanded="false" aria-label="Idrok AI yordamchisini ochish"><span>✦</span><i></i></button>
+  <aside class="sim-ai-panel" id="gasAiPanel" aria-hidden="true">
+    <div class="sim-ai-head"><span>✦</span><div><b>Idrok AI</b><small>Gaz laboratoriyasi yordamchisi</small></div><button id="closeGasAi" type="button" aria-label="Yopish">×</button></div>
+    <div class="sim-ai-context"><small>HOZIRGI TAJRIBA</small><b>Gaz xossalari • pV = νRT</b></div>
+    <div class="sim-ai-messages" id="gasAiMessages"><div class="sim-ai-message"><span>✦</span><p>Nasos, porshen yoki isitkichni sinab ko‘ring. Har bir o‘zgarish sababini tushuntirib beraman.</p></div></div>
+    <div class="sim-ai-prompts">
+      <button data-gas-ai="pressure" type="button">Bosim nega o‘zgardi?</button>
+      <button data-gas-ai="temperature" type="button">Temperaturani tushuntir</button>
+      <button data-gas-ai="mission" type="button">Missiyaga yordam ber</button>
+    </div>
+  </aside>
+
+  <div class="sim-toast" id="gasToast" role="status"></div>
+  <div class="sim-confetti" id="gasConfetti" aria-hidden="true"></div>
+
+  <script src="assets/physics/physics-content.js?v=4"></script>
+  <script src="gas-lab.js?v=1"></script>
+</body>
+</html>

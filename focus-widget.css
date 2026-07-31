@@ -1,0 +1,9 @@
+.idrok-focus-widget{position:fixed;left:22px;bottom:22px;z-index:1200;width:min(330px,calc(100vw - 32px));padding:14px 15px;background:rgba(13,22,43,.94);color:#f7f9ff;border:1px solid rgba(143,163,213,.28);border-radius:20px;box-shadow:0 22px 60px rgba(6,12,30,.28);backdrop-filter:blur(18px);display:none;font-family:Inter,system-ui,sans-serif}
+.idrok-focus-widget.show{display:block}
+.idrok-focus-head{display:flex;align-items:center;gap:11px}
+.idrok-focus-plant{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(145deg,#6a55e7,#28bdb2);font-size:24px}
+.idrok-focus-copy{min-width:0;flex:1}.idrok-focus-copy small{display:block;color:#9eaed4;font-size:10px;font-weight:800;letter-spacing:.12em}.idrok-focus-copy b{display:block;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:14px}.idrok-focus-time{font-size:19px;font-weight:800;font-variant-numeric:tabular-nums}
+.idrok-focus-track{height:6px;margin:11px 0 9px;border-radius:99px;background:rgba(255,255,255,.12);overflow:hidden}.idrok-focus-track i{display:block;height:100%;width:0;border-radius:inherit;background:linear-gradient(90deg,#55dfb0,#77eb87);transition:width .5s ease}
+.idrok-focus-foot{display:flex;align-items:center;justify-content:space-between;gap:10px}.idrok-focus-status{font-size:11px;color:#b8c4e2}.idrok-focus-link{color:#fff;text-decoration:none;font-size:11px;font-weight:800;padding:7px 10px;border-radius:10px;background:rgba(255,255,255,.1)}
+.idrok-focus-widget.paused .idrok-focus-track i{background:#ffbb55}.idrok-focus-widget.danger .idrok-focus-track i{background:#ff6681}
+@media(max-width:700px){.idrok-focus-widget{left:12px;bottom:12px;width:calc(100vw - 24px);border-radius:17px}.idrok-focus-plant{width:39px;height:39px}.idrok-focus-time{font-size:17px}}

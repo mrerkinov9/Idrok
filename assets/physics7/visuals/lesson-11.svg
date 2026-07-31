@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Notekis harakat</title><desc id="desc">v o‘rt = s umumiy / t umumiy</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0d1330"/><stop offset="1" stop-color="#101936"/></linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#5b4be7"/><stop offset="1" stop-color="#18b6aa"/></linearGradient>
+    <linearGradient id="fire" x1="0" y1="1" x2="0" y2="0"><stop stop-color="#ff563d"/><stop offset=".55" stop-color="#ffb536"/><stop offset="1" stop-color="#fff08b"/></linearGradient>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="5" orient="auto"><path d="M0 0L10 5L0 10z" fill="#18b6aa"/></marker>
+    <filter id="glow"><feGaussianBlur stdDeviation="18"/></filter>
+  </defs>
+  <rect width="1200" height="675" rx="36" fill="url(#bg)"/>
+  <circle cx="155" cy="80" r="180" fill="#5b4be7" opacity=".16" filter="url(#glow)"/>
+  <circle cx="1030" cy="610" r="210" fill="#18b6aa" opacity=".13" filter="url(#glow)"/>
+  <rect x="42" y="42" width="84" height="48" rx="17" fill="url(#accent)"/>
+  <text x="84" y="76" text-anchor="middle" fill="#fff" font-family="Inter,Arial,sans-serif" font-size="22" font-weight="800">11</text>
+  <text x="155" y="78" fill="#ffffff" font-family="Inter,Arial,sans-serif" font-size="24" font-weight="750">7-SINF FIZIKA</text>
+  <g font-family="Inter,Arial,sans-serif"><rect x="140" y="135" width="590" height="390" rx="30" fill="#ffffff0a" stroke="#ffffff24" stroke-width="3"/><path d="M180 485H680M180 485V150" fill="none" stroke="#8090b8" stroke-width="4"/>
+    <path d="M180 485L300 420L390 260L505 230L680 155" fill="none" stroke="#ffb75d" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="180" cy="485" r="8" fill="url(#accent)"/><circle cx="680" cy="150" r="8" fill="url(#accent)"/><text x="440" y="545" text-anchor="middle" fill="#eaf0ff" font-size="22" font-weight="650">vaqt</text><text x="132" y="170" text-anchor="middle" fill="#eaf0ff" font-size="22" font-weight="650">yo‘l</text></g>
+  <g transform="translate(780 160)" font-family="Inter,Arial,sans-serif">
+    <rect width="360" height="360" rx="30" fill="#ffffff0d" stroke="#ffffff26" stroke-width="3"/>
+    <text x="38" y="60" fill="#18b6aa" font-size="17" font-weight="800" letter-spacing="2">MAVZUGA OID CHIZMA</text>
+    <foreignObject x="36" y="90" width="290" height="140"><div xmlns="http://www.w3.org/1999/xhtml" style="font:800 31px/1.22 Inter,Arial,sans-serif;color:#fff">Notekis harakat</div></foreignObject>
+    <path d="M38 250H322" stroke="#ffffff22" stroke-width="2"/>
+    <foreignObject x="36" y="275" width="290" height="65"><div xmlns="http://www.w3.org/1999/xhtml" style="font:650 21px/1.35 Inter,Arial,sans-serif;color:#cbd6f5">v o‘rt = s umumiy / t umumiy</div></foreignObject>
+  </g>
+  <text x="68" y="620" fill="#aebbdc" font-family="Inter,Arial,sans-serif" font-size="18">Idrok • mavzuni tushunish uchun vizual model</text>
+</svg>

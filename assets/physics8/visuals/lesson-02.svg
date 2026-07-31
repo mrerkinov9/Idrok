@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img">
+  <defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#0b1630"/><stop offset="1" stop-color="#172143"/></linearGradient><linearGradient id="mag"><stop stop-color="#357be8"/><stop offset=".5" stop-color="#357be8"/><stop offset=".5" stop-color="#ed4e75"/><stop offset="1" stop-color="#ed4e75"/></linearGradient></defs>
+  <rect width="1200" height="675" rx="36" fill="url(#bg)"/><circle cx="80" cy="70" r="210" fill="#7857ff" opacity=".15"/><circle cx="1120" cy="650" r="260" fill="#18b8aa" opacity=".1"/>
+  <rect x="48" y="45" width="90" height="50" rx="16" fill="#7857ff"/><text x="93" y="79" text-anchor="middle" fill="#fff" font-family="Inter,Arial" font-size="22" font-weight="850">02</text>
+  <text x="165" y="80" fill="#fff" font-family="Inter,Arial" font-size="25" font-weight="800">8-SINF FIZIKA</text>
+  <g font-family="Inter,Arial"><circle cx="310" cy="300" r="76" fill="#7557ff"/><text x="310" y="322" text-anchor="middle" font-size="60" fill="#fff">+</text><circle cx="590" cy="300" r="76" fill="#ee598b"/><text x="590" y="322" text-anchor="middle" font-size="60" fill="#fff">−</text><g stroke="#5ee1d0" stroke-width="5" fill="none"><path d="M390 245 C455 210 520 210 510 245"/><path d="M390 273 C455 230 520 230 510 273"/><path d="M390 301 C455 250 520 250 510 301"/><path d="M390 329 C455 270 520 270 510 329"/><path d="M390 357 C455 290 520 290 510 357"/></g></g>
+  <rect x="760" y="145" width="390" height="390" rx="34" fill="#ffffff0d" stroke="#ffffff27" stroke-width="3"/>
+  <text x="800" y="205" fill="#7857ff" font-family="Inter,Arial" font-size="18" font-weight="850" letter-spacing="2">MAVZUGA OID MODEL</text>
+  <foreignObject x="800" y="235" width="310" height="145"><div xmlns="http://www.w3.org/1999/xhtml" style="font:800 31px/1.2 Inter,Arial;color:white">Elektr zaryad</div></foreignObject>
+  <path d="M800 405H1110" stroke="#ffffff25" stroke-width="2"/>
+  <foreignObject x="800" y="430" width="310" height="70"><div xmlns="http://www.w3.org/1999/xhtml" style="font:700 24px/1.25 Inter,Arial;color:#cbd7f5">q = Ne</div></foreignObject>
+  <text x="65" y="625" fill="#afbcda" font-family="Inter,Arial" font-size="19">Idrok • formulani chizma va tajriba bilan tushuning</text>
+  </svg>

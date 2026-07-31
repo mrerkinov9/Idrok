@@ -1,0 +1,13 @@
+{
+  "name": "idrok-learning-platform",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Idrok o‘zbekcha fizika ta’lim platformasi",
+  "dependencies": {
+    "three": "0.183.2"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "test:garden": "node tools/test-garden.js"
+  }
+}

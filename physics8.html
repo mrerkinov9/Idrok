@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Idrok 8-sinf fizika kursi — 5 bob, 60 dars, darslik asosidagi to‘liq nazariya, o‘zbekcha videolar, tajribalar, simulyatsiyalar va mavzuga mos quizlar.">
+  <meta name="theme-color" content="#5b4be7">
+  <title>8-sinf Fizika — Idrok</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="physics.css?v=8">
+  <link rel="stylesheet" href="focus-widget.css?v=1">
+</head>
+<body>
+  <aside class="course-sidebar" id="courseSidebar">
+    <a class="physics-brand" href="index.html" aria-label="Idrok bosh sahifa">
+      <span class="pulse-logo" aria-hidden="true">
+        <svg viewBox="0 0 40 40"><path d="M4 22h7l3.5-11L21 31l5-15 3 6h7"/></svg>
+      </span>
+      <span><b>IDROK</b></span>
+    </a>
+    <a class="back-link" href="index.html#kurslar"><span>←</span> Kurslarga qaytish</a>
+    <div class="course-mini">
+      <span class="mini-icon" id="courseMiniIcon"></span>
+      <div><small>8-SINF KURSI</small><b>Fizika</b><p id="miniProgress">0 / 60 dars</p></div>
+    </div>
+    <div class="side-progress" aria-label="Kurs progressi"><i id="sideCourseProgress"></i></div>
+    <div class="side-progress-meta"><span id="sidePercent">0%</span><span>yakunlandi</span></div>
+    <p class="side-label">KURS MUNDARIJASI</p>
+    <nav class="module-nav" id="moduleNav" aria-label="Kurs boblari"></nav>
+    <button class="side-ai-button" id="sideAiButton" type="button">
+      <span class="mini-ai-logo">✦</span>
+      <span><b>Idrok AI</b><small>Dars yordamchisi</small></span>
+      <i>›</i>
+    </button>
+    <a class="side-lab-button" href="labs.html">
+      <span class="mini-lab-logo">⌁</span>
+      <span><b>Laboratoriya</b><small>Interaktiv tajribalar</small></span>
+      <i>›</i>
+    </a>
+    <a class="side-lab-button" href="garden.html">
+      <span class="mini-lab-logo">✿</span>
+      <span><b>Mening bog‘im</b><small>Fokusda o‘stiring</small></span>
+      <i>›</i>
+    </a>
+    <div class="side-user">
+      <span id="sideAvatar">IZ</span>
+      <div><b id="sideName">Izlanuvchi</b><small><i id="sideImpulse">0</i> Impulse</small></div>
+      <a href="index.html#profil" aria-label="Profil">›</a>
+    </div>
+  </aside>
+  <button class="course-overlay" id="courseOverlay" aria-label="Menyuni yopish"></button>
+
+  <div class="course-shell">
+    <header class="course-header">
+      <button class="mobile-course-menu" id="courseMenu" aria-label="Menyuni ochish">☰</button>
+      <div class="header-location"><small>8-SINF FIZIKA</small><b id="headerLocation">Kurs xaritasi</b></div>
+      <div class="course-actions">
+        <span class="streak" title="Faollik seriyasi"><i>◇</i><b id="courseStreak">1</b></span>
+        <span class="impulse" title="Impulse"><i>ϟ</i><b id="courseImpulse">0</b></span>
+        <button id="courseTheme" aria-label="Rang rejimini almashtirish"><span class="theme-sun">☼</span><span class="theme-moon">☾</span></button>
+      </div>
+    </header>
+
+    <main id="courseOverview">
+      <section class="course-hero">
+        <div class="hero-copy">
+          <span class="pill"><i></i> FIZIKA • 8-SINF • 60 DARS</span>
+          <h1>Fizikani yodlamang.<br><em>Uni boshqaring.</em></h1>
+          <p>Elektr zaryad, elektr toki, energiya, turli muhitlardagi tok va magnit maydon bo‘yicha 60 ta to‘liq dars.</p>
+          <div class="hero-actions">
+            <button class="primary" id="continueCourse">O‘qishni boshlash <span>→</span></button>
+            <button class="secondary" id="browseCourse">Kursni ko‘rish <span>↓</span></button>
+          </div>
+          <div class="hero-trust"><span>✓ 5 bob</span><span>✓ 60 dars</span><span>✓ To‘liq o‘zbekcha</span></div>
+        </div>
+        <div class="hero-lab" aria-hidden="true">
+          <div class="lab-grid"></div>
+          <div class="orbit orbit-one"><i></i></div>
+          <div class="orbit orbit-two"><i></i></div>
+          <div class="atom-core"><span>ϟ</span><small>FIZIKA</small></div>
+          <div class="lab-card lab-card-a"><small>IMPULSE</small><b>+120</b></div>
+          <div class="lab-card lab-card-b"><small>SIMULYATSIYA</small><b>FAOL</b></div>
+          <svg class="hero-wave" viewBox="0 0 500 160"><path d="M0 90 C45 15 90 155 140 80 S235 10 285 85 S380 155 430 70 S480 20 500 60"/></svg>
+        </div>
+      </section>
+
+      <section class="course-stats" aria-label="Kurs statistikasi">
+        <div><span class="stat-icon">◷</span><p><small>UMUMIY DAVOMIYLIK</small><strong>74 soat</strong></p></div>
+        <div><span class="stat-icon">▦</span><p><small>BOBLAR</small><strong>5 ta</strong></p></div>
+        <div><span class="stat-icon">◎</span><p><small>DARSLAR</small><strong>60 ta</strong></p></div>
+        <div><span class="stat-icon">ϟ</span><p><small>JAMI MUKOFOT</small><strong id="totalReward">0</strong></p></div>
+      </section>
+
+      <section class="roadmap" id="roadmap">
+        <div class="title-row">
+          <div><span class="section-kicker">KURS XARITASI</span><h2>Boblar va darslar</h2></div>
+          <p>Darslar tartib bilan ochiladi. Keyingi dars uchun quizdan kamida <b>8/10</b> oling.</p>
+        </div>
+        <div class="module-cards" id="moduleCards"></div>
+        <div class="topic-panel">
+          <div class="topic-panel-head">
+            <span class="module-number" id="moduleNumber">01</span>
+            <div><small id="moduleMeta">1-BOB</small><h3 id="moduleTitle"></h3></div>
+            <span class="module-reward" id="moduleReward"></span>
+          </div>
+          <div class="topic-list" id="topicList"></div>
+        </div>
+      </section>
+    </main>
+
+    <main id="lessonView" class="hidden">
+      <div class="lesson-top" id="lessonTop"></div>
+      <div class="lesson-workspace">
+        <nav class="lesson-tabs" id="lessonTabs" aria-label="Dars bosqichlari"></nav>
+        <article class="lesson-content" id="lessonContent"></article>
+      </div>
+    </main>
+  </div>
+
+  <button class="ai-launcher" id="aiLauncher" type="button" aria-label="Idrok AI yordamchisini ochish" aria-expanded="false">
+    <span class="ai-orb" aria-hidden="true"><i></i><b>✦</b></span>
+    <em>Idrok AI</em>
+  </button>
+  <aside class="ai-panel" id="aiPanel" aria-hidden="true" aria-label="Idrok AI">
+    <header class="ai-panel-head">
+      <span class="ai-orb small" aria-hidden="true"><i></i><b>✦</b></span>
+      <div><b>Idrok AI</b><small><i></i> Dars yordamchisi</small></div>
+      <button id="closeAi" type="button" aria-label="Idrok AI oynasini yopish">×</button>
+    </header>
+    <div class="ai-context" id="aiContext"><span>HOZIRGI MAVZU</span><b>8-sinf fizika</b></div>
+    <div class="ai-messages" id="aiMessages" aria-live="polite">
+      <div class="ai-message assistant"><span>✦</span><p>Salom! Mavzuni sodda tushuntirish, formulani izohlash yoki misolni bosqichma-bosqich yechishda yordam beraman.</p></div>
+    </div>
+    <div class="ai-quick-prompts" id="aiQuickPrompts">
+      <button type="button" data-ai-prompt="explain">Mavzuni tushuntir</button>
+      <button type="button" data-ai-prompt="rule">Asosiy qoida</button>
+      <button type="button" data-ai-prompt="formula">Formulani tushuntir</button>
+      <button type="button" data-ai-prompt="example">Misolni yech</button>
+      <button type="button" data-ai-prompt="experiment">Tajriba nega bunday?</button>
+      <button type="button" data-ai-prompt="quiz">Quizga tayyorla</button>
+    </div>
+    <form class="ai-input-row" id="aiForm">
+      <input id="aiInput" maxlength="240" autocomplete="off" placeholder="Savolingizni yozing…" aria-label="Idrok AI uchun savol">
+      <button type="submit" aria-label="Savolni yuborish">↑</button>
+    </form>
+    <p class="ai-disclaimer">Idrok AI hozirgi kurs ma’lumotlari asosida ishlaydi.</p>
+  </aside>
+  <div class="confetti-layer" id="confettiLayer" aria-hidden="true"></div>
+  <div class="course-toast" id="courseToast" role="status"></div>
+
+  <script>
+    window.PHYSICS_CONFIG = {
+      storageKey: 'idrokPhysics8',
+      courseName: '8-sinf fizika',
+      courseCode: '8',
+      labPage: 'lab.html',
+      profileStateField: 'physics8State',
+      profileProgressField: 'physics8Progress',
+      certificateStorageKey: 'idrokCertificate8',
+      certificateGrade: '8',
+      aiHistoryKey: 'idrokAiHistory8'
+    };
+  </script>
+  <script src="assets/physics8/physics-content.js?v=1"></script>
+  <script>window.PHYSICS_COURSE8 = window.PHYSICS_COURSE;</script>
+  <script src="assets/physics/physics-content.js?v=5"></script>
+  <script>window.PHYSICS_COURSE9 = window.PHYSICS_COURSE;</script>
+  <script src="phet-map.js?v=9"></script>
+  <script>window.IDROK_PHET9 = window.IDROK_PHET; window.PHYSICS_COURSE = window.PHYSICS_COURSE8;</script>
+  <script src="phet-map8.js?v=2"></script>
+  <script src="physics.js?v=17"></script>
+  <script src="garden-catalog.js?v=1"></script>
+  <script src="garden-core.js?v=1"></script>
+  <script src="focus-widget.js?v=1"></script>
+</body>
+</html>

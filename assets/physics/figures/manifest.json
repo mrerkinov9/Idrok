@@ -1,0 +1,401 @@
+[
+  {
+    "lesson": 1,
+    "title": "Modda tuzilishining molekulyar-kinetik nazariyasi",
+    "page": 5,
+    "path": "assets/physics/figures/lesson-01.jpg",
+    "score": 181548.58
+  },
+  {
+    "lesson": 2,
+    "title": "Molekulaning massasi va o‘lchami",
+    "page": 8,
+    "path": "assets/physics/figures/lesson-02.jpg",
+    "score": 217064.49
+  },
+  {
+    "lesson": 3,
+    "title": "Modda miqdori",
+    "page": 12,
+    "path": "assets/physics/figures/lesson-03.jpg",
+    "score": 71870.04
+  },
+  {
+    "lesson": 4,
+    "title": "Masalalar yechish: molekula va modda miqdori",
+    "page": 16,
+    "path": "assets/physics/figures/lesson-04.jpg",
+    "score": 3349.15
+  },
+  {
+    "lesson": 5,
+    "title": "Ideal gaz",
+    "page": 18,
+    "path": "assets/physics/figures/lesson-05.jpg",
+    "score": 124628.1
+  },
+  {
+    "lesson": 6,
+    "title": "Temperatura",
+    "page": 23,
+    "path": "assets/physics/figures/lesson-06.jpg",
+    "score": 159306.31
+  },
+  {
+    "lesson": 7,
+    "title": "Gaz molekulalarining harakat tezligi",
+    "page": 25,
+    "path": "assets/physics/figures/lesson-07.jpg",
+    "score": 106518.67
+  },
+  {
+    "lesson": 8,
+    "title": "Masalalar yechish: temperatura va tezlik",
+    "page": 28,
+    "path": "assets/physics/figures/lesson-08.jpg",
+    "score": 5452.63
+  },
+  {
+    "lesson": 9,
+    "title": "Ideal gaz holatining tenglamalari",
+    "page": 30,
+    "path": "assets/physics/figures/lesson-09.jpg",
+    "score": 111927.91
+  },
+  {
+    "lesson": 10,
+    "title": "Izotermik jarayon",
+    "page": 33,
+    "path": "assets/physics/figures/lesson-10.jpg",
+    "score": 91596.47
+  },
+  {
+    "lesson": 11,
+    "title": "Izobarik jarayon",
+    "page": 35,
+    "path": "assets/physics/figures/lesson-11.jpg",
+    "score": 102121.61
+  },
+  {
+    "lesson": 12,
+    "title": "Izoxorik jarayon",
+    "page": 37,
+    "path": "assets/physics/figures/lesson-12.jpg",
+    "score": 73147.04
+  },
+  {
+    "lesson": 13,
+    "title": "Amaliy mashg‘ulot: molekulalarning o‘lchamini baholash",
+    "page": 39,
+    "path": "assets/physics/figures/lesson-13.jpg",
+    "score": 155358.35
+  },
+  {
+    "lesson": 14,
+    "title": "Masalalar yechish: gaz qonunlari",
+    "page": 47,
+    "path": "assets/physics/figures/lesson-14.jpg",
+    "score": 13094.97
+  },
+  {
+    "lesson": 15,
+    "title": "Ichki energiya",
+    "page": 50,
+    "path": "assets/physics/figures/lesson-15.jpg",
+    "score": 25026.96
+  },
+  {
+    "lesson": 16,
+    "title": "Termodinamik ish",
+    "page": 54,
+    "path": "assets/physics/figures/lesson-16.jpg",
+    "score": 134332.49
+  },
+  {
+    "lesson": 17,
+    "title": "Issiqlik miqdori",
+    "page": 58,
+    "path": "assets/physics/figures/lesson-17.jpg",
+    "score": 180739.22
+  },
+  {
+    "lesson": 18,
+    "title": "Masalalar yechish: issiqlik miqdori",
+    "page": 60,
+    "path": "assets/physics/figures/lesson-18.jpg",
+    "score": 8840.69
+  },
+  {
+    "lesson": 19,
+    "title": "Amaliy mashg‘ulot: jismlarda issiqlik muvozanati",
+    "page": 63,
+    "path": "assets/physics/figures/lesson-19.jpg",
+    "score": 33442.92
+  },
+  {
+    "lesson": 20,
+    "title": "Laboratoriya: qattiq jismlarning solishtirma issiqlik sig‘imi",
+    "page": 64,
+    "path": "assets/physics/figures/lesson-20.jpg",
+    "score": 9330.29
+  },
+  {
+    "lesson": 21,
+    "title": "Yoqilg‘ining solishtirma yonish issiqligi",
+    "page": 65,
+    "path": "assets/physics/figures/lesson-21.jpg",
+    "score": 190960.89
+  },
+  {
+    "lesson": 22,
+    "title": "Termodinamikaning birinchi qonuni",
+    "page": 67,
+    "path": "assets/physics/figures/lesson-22.jpg",
+    "score": 204591.67
+  },
+  {
+    "lesson": 23,
+    "title": "Masalalar yechish: termodinamikaning birinchi qonuni",
+    "page": 70,
+    "path": "assets/physics/figures/lesson-23.jpg",
+    "score": 3300.29
+  },
+  {
+    "lesson": 24,
+    "title": "Issiqlik jarayonlarining qaytmasligi. Termodinamikaning ikkinchi qonuni",
+    "page": 72,
+    "path": "assets/physics/figures/lesson-24.jpg",
+    "score": 128820.04
+  },
+  {
+    "lesson": 25,
+    "title": "Laboratoriya: suvlarni aralashtirishda issiqlik miqdorini taqqoslash",
+    "page": 73,
+    "path": "assets/physics/figures/lesson-25.jpg",
+    "score": 84315.42
+  },
+  {
+    "lesson": 26,
+    "title": "Ichki yonuv dvigatellari",
+    "page": 82,
+    "path": "assets/physics/figures/lesson-26.jpg",
+    "score": 213348.33
+  },
+  {
+    "lesson": 27,
+    "title": "Issiqlik dvigatellarining ishlash prinsipi",
+    "page": 84,
+    "path": "assets/physics/figures/lesson-27.jpg",
+    "score": 34262.66
+  },
+  {
+    "lesson": 28,
+    "title": "Masalalar yechish: issiqlik dvigatellari",
+    "page": 86,
+    "path": "assets/physics/figures/lesson-28.jpg",
+    "score": 397.51
+  },
+  {
+    "lesson": 30,
+    "title": "Masalalar yechish: FIK va ekologiya",
+    "page": 93,
+    "path": "assets/physics/figures/lesson-30.jpg",
+    "score": 14148.65
+  },
+  {
+    "lesson": 31,
+    "title": "Suyuqlikning xossalari",
+    "page": 96,
+    "path": "assets/physics/figures/lesson-31.jpg",
+    "score": 236176.99
+  },
+  {
+    "lesson": 32,
+    "title": "Ho‘llash. Kapillyar hodisalar",
+    "page": 98,
+    "path": "assets/physics/figures/lesson-32.jpg",
+    "score": 89665.92
+  },
+  {
+    "lesson": 33,
+    "title": "Masalalar yechish: suyuqliklar",
+    "page": 101,
+    "path": "assets/physics/figures/lesson-33.jpg",
+    "score": 3656.74
+  },
+  {
+    "lesson": 34,
+    "title": "Laboratoriya: suyuqlikning sirt taranglik koeffitsiyenti",
+    "page": 103,
+    "path": "assets/physics/figures/lesson-34.jpg",
+    "score": 83437.77
+  },
+  {
+    "lesson": 35,
+    "title": "Kristall va amorf jismlar",
+    "page": 105,
+    "path": "assets/physics/figures/lesson-35.jpg",
+    "score": 128476.62
+  },
+  {
+    "lesson": 36,
+    "title": "Qattiq jismlarning mexanik xossalari",
+    "page": 107,
+    "path": "assets/physics/figures/lesson-36.jpg",
+    "score": 96171.88
+  },
+  {
+    "lesson": 37,
+    "title": "Masalalar yechish: deformatsiya",
+    "page": 109,
+    "path": "assets/physics/figures/lesson-37.jpg",
+    "score": 2935.56
+  },
+  {
+    "lesson": 38,
+    "title": "Qattiq jismlarning erishi va qotishi",
+    "page": 111,
+    "path": "assets/physics/figures/lesson-38.jpg",
+    "score": 165488.44
+  },
+  {
+    "lesson": 39,
+    "title": "Moddaning solishtirma erish issiqligi. Amorf jismlarning erishi va qotishi",
+    "page": 114,
+    "path": "assets/physics/figures/lesson-39.jpg",
+    "score": 75037.55
+  },
+  {
+    "lesson": 40,
+    "title": "Bug‘lanish va kondensatsiya",
+    "page": 116,
+    "path": "assets/physics/figures/lesson-40.jpg",
+    "score": 116492.84
+  },
+  {
+    "lesson": 41,
+    "title": "Atmosferadagi hodisalar",
+    "page": 123,
+    "path": "assets/physics/figures/lesson-41.jpg",
+    "score": 292989.57
+  },
+  {
+    "lesson": 42,
+    "title": "Laboratoriya: havoning nisbiy namligini aniqlash",
+    "page": 124,
+    "path": "assets/physics/figures/lesson-42.jpg",
+    "score": 4109.53
+  },
+  {
+    "lesson": 43,
+    "title": "Masalalar yechish: fazaviy o‘tishlar va namlik",
+    "page": 130,
+    "path": "assets/physics/figures/lesson-43.jpg",
+    "score": 472574.84
+  },
+  {
+    "lesson": 44,
+    "title": "Yorug‘lik tezligini aniqlash",
+    "page": 133,
+    "path": "assets/physics/figures/lesson-44.jpg",
+    "score": 96543.82
+  },
+  {
+    "lesson": 45,
+    "title": "Yorug‘likning qaytish va sinish qonunlari",
+    "page": 134,
+    "path": "assets/physics/figures/lesson-45.jpg",
+    "score": 76866.17
+  },
+  {
+    "lesson": 46,
+    "title": "Masalalar yechish: qaytish va sinish",
+    "page": 138,
+    "path": "assets/physics/figures/lesson-46.jpg",
+    "score": 9429.7
+  },
+  {
+    "lesson": 47,
+    "title": "To‘la ichki qaytish",
+    "page": 140,
+    "path": "assets/physics/figures/lesson-47.jpg",
+    "score": 154130.38
+  },
+  {
+    "lesson": 48,
+    "title": "Masalalar yechish: to‘la ichki qaytish",
+    "page": 142,
+    "path": "assets/physics/figures/lesson-48.jpg",
+    "score": 2956.53
+  },
+  {
+    "lesson": 49,
+    "title": "Laboratoriya: shishaning nur sindirish ko‘rsatkichi",
+    "page": 143,
+    "path": "assets/physics/figures/lesson-49.jpg",
+    "score": 56198.7
+  },
+  {
+    "lesson": 50,
+    "title": "Linzalar",
+    "page": 144,
+    "path": "assets/physics/figures/lesson-50.jpg",
+    "score": 60193.32
+  },
+  {
+    "lesson": 51,
+    "title": "Yupqa linza yordamida tasvir yasash",
+    "page": 146,
+    "path": "assets/physics/figures/lesson-51.jpg",
+    "score": 59926.65
+  },
+  {
+    "lesson": 52,
+    "title": "Masalalar yechish: linzalar",
+    "page": 149,
+    "path": "assets/physics/figures/lesson-52.jpg",
+    "score": 23334.68
+  },
+  {
+    "lesson": 53,
+    "title": "Laboratoriya: linzaning optik kuchi",
+    "page": 150,
+    "path": "assets/physics/figures/lesson-53.jpg",
+    "score": 13241.6
+  },
+  {
+    "lesson": 54,
+    "title": "Optik asboblar",
+    "page": 152,
+    "path": "assets/physics/figures/lesson-54.jpg",
+    "score": 146728.13
+  },
+  {
+    "lesson": 55,
+    "title": "Ko‘z va ko‘rish",
+    "page": 154,
+    "path": "assets/physics/figures/lesson-55.jpg",
+    "score": 100003.44
+  },
+  {
+    "lesson": 56,
+    "title": "Masalalar yechish: optik asboblar va ko‘z",
+    "page": 157,
+    "path": "assets/physics/figures/lesson-56.jpg",
+    "score": 985.88
+  },
+  {
+    "lesson": 57,
+    "title": "Geliotexnika. O‘zbekistonda quyosh energiyasidan foydalanish",
+    "page": 158,
+    "path": "assets/physics/figures/lesson-57.jpg",
+    "score": 149157.74
+  },
+  {
+    "lesson": 58,
+    "title": "Olamning yagona fizik manzarasi",
+    "page": 164,
+    "path": "assets/physics/figures/lesson-58.jpg",
+    "score": 150367.28
+  }
+]

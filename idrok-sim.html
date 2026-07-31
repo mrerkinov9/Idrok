@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <meta name="theme-color" content="#090d17">
+  <title>Idrok interaktiv tajriba</title>
+  <link rel="stylesheet" href="idrok-sim.css?v=2">
+</head>
+<body class="dark">
+  <main class="idrok-sim" id="idrokSim">
+    <header class="sim-topbar">
+      <div class="sim-identity"><span id="simNumber">01</span><div><small>INTERAKTIV TAJRIBA</small><b id="simTitle">Sahna yuklanmoqda</b></div></div>
+      <div class="sim-tools">
+        <button id="hintButton" type="button"><span>?</span><b>Maslahat</b></button>
+        <button id="pauseButton" type="button"><span>Ⅱ</span><b>Pauza</b></button>
+        <button id="resetButton" type="button"><span>↻</span><b>Qayta</b></button>
+      </div>
+    </header>
+
+    <div class="sim-workspace">
+      <section class="visual-stage" aria-label="Interaktiv fizika tajribasi">
+        <canvas id="simCanvas" width="960" height="560" tabindex="0" aria-label="Jismni sudrab boshqariladigan interaktiv tajriba">Brauzeringiz ushbu tajribani ko‘rsata olmadi.</canvas>
+        <div class="live-strip">
+          <span><small id="metricALabel">PARAMETR A</small><b id="metricA">0</b></span>
+          <span><small id="metricBLabel">PARAMETR B</small><b id="metricB">0</b></span>
+          <span><small>TAJRIBA HOLATI</small><b id="metricProgress">0%</b></span>
+        </div>
+        <div class="drag-callout" id="dragCallout"><span>☝</span><div><b id="dragLabel">Jismni ushlang</b><small>Uni sahna ichida sudrang</small></div></div>
+        <div class="hint-bubble" id="hintBubble"><b>Maslahat</b><p id="hintText"></p></div>
+      </section>
+
+      <aside class="control-deck" aria-label="Tajriba boshqaruvlari">
+        <div class="deck-head"><small>BOSHQARUV PANELI</small><b id="simRole">Tadqiqotchi</b><span id="simState">FAOL</span></div>
+        <div class="control-row">
+          <div><label for="controlA" id="controlALabel">Parametr A</label><output id="outputA">0</output></div>
+          <input id="controlA" type="range">
+        </div>
+        <div class="control-row">
+          <div><label for="controlB" id="controlBLabel">Parametr B</label><output id="outputB">0</output></div>
+          <input id="controlB" type="range">
+        </div>
+        <div class="view-tabs" role="group" aria-label="Kuzatuv rejimi">
+          <button class="active" data-view="scene" type="button">Tajriba</button>
+          <button data-view="vectors" type="button">Kuchlar</button>
+          <button data-view="graph" type="button">Grafik</button>
+        </div>
+        <button class="run-button" id="runButton" type="button"><span>▶</span><b id="runLabel">Tajribani boshlash</b></button>
+        <div class="action-progress"><div><span>Amaliy faollik</span><b id="actionCount">0 harakat</b></div><span><i id="actionProgress"></i></span></div>
+      </aside>
+    </div>
+  </main>
+
+  <script src="assets/physics/physics-content.js?v=4"></script>
+  <script src="lab-data.js?v=1"></script>
+  <script src="lab-scenes.js?v=3"></script>
+  <script src="idrok-sim.js?v=6"></script>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Idrok Laboratoriya — fizik hodisalarni o‘zingiz boshqaradigan interaktiv tajribalar.">
+  <meta name="theme-color" content="#111a35">
+  <title>Suzish va zichlik — Idrok Laboratoriya</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="laboratory.css?v=1">
+</head>
+<body>
+  <aside class="lab-sidebar" id="labSidebar">
+    <div class="lab-side-head">
+      <a class="lab-brand" href="index.html" aria-label="Idrok bosh sahifasi">
+        <span><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M4 22h7l3.5-11L21 31l5-15 3 6h7"/></svg></span>
+        <b>IDROK</b>
+      </a>
+      <button id="closeLabMenu" type="button" aria-label="Menyuni yopish">×</button>
+    </div>
+
+    <p class="lab-nav-label">ASOSIY</p>
+    <nav class="lab-nav" aria-label="Asosiy menyu">
+      <a href="index.html#bosh"><span><svg viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5V21h-6v-6H9v6H3Z"/></svg></span><b>Bosh sahifa</b></a>
+      <a href="index.html#kurslar"><span><svg viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5Zm0 0v16M8 7h8M8 11h7"/></svg></span><b>Kurslar</b></a>
+      <a class="active" href="labs.html"><span><svg viewBox="0 0 24 24"><path d="M9 3v5l-5 9a3 3 0 0 0 2.6 4.5h10.8A3 3 0 0 0 20 17l-5-9V3M8 13h8M8 3h8"/></svg></span><b>Laboratoriya</b><small>59</small></a>
+      <a href="index.html#reyting"><span><svg viewBox="0 0 24 24"><path d="M8 21v-7H3v7m18 0V9h-5v12m-3 0V3H8v18"/></svg></span><b>Reyting</b></a>
+      <a href="index.html#hamjamiyat"><span><svg viewBox="0 0 24 24"><path d="M16 20v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2m7-10a4 4 0 1 0 0-8 4 4 0 0 0 0 8m13 10v-2a4 4 0 0 0-3-3.87M16 2.13a4 4 0 0 1 0 7.75"/></svg></span><b>Hamjamiyat</b></a>
+      <button id="labAiButton" type="button"><span class="lab-ai-mark">✦</span><b>Idrok AI</b><small>AI</small></button>
+    </nav>
+
+    <div class="lab-side-progress">
+      <span class="lab-progress-ring"><b id="labSidePercent">0%</b></span>
+      <div><b>Laboratoriya progressi</b><p id="labSideMeta">0 / 1 bajarildi</p></div>
+    </div>
+
+    <div class="lab-side-user">
+      <span id="labAvatar">IZ</span>
+      <div><b id="labUserName">Izlanuvchi</b><small><i id="labSideImpulse">0</i> Impulse</small></div>
+    </div>
+  </aside>
+  <button class="lab-overlay" id="labOverlay" type="button" aria-label="Menyuni yopish"></button>
+
+  <div class="lab-shell">
+    <header class="lab-header">
+      <button class="lab-menu-button" id="openLabMenu" type="button" aria-label="Menyuni ochish">☰</button>
+      <div class="lab-location"><small>IDROK LABORATORIYA</small><b>Suzish va zichlik</b></div>
+      <div class="lab-header-actions">
+        <span class="lab-status"><i></i> NAMUNA 01</span>
+        <span class="lab-impulse"><i>ϟ</i><b id="labImpulse">0</b></span>
+        <button id="labTheme" type="button" aria-label="Rang rejimini almashtirish"><span>☼</span><span>☾</span></button>
+      </div>
+    </header>
+
+    <main class="lab-main">
+      <section class="lab-intro">
+        <div>
+          <span class="lab-kicker"><i></i> SUYUQLIKLAR • INTERAKTIV TAJRIBA</span>
+          <h1>Suzadimi yoki <em>cho‘kadimi?</em></h1>
+          <p>Jismni ushlab suyuqlikka soling, qo‘yib yuboring va og‘irlik bilan Arximed kuchi qanday kurashishini kuzating.</p>
+        </div>
+        <a href="physics.html" class="lab-course-link">9-sinf kursiga qaytish <span>→</span></a>
+      </section>
+
+      <section class="lab-game" aria-label="Suzish va zichlik simulyatsiyasi">
+        <div class="lab-stage-card">
+          <div class="lab-stage-toolbar">
+            <div><span class="live-dot"></span><b>FIZIKA REAL VAQTDA</b></div>
+            <div>
+              <button id="pauseLab" type="button" aria-label="Simulyatsiyani pauza qilish"><span>Ⅱ</span> Pauza</button>
+              <button id="resetLabTop" type="button" aria-label="Simulyatsiyani qayta boshlash"><span>↻</span> Qayta</button>
+            </div>
+          </div>
+          <div class="canvas-wrap" id="canvasWrap">
+            <canvas id="buoyancyCanvas" width="1100" height="650" role="img" aria-label="Yog‘och, metall va muzni suvga sudrab solib, suzish yoki cho‘kishini kuzatish simulyatsiyasi">
+              Brauzeringiz interaktiv laboratoriyani ko‘rsata olmadi.
+            </canvas>
+            <div class="stage-hint" id="stageHint"><span>☝</span><p><b>Jismni ushlang</b><small>Uni suvga yoki taroziga sudrang</small></p></div>
+            <div class="lab-confetti" id="labConfetti" aria-hidden="true"></div>
+          </div>
+          <div class="stage-footer">
+            <span><i class="legend gravity"></i> Og‘irlik</span>
+            <span><i class="legend buoyancy"></i> Arximed kuchi</span>
+            <span><i class="legend contact"></i> Tayanch kuchi</span>
+            <p id="stageMessage">Yog‘och blokni suvga solib ko‘ring.</p>
+          </div>
+        </div>
+
+        <aside class="lab-controls" aria-label="Laboratoriya boshqaruvlari">
+          <div class="selected-object">
+            <span class="material-icon wood" id="selectedMaterialIcon"></span>
+            <div><small>TANLANGAN JISM</small><h2 id="selectedMaterialName">Yog‘och</h2><p id="selectedMaterialState">Suvdan tashqarida</p></div>
+            <b id="floatBadge">SUZADI</b>
+          </div>
+
+          <div class="control-group">
+            <div class="control-title"><span>Jismlar</span><small>Ushlab sudrang</small></div>
+            <div class="material-buttons" id="materialButtons">
+              <button class="active" type="button" data-material="wood"><i class="wood"></i><span><b>Yog‘och</b><small>650 kg/m³</small></span></button>
+              <button type="button" data-material="metal"><i class="metal"></i><span><b>Metall</b><small>2700 kg/m³</small></span></button>
+              <button type="button" data-material="ice"><i class="ice"></i><span><b>Muz</b><small>917 kg/m³</small></span></button>
+            </div>
+          </div>
+
+          <div class="control-group two-column">
+            <label><span>Suyuqlik</span><select id="fluidSelect"><option value="water">Suv</option><option value="salt">Sho‘r suv</option><option value="oil">O‘simlik yog‘i</option></select></label>
+            <label><span>Suv sathi</span><output id="waterLevelOutput">68%</output><input id="waterLevel" type="range" min="48" max="82" value="68"></label>
+          </div>
+
+          <div class="control-group">
+            <label class="mass-control"><span>Jism massasi</span><output id="massOutput">4.0 kg</output><input id="massRange" type="range" min="1" max="10" value="4" step="0.5"></label>
+          </div>
+
+          <div class="measurement-grid" aria-live="polite">
+            <div><small>MASSA</small><b id="massValue">4.0 kg</b></div>
+            <div><small>HAJM</small><b id="volumeValue">6.15 L</b></div>
+            <div><small>ZICHLIGI</small><b id="densityValue">650</b><span>kg/m³</span></div>
+            <div><small>BOTGAN QISMI</small><b id="submergedValue">0%</b></div>
+          </div>
+
+          <div class="control-group switches">
+            <label><input id="showForces" type="checkbox" checked><span><i></i>Kuch vektorlari</span></label>
+            <label><input id="showValues" type="checkbox" checked><span><i></i>Qiymatlar</span></label>
+            <label><input id="showDepth" type="checkbox"><span><i></i>Chuqurlik chiziqlari</span></label>
+          </div>
+
+          <div class="lab-challenge" id="labChallenge">
+            <div class="challenge-head"><span>TOPSHIRIQ</span><b>+60 ϟ</b></div>
+            <h3>Muvozanatni toping</h3>
+            <p>Yog‘ochni suvga soling va qo‘yib yuboring. U 60–70% botib, tinch holatga kelishi kerak.</p>
+            <div class="challenge-progress"><i id="challengeProgress"></i></div>
+            <strong id="challengeStatus">Jismni suvga olib boring</strong>
+          </div>
+
+          <button class="reset-control" id="resetLab" type="button"><span>↻</span> Tajribani qayta boshlash</button>
+        </aside>
+      </section>
+
+      <section class="lab-library-preview">
+        <div><span>LABORATORIYA KUTUBXONASI</span><h2>Bu — birinchi sifat namunasi.</h2><p>Uslub ma’qullansa, qolgan mavzular shu darajadagi alohida o‘yin sahnalari bilan to‘ldiriladi.</p></div>
+        <div class="library-progress"><span><b id="libraryDone">0</b><small>tayyor</small></span><i></i><span><b>59</b><small>reja</small></span></div>
+      </section>
+    </main>
+  </div>
+
+  <aside class="lab-ai-panel" id="labAiPanel" aria-hidden="true" aria-label="Idrok AI laboratoriya yordamchisi">
+    <header><span>✦</span><div><b>Idrok AI</b><small>Laboratoriya yordamchisi</small></div><button id="closeLabAi" type="button" aria-label="Yopish">×</button></header>
+    <div class="lab-ai-messages" id="labAiMessages"><p><b>Salom!</b> Suzish va zichlik tajribasida sizga yordam beraman.</p></div>
+    <div class="lab-ai-prompts"><button type="button" data-lab-hint="float">Nega yog‘och suzadi?</button><button type="button" data-lab-hint="formula">Formula nima?</button><button type="button" data-lab-hint="challenge">Topshiriqqa yordam</button></div>
+  </aside>
+  <div class="lab-toast" id="labToast" role="status" aria-live="polite"></div>
+
+  <script src="laboratory.js?v=1"></script>
+</body>
+</html>
