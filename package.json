@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "description": "Idrok o‘zbekcha fizika ta’lim platformasi",
   "dependencies": {
+    "@vercel/analytics": "^2.0.1",
     "three": "0.183.2"
   },
   "scripts": {
