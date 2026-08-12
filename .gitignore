@@ -1,0 +1,10 @@
+# Local dependencies and generated files
+node_modules/
+tmp/
+backup/
+data/*.json
+*.bak
+*.pdf
+__pycache__/
+*.py[cod]
+.DS_Store

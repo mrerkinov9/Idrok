@@ -1,5 +1,7 @@
-(() => {
+(async () => {
   'use strict';
+
+  if(window.IDROK_ACCOUNT?.ready)await window.IDROK_ACCOUNT.ready;
 
   const course = window.PHYSICS_COURSE;
   if (!course || !Array.isArray(course.lessons) || !course.lessons.length) {
@@ -108,7 +110,14 @@
 
   function chapterLessons(index) { return lessons.filter(lesson => lesson.chapter === index); }
   function lessonIndex(id) { return lessons.findIndex(lesson => lesson.id === id); }
-  function isUnlocked(index) { return index === 0 || physicsState.completed.includes(lessons[index - 1].id); }
+  function accountUser() {
+    try {
+      const email = localStorage.getItem('idrokCurrentUser') || '';
+      return (JSON.parse(localStorage.getItem('idrokUsers') || '[]') || []).find(user => user.email === email) || null;
+    } catch { return null; }
+  }
+  function isAdminAccount() { return accountUser()?.role === 'admin'; }
+  function isUnlocked(index) { return isAdminAccount() || index === 0 || physicsState.completed.includes(lessons[index - 1].id); }
   function stageState(id) {
     return physicsState.stages[id] || (physicsState.stages[id] = {
       nazariya: false, video: false, misol: false, tajriba: false, simulyatsiya: false, quiz: false
@@ -919,8 +928,9 @@
   function updateStats() {
     const done = physicsState.completed.length;
     const percent = Math.round(done / lessons.length * 100);
-    if ($('#courseImpulse')) $('#courseImpulse').textContent = globalState.impulse.toLocaleString('uz-UZ');
-    if ($('#sideImpulse')) $('#sideImpulse').textContent = globalState.impulse.toLocaleString('uz-UZ');
+    const impulseLabel = isAdminAccount() ? '∞' : globalState.impulse.toLocaleString('uz-UZ');
+    if ($('#courseImpulse')) $('#courseImpulse').textContent = impulseLabel;
+    if ($('#sideImpulse')) $('#sideImpulse').textContent = impulseLabel;
     if ($('#sideCourseProgress')) $('#sideCourseProgress').style.width = `${percent}%`;
     if ($('#sidePercent')) $('#sidePercent').textContent = `${percent}%`;
     if ($('#miniProgress')) $('#miniProgress').textContent = `${done} / ${lessons.length} dars`;

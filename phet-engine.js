@@ -3,23 +3,29 @@
 
   const params = new URLSearchParams(location.search);
   const requestedCourse = params.get('course');
-  const courseCode = ['7', '8', '9', '10'].includes(requestedCourse) ? requestedCourse : '9';
-  const isGrade7 = courseCode === '7';
-  const isGrade8 = courseCode === '8';
-  const isGrade10 = courseCode === '10';
-  const course = isGrade7 ? window.PHYSICS_COURSE7 : isGrade8 ? window.PHYSICS_COURSE8 : isGrade10 ? window.PHYSICS_COURSE10 : window.PHYSICS_COURSE9;
-  const labConfigs = isGrade7 ? window.IDROK_LABS7 : isGrade8 ? window.IDROK_LABS8 : isGrade10 ? window.IDROK_LABS10 : window.IDROK_LABS9;
-  const phet = isGrade7 ? window.IDROK_PHET7 : isGrade8 ? window.IDROK_PHET8 : isGrade10 ? window.IDROK_PHET10 : window.IDROK_PHET9;
-  const physicsStorageKey = isGrade7 ? 'idrokPhysics7' : isGrade10 ? 'idrokPhysics10' : 'idrokPhysics';
-  const labStorageKey = isGrade7 ? 'idrokLabCourse7' : isGrade10 ? 'idrokLabCourse10' : 'idrokLabCourse';
-  const coursePage = isGrade7 ? 'physics7.html' : isGrade8 ? 'physics8.html' : isGrade10 ? 'physics10.html' : 'physics.html';
+  const courseCode = ['7', '8', '9', '10', '11'].includes(requestedCourse) ? requestedCourse : '9';
+  const courseMap = {7:window.PHYSICS_COURSE7, 8:window.PHYSICS_COURSE8, 9:window.PHYSICS_COURSE9, 10:window.PHYSICS_COURSE10, 11:window.PHYSICS_COURSE11};
+  const labsMap = {7:window.IDROK_LABS7, 8:window.IDROK_LABS8, 9:window.IDROK_LABS9, 10:window.IDROK_LABS10, 11:window.IDROK_LABS11};
+  const phetMap = {7:window.IDROK_PHET7, 8:window.IDROK_PHET8, 9:window.IDROK_PHET9, 10:window.IDROK_PHET10, 11:window.IDROK_PHET11};
+  const physicsKeys = {7:'idrokPhysics7', 8:'idrokPhysics8', 9:'idrokPhysics', 10:'idrokPhysics10', 11:'idrokPhysics11'};
+  const labKeys = {7:'idrokLabCourse7', 8:'idrokLabCourse8', 9:'idrokLabCourse', 10:'idrokLabCourse10', 11:'idrokLabCourse11'};
+  const coursePages = {7:'physics7.html', 8:'physics8.html', 9:'physics.html', 10:'physics10.html', 11:'physics11.html'};
+  const course = courseMap[courseCode];
+  const labConfigs = labsMap[courseCode];
+  const phet = phetMap[courseCode];
+  const physicsStorageKey = physicsKeys[courseCode];
+  const labStorageKey = labKeys[courseCode];
+  const coursePage = coursePages[courseCode];
   const labBase = `lab.html?course=${courseCode}`;
   const grade7LabCount = window.IDROK_LABS7?.length || 0;
   const grade8LabCount = window.IDROK_LABS8?.length || 0;
   const grade9LabCount = window.IDROK_LABS9?.length || 0;
   const grade10LabCount = window.IDROK_LABS10?.length || 0;
-  const labOffset = isGrade7 ? 0 : isGrade8 ? grade7LabCount : isGrade10 ? grade7LabCount + grade8LabCount + grade9LabCount : grade7LabCount + grade8LabCount;
-  const totalLabCount = grade7LabCount + grade8LabCount + grade9LabCount + grade10LabCount;
+  const grade11LabCount = window.IDROK_LABS11?.length || 0;
+  const countsByGrade = {7:grade7LabCount, 8:grade8LabCount, 9:grade9LabCount, 10:grade10LabCount, 11:grade11LabCount};
+  const gradeOrder = ['7','8','9','10','11'];
+  const labOffset = gradeOrder.slice(0, gradeOrder.indexOf(courseCode)).reduce((sum, grade) => sum + countsByGrade[grade], 0);
+  const totalLabCount = Object.values(countsByGrade).reduce((sum, count) => sum + count, 0);
   if (!course || !Array.isArray(course.lessons) || !course.lessons.length || !Array.isArray(labConfigs) || !labConfigs.length || !phet || !Object.keys(phet.lessons || {}).length) {
     document.body.innerHTML = '<main class="fatal-lab"><h1>Laboratoriya yuklanmadi</h1><p>Sahifani qayta ochib ko‘ring.</p></main>';
     return;
@@ -71,7 +77,7 @@
     hint: 'Bir vaqtda faqat bitta parametrni o‘zgartirsangiz, sabab va natija aniqroq ko‘rinadi.',
   } : phet.lessons[lab.id];
   const simulation = phet.simulations[config.simulation];
-  const displayTitle = (isGrade7 || isGrade10) && !lab.extra ? lesson.title : simulation.title;
+  const displayTitle = ['7', '10', '11'].includes(courseCode) && !lab.extra ? lesson.title : simulation.title;
   const phetUrl = phet.buildUrl(config);
 
   const globalState = readJSON('idrokState', {completed: [], score: 0, impulse: 0, theme: 'light'});
@@ -100,7 +106,7 @@
         <div class="phet-toolbar">
           <div class="phet-official">
             <span>ID</span>
-            <p><b>${escapeHtml(displayTitle)}</b><small>${simulation.locale === 'en' ? 'Rasmiy simulyatsiya · inglizcha panel' : 'O‘zbekcha simulyatsiya'}</small></p>
+            <p><b>${escapeHtml(displayTitle)}</b><small>Interaktiv tajriba</small></p>
             <em class="phet-live-state"><i id="phetStatusDot"></i><b id="phetStatus">Yuklanmoqda</b></em>
           </div>
           <div class="phet-toolbar-actions">
@@ -116,7 +122,6 @@
           <button class="phet-theater-close" id="phetTheaterClose" type="button" aria-label="To‘liq ekran rejimini yopish">×</button>
           <iframe id="phetFrame" src="about:blank" title="${escapeHtml(displayTitle)} — interaktiv simulyatsiya" allow="fullscreen; autoplay; gamepad" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
         </div>
-        <p class="phet-attribution">Manba: Kolorado Boulder universitetining PhET loyihasi — CC BY-NC 4.0.</p>
       </section>
       <div class="phet-progress-sentinel" hidden aria-hidden="true">
         <b id="missionState">${alreadyCompleted ? 'BAJARILDI' : 'FAOL'}</b>
@@ -133,7 +138,7 @@
     $('#headerLabName').textContent = displayTitle;
     $('#labKicker').textContent = lab.extra ? `QO‘SHIMCHA • ${lab.number}-TAJRIBA` : `${lab.chapter + 1}-BOB • ${lab.number}-TAJRIBA • ${chapter.title}`;
     $('#labTitle').textContent = displayTitle;
-    $('#labIntro').textContent = `${config.mission} ${simulation.locale === 'en' ? 'Boshqaruv paneli inglizcha, topshiriq va yordam o‘zbekcha.' : 'O‘zbekcha interaktiv simulyatsiyada o‘zingiz sinab ko‘ring.'}`;
+    $('#labIntro').textContent = config.mission;
     $('#labNumber').textContent = `${String(lab.number).padStart(2, '0')} / ${totalLabCount}`;
     $('#labRole').textContent = lab.role;
     $('#labReward').textContent = `+${lab.reward} ϟ`;
@@ -145,7 +150,7 @@
     const next = lab.extra ? null : labConfigs[labIndex + 1];
     const mappedTitle = item => {
       if (!item) return '';
-      if (isGrade7 || isGrade10) return lessonMap.get(item.id)?.title || item.courseTitle || item.title;
+      if (['7', '10', '11'].includes(courseCode)) return lessonMap.get(item.id)?.title || item.courseTitle || item.title;
       return phet.simulations[phet.lessons[item.id]?.simulation]?.title || item.title;
     };
     $('#previousLab').href = previous ? `${labBase}&lesson=${previous.id}` : 'labs.html';

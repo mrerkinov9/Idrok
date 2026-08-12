@@ -1,12 +1,12 @@
 (() => {
   'use strict';
   const requestedGrade = new URLSearchParams(location.search).get('grade');
-  const grade = ['7', '8', '9', '10'].includes(requestedGrade) ? requestedGrade : '9';
+  const grade = ['7', '8', '9', '10', '11'].includes(requestedGrade) ? requestedGrade : '9';
   const courseName = `${grade}-sinf fizika`;
-  const physicsKey = grade === '7' ? 'idrokPhysics7' : grade === '8' ? 'idrokPhysics8' : grade === '10' ? 'idrokPhysics10' : 'idrokPhysics';
-  const certificateKey = grade === '7' ? 'idrokCertificate7' : grade === '8' ? 'idrokCertificate8' : grade === '10' ? 'idrokCertificate10' : 'idrokCertificate';
-  const coursePage = grade === '7' ? 'physics7.html' : grade === '8' ? 'physics8.html' : grade === '10' ? 'physics10.html' : 'physics.html';
-  const totalLessons = grade === '7' ? 62 : grade === '8' ? 60 : 59;
+  const physicsKey = grade === '7' ? 'idrokPhysics7' : grade === '8' ? 'idrokPhysics8' : grade === '10' ? 'idrokPhysics10' : grade === '11' ? 'idrokPhysics11' : 'idrokPhysics';
+  const certificateKey = grade === '7' ? 'idrokCertificate7' : grade === '8' ? 'idrokCertificate8' : grade === '10' ? 'idrokCertificate10' : grade === '11' ? 'idrokCertificate11' : 'idrokCertificate';
+  const coursePage = grade === '7' ? 'physics7.html' : grade === '8' ? 'physics8.html' : grade === '10' ? 'physics10.html' : grade === '11' ? 'physics11.html' : 'physics.html';
+  const totalLessons = grade === '7' ? 62 : grade === '8' ? 60 : grade === '11' ? 45 : 59;
   const users = JSON.parse(localStorage.getItem('idrokUsers') || '[]');
   const email = localStorage.getItem('idrokCurrentUser');
   const user = users.find(item => item.email === email);

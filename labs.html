@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Idrok 7-, 8-, 9- va 10-sinf fizika kurslarining 144 ta interaktiv virtual laboratoriyasi.">
+  <meta name="description" content="Idrok 7-, 8-, 9-, 10- va 11-sinf fizika kurslarining 157 ta interaktiv virtual laboratoriyasi.">
   <meta name="theme-color" content="#111a35">
   <title>Laboratoriyalar — Idrok</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,6 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="labs.css?v=4">
   <link rel="stylesheet" href="focus-widget.css?v=1">
+  <link rel="stylesheet" href="idrok-next.css?v=1">
 </head>
 <body>
   <aside class="labs-sidebar" id="labsSidebar">
@@ -25,36 +26,37 @@
       <a href="physics8.html"><span>▤</span><b>8-sinf kursi</b></a>
       <a href="physics.html"><span>▤</span><b>9-sinf kursi</b></a>
       <a href="physics10.html"><span>▤</span><b>10-sinf kursi</b></a>
-      <a class="active" href="labs.html"><span>⌁</span><b>Laboratoriya</b><small>144</small></a>
+      <a href="physics11.html"><span>▤</span><b>11-sinf kursi</b></a>
+      <a class="active" href="labs.html"><span>⌁</span><b>Laboratoriya</b><small>157</small></a>
       <a href="garden.html"><span>✿</span><b>Mening bog‘im</b></a>
       <a href="index.html#reyting"><span>♜</span><b>Reyting</b></a>
       <a href="index.html#hamjamiyat"><span>◎</span><b>Hamjamiyat</b></a>
       <button id="labsAiNav" type="button"><span>✦</span><b>Idrok AI</b><small>AI</small></button>
     </nav>
-    <div class="labs-side-progress"><span><b id="labsSidePercent">0%</b></span><div><b>Laboratoriya progressi</b><small id="labsSideMeta">0 / 144 bajarildi</small></div></div>
+    <div class="labs-side-progress"><span><b id="labsSidePercent">0%</b></span><div><b>Laboratoriya progressi</b><small id="labsSideMeta">0 / 157 bajarildi</small></div></div>
     <div class="labs-side-user"><span id="labsAvatar">IZ</span><div><b id="labsUserName">Izlanuvchi</b><small><i id="labsSideImpulse">0</i> Impulse</small></div></div>
   </aside>
   <button class="labs-menu-button" id="openLabsMenu" type="button" aria-label="Menyuni ochish">☰</button>
   <div class="labs-overlay" id="labsOverlay"></div>
 
   <header class="labs-header">
-    <div><small>IDROK LABORATORIYA</small><b>7-, 8-, 9- va 10-sinf fizika tajribalari</b></div>
+    <div><small>IDROK LABORATORIYA</small><b>7–11-sinf fizika tajribalari</b></div>
     <div><span class="labs-impulse"><i>ϟ</i><b id="labsImpulse">0</b></span><button id="labsTheme" type="button" aria-label="Rang rejimini almashtirish"><span>☼</span><span>☾</span></button></div>
   </header>
 
   <main class="labs-page">
     <section class="labs-hero">
       <div class="labs-hero-copy">
-        <span class="labs-kicker">7-, 8-, 9- VA 10-SINF • TO‘LIQ VIRTUAL LABORATORIYA</span>
+        <span class="labs-kicker">7–11-SINF • TO‘LIQ VIRTUAL LABORATORIYA</span>
         <h1>Fizikani tomosha qilmang.<br><em>Uni boshqaring.</em></h1>
-        <p>7-, 8-, 9- va 10-sinf kurslaridagi 144 tajribada parametrlarni o‘zgartiring, jismlarni boshqaring va fizik qonunlarni o‘zingiz kashf eting.</p>
+        <p>7–11-sinf kurslaridagi 157 tajribada parametrlarni o‘zgartiring, jismlarni boshqaring va fizik qonunlarni o‘zingiz kashf eting.</p>
         <div class="labs-hero-actions"><a id="resumeLab" href="lab.html?course=7&amp;lesson=l1">Tajribani davom ettirish <span>→</span></a><a href="physics7.html">Kurs xaritasi</a></div>
       </div>
       <div class="labs-orbit" aria-hidden="true"><span class="orbit-core">IDROK<small>LAB</small></span><i></i><i></i><i></i><i></i><i></i><i></i></div>
     </section>
 
     <section class="labs-stat-row" aria-label="Laboratoriya statistikasi">
-      <article><span>144</span><div><b>Asosiy tajriba</b><small>Faqat tajriba talab qiladigan mavzularda</small></div></article>
+      <article><span>157</span><div><b>Asosiy tajriba</b><small>Faqat tajriba talab qiladigan mavzularda</small></div></article>
       <article><span id="labsDone">0</span><div><b>Yakunlangan</b><small id="labsDoneMeta">0% progress</small></div></article>
       <article><span>7+8+9+10</span><div><b>To‘rtta to‘liq kurs</b><small>Bitta umumiy laboratoriya</small></div></article>
     </section>
@@ -67,7 +69,7 @@
 
     <section class="labs-library">
       <div class="labs-library-head">
-        <div><span>TAJRIBALAR KUTUBXONASI</span><h2>144 ta mavzuga mos tajriba.</h2><p>Istalgan simulyatsiyani erkin ochishingiz mumkin.</p></div>
+        <div><span>TAJRIBALAR KUTUBXONASI</span><h2>157 ta mavzuga mos tajriba.</h2><p>Istalgan simulyatsiyani erkin ochishingiz mumkin.</p></div>
         <label class="labs-search"><span>⌕</span><input id="labsSearch" type="search" placeholder="Tajriba yoki mavzuni izlash…" autocomplete="off"></label>
       </div>
       <div class="chapter-filters" id="chapterFilters"></div>
@@ -78,6 +80,7 @@
 
   <aside class="labs-ai" id="labsAi" aria-hidden="true"><div><span>✦</span><b>Idrok AI</b><button id="closeLabsAi" type="button">×</button></div><p>Qaysi laboratoriyadan boshlashni bilmasangiz, birinchi bobdan ketma-ket o‘ting. Har bir tajribaning ichida alohida maslahat mavjud.</p><a href="lab.html?course=7&amp;lesson=l5">Birinchi tajribani boshlash</a></aside>
 
+  <script src="account-session.js?v=1"></script>
   <script src="assets/physics/physics-content.js?v=5"></script>
   <script>window.PHYSICS_COURSE9 = window.PHYSICS_COURSE;</script>
   <script src="lab-data.js?v=1"></script>
@@ -100,6 +103,10 @@
   <script>window.PHYSICS_COURSE10 = window.PHYSICS_COURSE;</script>
   <script src="lab-data10.js?v=1"></script>
   <script src="phet-map10.js?v=2"></script>
+  <script src="assets/physics11/physics-content.js?v=1"></script>
+  <script>window.PHYSICS_COURSE11 = window.PHYSICS_COURSE;</script>
+  <script src="phet-map11.js?v=1"></script>
+  <script src="lab-data11.js?v=1"></script>
   <script src="labs.js?v=11"></script>
   <script src="garden-catalog.js?v=1"></script>
   <script src="garden-core.js?v=1"></script>

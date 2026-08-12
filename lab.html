@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Idrok 7-, 8-, 9- va 10-sinf fizika kurslari uchun interaktiv laboratoriyalar.">
+  <meta name="description" content="Idrok 7–11-sinf fizika kurslari uchun interaktiv laboratoriyalar.">
   <meta name="theme-color" content="#111a35">
   <title>Idrok Interaktiv Laboratoriya</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="lab.css?v=1">
   <link rel="stylesheet" href="phet-lab.css?v=6">
   <link rel="stylesheet" href="focus-widget.css?v=1">
+  <link rel="stylesheet" href="idrok-next.css?v=1">
 </head>
 <body>
   <aside class="sim-sidebar" id="simSidebar">
@@ -30,7 +31,8 @@
       <a href="physics8.html"><span>▤</span><b>8-sinf kursi</b></a>
       <a href="physics.html"><span>▤</span><b>9-sinf kursi</b></a>
       <a href="physics10.html"><span>▤</span><b>10-sinf kursi</b></a>
-      <a class="active" href="labs.html"><span>⌁</span><b>Laboratoriya</b><small>144</small></a>
+      <a href="physics11.html"><span>▤</span><b>11-sinf kursi</b></a>
+      <a class="active" href="labs.html"><span>⌁</span><b>Laboratoriya</b><small>157</small></a>
       <a href="garden.html"><span>✿</span><b>Mening bog‘im</b></a>
       <a href="index.html#reyting"><span>♜</span><b>Reyting</b></a>
       <a href="index.html#hamjamiyat"><span>◎</span><b>Hamjamiyat</b></a>
@@ -63,11 +65,11 @@
   <main class="sim-page">
     <section class="sim-hero">
       <div class="sim-hero-copy">
-        <span class="sim-kicker" id="labKicker">9-SINF • VIRTUAL TAJRIBA</span>
+        <span class="sim-kicker" id="labKicker">IDROK • VIRTUAL TAJRIBA</span>
         <h1 id="labTitle">Laboratoriya yuklanmoqda…</h1>
         <p id="labIntro">Bir necha soniya kuting.</p>
         <div class="sim-hero-meta">
-          <span id="labNumber">01 / 144</span>
+          <span id="labNumber">01 / 157</span>
           <span id="labRole">Tadqiqotchi</span>
           <span id="labReward">+40 ϟ</span>
         </div>
@@ -151,6 +153,7 @@
   <div class="sim-toast" id="simToast" role="status"></div>
   <div class="sim-confetti" id="simConfetti" aria-hidden="true"></div>
 
+  <script src="account-session.js?v=1"></script>
   <script src="assets/physics/physics-content.js?v=5"></script>
   <script>window.PHYSICS_COURSE9 = window.PHYSICS_COURSE;</script>
   <script src="lab-data.js?v=1"></script>
@@ -173,6 +176,10 @@
   <script>window.PHYSICS_COURSE10 = window.PHYSICS_COURSE;</script>
   <script src="lab-data10.js?v=1"></script>
   <script src="phet-map10.js?v=2"></script>
+  <script src="assets/physics11/physics-content.js?v=1"></script>
+  <script>window.PHYSICS_COURSE11 = window.PHYSICS_COURSE;</script>
+  <script src="phet-map11.js?v=1"></script>
+  <script src="lab-data11.js?v=1"></script>
   <script src="phet-engine.js?v=13"></script>
   <script src="garden-catalog.js?v=1"></script>
   <script src="garden-core.js?v=1"></script>

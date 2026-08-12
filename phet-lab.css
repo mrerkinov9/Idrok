@@ -22,7 +22,7 @@
   background: linear-gradient(180deg, #181c26, #10131a);
 }
 
-.phet-official { display: flex; align-items: center; gap: 12px; }
+.phet-official { display: flex; min-width: 0; flex: 1 1 auto; align-items: center; gap: 12px; }
 .phet-official > span {
   display: grid;
   width: 54px;
@@ -36,11 +36,18 @@
   font-weight: 900;
   letter-spacing: .4px;
 }
-.phet-official p { display: grid; gap: 3px; margin: 0; }
-.phet-official b { font-size: 14px; line-height: 1.1; }
+.phet-official p { display: grid; min-width: 0; max-width: 520px; gap: 3px; margin: 0; }
+.phet-official b { display: -webkit-box; overflow: hidden; font-size: 14px; line-height: 1.15; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
 .phet-official small { color: #aeb7ca; font-size: 11px; font-weight: 600; }
 
-.phet-toolbar-actions { display: flex; align-items: center; gap: 7px; }
+.phet-toolbar-actions { display: flex; flex: 0 0 auto; align-items: center; gap: 7px; }
+
+@media (max-width: 1180px) {
+  .phet-official p { max-width: 310px; }
+  .phet-toolbar-actions button b { display: none; }
+  .phet-toolbar-actions button { width: 42px; justify-content: center; padding: 0; }
+  .phet-toolbar-actions .phet-complete-button { width: 48px; }
+}
 .phet-toolbar-actions button {
   display: flex;
   min-height: 39px;

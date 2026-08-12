@@ -8,6 +8,8 @@
   },
   "scripts": {
     "start": "node server.js",
-    "test:garden": "node tools/test-garden.js"
+    "test:garden": "node tools/test-garden.js",
+    "test:account": "node tools/test-account.js",
+    "test:admin": "node tools/test-admin.js"
   }
 }
