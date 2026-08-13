@@ -1,5 +1,7 @@
 import * as THREE from './vendor/three.module.min.js';
 
+if(window.IDROK_ACCOUNT?.ready)await window.IDROK_ACCOUNT.ready;
+
 const catalogApi=window.IDROK_GARDEN_CATALOG;
 const core=window.IDROK_GARDEN_CORE;
 if(!catalogApi||!core)throw new Error('Bog‘ katalogi yuklanmadi.');
@@ -36,6 +38,8 @@ function readGuest(){try{return core.normalizeGarden(JSON.parse(localStorage.get
 function currentUser(){
   try{const email=localStorage.getItem('idrokCurrentUser')||'';return(JSON.parse(localStorage.getItem('idrokUsers')||'[]')||[]).find(user=>user.email===email)||null}catch{return null}
 }
+function isAdminAccount(){return currentUser()?.role==='admin'}
+function impulseLabel(){return isAdminAccount()?'∞':impulse.toLocaleString('uz-UZ')}
 function syncLocal(){
   state.impulse=impulse;localStorage.setItem('idrokState',JSON.stringify(state));localStorage.setItem(guestKey,JSON.stringify(garden));
   try{const email=localStorage.getItem('idrokCurrentUser')||'',users=JSON.parse(localStorage.getItem('idrokUsers')||'[]'),user=users.find(entry=>entry.email===email);if(user){user.impulse=impulse;user.garden=core.publicGarden(garden);localStorage.setItem('idrokUsers',JSON.stringify(users))}}catch{}
@@ -439,10 +443,10 @@ async function redo(){if(!redoHistory.length||busy)return;busy=true;try{history.
 
 /* ---------- IQTISOD VA SERVER ---------- */
 async function purchase(catalogId,x,y,rotation){
-  const item=catalogApi.byId[catalogId];if(!item||busy)return;if(impulse<item.price){toast(`${item.name} uchun yana ${item.price-impulse} Impulse kerak.`,true);return}
+  const item=catalogApi.byId[catalogId];if(!item||busy)return;if(!isAdminAccount()&&impulse<item.price){toast(`${item.name} uchun yana ${item.price-impulse} Impulse kerak.`,true);return}
   busy=true;try{
     if(token){const data=await api('/api/garden/purchase',{method:'POST',body:JSON.stringify({catalogId,x,y,rotation})});garden=core.normalizeGarden(data.garden);impulse=data.impulse}
-    else{if(!core.canPlace(garden,catalogId,x,y,rotation))throw new Error('Bu joy band.');garden.items.push({id:core.makeId(),catalogId,x,y,rotation,state:item.type==='plant'?'seed':'placed',progress:0,variant:Math.floor(Math.random()*6),plantedAt:new Date().toISOString(),maturedAt:null});garden.stats.impulseSpent+=item.price;impulse-=item.price;garden.updatedAt=new Date().toISOString();syncLocal()}
+    else{if(!core.canPlace(garden,catalogId,x,y,rotation))throw new Error('Bu joy band.');garden.items.push({id:core.makeId(),catalogId,x,y,rotation,state:item.type==='plant'?'seed':'placed',progress:0,variant:Math.floor(Math.random()*6),plantedAt:new Date().toISOString(),maturedAt:null});garden.stats.impulseSpent+=item.price;if(!isAdminAccount())impulse-=item.price;garden.updatedAt=new Date().toISOString();syncLocal()}
     history=[];redoHistory=[];cancelPlacement();syncLocal();renderAll();toast(`${item.name} bog‘ingizga qo‘shildi.`);
   }catch(error){toast(error.message,true)}finally{busy=false}
 }
@@ -470,10 +474,10 @@ async function sellSelected(){
   }catch(error){toast(error.message,true)}finally{busy=false;button.dataset.confirm='';button.textContent='Sotish'}
 }
 async function expand(){
-  const next=catalogApi.expansions.find(item=>item.level===garden.level+1);if(!next||busy)return;if(impulse<next.price){toast(`Kengaytirish uchun yana ${next.price-impulse} Impulse kerak.`,true);return}
+  const next=catalogApi.expansions.find(item=>item.level===garden.level+1);if(!next||busy)return;if(!isAdminAccount()&&impulse<next.price){toast(`Kengaytirish uchun yana ${next.price-impulse} Impulse kerak.`,true);return}
   busy=true;try{
     if(token){const data=await api('/api/garden/expand',{method:'POST'});garden=core.normalizeGarden(data.garden);impulse=data.impulse}
-    else{garden.level=next.level;garden.stats.impulseSpent+=next.price;impulse-=next.price;garden.updatedAt=new Date().toISOString();syncLocal()}
+    else{garden.level=next.level;garden.stats.impulseSpent+=next.price;if(!isAdminAccount())impulse-=next.price;garden.updatedAt=new Date().toISOString();syncLocal()}
     resetCamera();syncLocal();renderAll();toast(`${next.name} ochildi!`);
   }catch(error){toast(error.message,true)}finally{busy=false}
 }
@@ -510,7 +514,7 @@ function renderShop(){
 }
 function renderStats(){
   const view=core.publicGarden(garden),dims=view.dimensions,mature=view.maturePlants;
-  $('#gardenImpulse').textContent=impulse;$('#shopImpulse').textContent=impulse;$('#grownPlants').textContent=mature;$('#totalFocus').textContent=`${view.focusMinutes} daq`;$('#gardenPoints').textContent=view.beautyScore;$('#gardenDiversity').textContent=`${view.diversity} tur`;$('#gardenTitle').textContent=dims.name;$('#sideGardenLevel').textContent=garden.level;$('#sideGardenName').textContent=dims.name;$('#sideGardenTrack').style.width=`${garden.level/4*100}%`;
+  $('#gardenImpulse').textContent=impulseLabel();$('#shopImpulse').textContent=impulseLabel();$('#grownPlants').textContent=mature;$('#totalFocus').textContent=`${view.focusMinutes} daq`;$('#gardenPoints').textContent=view.beautyScore;$('#gardenDiversity').textContent=`${view.diversity} tur`;$('#gardenTitle').textContent=dims.name;$('#sideGardenLevel').textContent=garden.level;$('#sideGardenName').textContent=dims.name;$('#sideGardenTrack').style.width=`${garden.level/4*100}%`;
   const next=catalogApi.expansions.find(item=>item.level===garden.level+1);$('#sideGardenNext').textContent=next?`Keyingi kengayish: ${next.price} ϟ`:'Eng katta bog‘ darajasi';$('#expandGarden').disabled=!next;$('#expandName').textContent=next?.name||'Eng katta maydon';$('#expandMeta').textContent=next?`${next.cols} × ${next.rows} katak · ${next.price} Impulse`:'Bog‘ingiz to‘liq kengaygan';
   $('#heroFocusMinutes').textContent=`${view.focusMinutes} daqiqa`;$('#heroFocusStatus').textContent=garden.focus?'Fokus davom etmoqda — darsga qayting.':mature?'Bog‘ingiz yashnamoqda. Yangi kompozitsiya yarating.':'Yangi nihol eking va dars bilan o‘stiring.';
   const user=currentUser(),name=user?.name||'Izlanuvchi';$('#gardenUserName').textContent=name;$('#gardenAvatar').textContent=name.slice(0,2).toUpperCase();$('#gardenAccountMeta').textContent=token?'Bulutda saqlanadi':'Mahalliy bog‘';

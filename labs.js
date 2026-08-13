@@ -6,6 +6,7 @@
     {grade: 8, course: window.PHYSICS_COURSE8, labs: window.IDROK_LABS8, phet: window.IDROK_PHET8, stateKey: 'idrokLabCourse8'},
     {grade: 9, course: window.PHYSICS_COURSE9, labs: window.IDROK_LABS9, phet: window.IDROK_PHET9, stateKey: 'idrokLabCourse'},
     {grade: 10, course: window.PHYSICS_COURSE10, labs: window.IDROK_LABS10, phet: window.IDROK_PHET10, stateKey: 'idrokLabCourse10'},
+    {grade: 11, course: window.PHYSICS_COURSE11, labs: window.IDROK_LABS11, phet: window.IDROK_PHET11, stateKey: 'idrokLabCourse11'},
   ];
   if (sources.some(source => !source.course?.lessons?.length || !source.labs?.length || !source.phet)) {
     document.body.innerHTML = '<main><h1>Laboratoriyalar yuklanmadi</h1><p>Sahifani qayta ochib ko‘ring.</p></main>';

@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#081120">
+  <title>Idrok Control — Admin markazi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css?v=1">
+  <link rel="stylesheet" href="idrok-next.css?v=1">
+</head>
+<body class="admin-loading">
+  <aside class="admin-side">
+    <a class="admin-brand" href="index.html"><span><svg viewBox="0 0 42 42"><path d="M3 23h8l4-13 7 24 6-19 4 8h7"/></svg></span><b>IDROK</b><small>CONTROL</small></a>
+    <p>MARKAZ</p>
+    <nav>
+      <button class="active" data-admin-view="overview"><i>⌂</i><span>Umumiy holat</span></button>
+      <button data-admin-view="users"><i>◎</i><span>Foydalanuvchilar</span><em id="sideUserCount">0</em></button>
+      <button data-admin-view="courses"><i>▤</i><span>Kurslar nazorati</span></button>
+      <button data-admin-view="system"><i>⌁</i><span>Tizim holati</span></button>
+    </nav>
+    <div class="admin-mode"><span>∞</span><div><b>Sinov rejimi</b><small>Cheksiz Impulse • barcha darslar ochiq</small></div></div>
+    <a class="back-platform" href="index.html"><span>←</span> Platformaga qaytish</a>
+  </aside>
+
+  <main class="admin-main">
+    <header class="admin-top"><button id="adminMenu" aria-label="Menyuni ochish">☰</button><div><small>IDROK / ADMINISTRATOR</small><h1 id="viewTitle">Umumiy holat</h1></div><div class="admin-profile"><span class="live-state"><i></i> Server faol</span><span class="admin-avatar" id="adminAvatar">AD</span><span><b id="adminName">Administrator</b><small>To‘liq ruxsat</small></span><button id="adminLogout" title="Hisobdan chiqish">↗</button></div></header>
+
+    <section class="admin-view active" id="view-overview">
+      <div class="admin-welcome"><div><small>JONLI BOSHQARUV MARKAZI</small><h2>Platforma yuragini<br><em>bir joydan ko‘ring.</em></h2><p>Foydalanuvchi faolligi, kurslar, Impulse va fokus bog‘lari real ma’lumotlar asosida yangilanadi.</p></div><div class="pulse-console"><span class="console-core">ϟ<i></i></span><span class="console-ring one"></span><span class="console-ring two"></span><b id="consoleUsers">0</b><small>faol o‘rganuvchi</small></div></div>
+      <div class="stat-grid">
+        <article><span class="stat-icon violet">◎</span><small>FOYDALANUVCHILAR</small><strong id="statUsers">0</strong><em id="statNew">+0 bu hafta</em></article>
+        <article><span class="stat-icon cyan">▤</span><small>YAKUNLANGAN DARSLAR</small><strong id="statLessons">0</strong><em>Jami barcha kurslarda</em></article>
+        <article><span class="stat-icon amber">ϟ</span><small>YIG‘ILGAN IMPULSE</small><strong id="statImpulse">0</strong><em>Bilim energiyasi</em></article>
+        <article><span class="stat-icon green">◌</span><small>FOKUS VAQTI</small><strong id="statFocus">0m</strong><em id="statPlants">0 o‘simlik o‘sgan</em></article>
+      </div>
+      <div class="overview-grid">
+        <article class="admin-card course-performance"><header><div><small>KURS ANALITIKASI</small><h3>Sinflar bo‘yicha o‘zlashtirish</h3></div><span>JONLI</span></header><div id="gradeBars" class="grade-bars"></div></article>
+        <article class="admin-card system-card"><header><div><small>TIZIM</small><h3>Platforma holati</h3></div><i></i></header><div class="system-orbit"><span>100<small>%</small></span><i></i></div><dl><div><dt>Faol sessiyalar</dt><dd id="statSessions">0</dd></div><div><dt>Bloklangan hisoblar</dt><dd id="statDisabled">0</dd></div><div><dt>Adminlar</dt><dd id="statAdmins">1</dd></div></dl></article>
+      </div>
+      <article class="admin-card recent-card"><header><div><small>SO‘NGGI HARAKAT</small><h3>Yangi foydalanuvchilar</h3></div><button data-admin-view="users">Barchasini ko‘rish →</button></header><div id="recentUsers" class="recent-users"></div></article>
+    </section>
+
+    <section class="admin-view" id="view-users">
+      <div class="view-heading"><div><small>ACCOUNT NAZORATI</small><h2>Foydalanuvchilar</h2><p>Haqiqiy accountlar, ularning progressi va faolligini boshqaring.</p></div><label class="admin-search">⌕<input id="userSearch" placeholder="Ism yoki email bo‘yicha qidirish"></label></div>
+      <article class="admin-card users-card"><div class="table-wrap"><table><thead><tr><th>FOYDALANUVCHI</th><th>KURSLAR PROGRESSI</th><th>IMPULSE</th><th>BOG‘</th><th>HOLAT</th><th>AMAL</th></tr></thead><tbody id="usersBody"></tbody></table></div><div class="empty-admin" id="usersEmpty">Hozircha foydalanuvchilar yo‘q.</div></article>
+    </section>
+
+    <section class="admin-view" id="view-courses">
+      <div class="view-heading"><div><small>ADMIN SINOV HUDUDI</small><h2>Barcha kurslar ochiq</h2><p>Administrator sifatida darslar ketma-ketligi sizni cheklamaydi.</p></div><span class="infinity-badge">∞ CHEKSIZ IMPULSE</span></div>
+      <div class="admin-course-grid">
+        <a href="physics7.html"><span>07</span><small>62 DARS</small><h3>7-sinf Fizika</h3><p>Mexanika, energiya, issiqlik, elektr va optika.</p><em>Sinash →</em></a>
+        <a href="physics8.html"><span>08</span><small>60 DARS</small><h3>8-sinf Fizika</h3><p>Elektr toki, zaryadlar va magnit maydon.</p><em>Sinash →</em></a>
+        <a href="physics.html"><span>09</span><small>59 DARS</small><h3>9-sinf Fizika</h3><p>Molekulyar fizika, termodinamika va optika.</p><em>Sinash →</em></a>
+        <a href="physics10.html"><span>10</span><small>59 DARS</small><h3>10-sinf Fizika</h3><p>Dinamika, tebranishlar, suyuqlik va magnitizm.</p><em>Sinash →</em></a>
+        <a href="physics11.html"><span>11</span><small>45 DARS</small><h3>11-sinf Fizika</h3><p>Elektromagnetizm, optika, nisbiylik, kvant va yadro fizikasi.</p><em>Sinash →</em></a>
+        <a class="wide" href="labs.html"><span>LAB</span><small>157 TAJRIBA</small><h3>Laboratoriya katalogi</h3><p>Barcha simulyatsiyalar va tajribalarni to‘g‘ridan-to‘g‘ri tekshiring.</p><em>Laboratoriyaga o‘tish →</em></a>
+        <a class="wide garden" href="garden.html"><span>3D</span><small>FOCUS WORLD</small><h3>Mening bog‘im</h3><p>Elementlarni Impulse sarflamasdan sinab ko‘ring va dunyoni kengaytiring.</p><em>Bog‘ni sinash →</em></a>
+      </div>
+    </section>
+
+    <section class="admin-view" id="view-system">
+      <div class="view-heading"><div><small>DIAGNOSTIKA</small><h2>Tizim holati</h2><p>Asosiy xizmatlarning ishlash holati.</p></div><button class="refresh-button" id="refreshAdmin">↻ Yangilash</button></div>
+      <div class="health-grid"><article><i></i><span><b>Account serveri</b><small>Login, sessiya va rollar</small></span><strong>FAOL</strong></article><article><i></i><span><b>Progress xizmati</b><small>4 ta kurs sinxronizatsiyasi</small></span><strong>FAOL</strong></article><article><i></i><span><b>3D bog‘ serveri</b><small>Fokus va joylashuv</small></span><strong>FAOL</strong></article><article><i></i><span><b>Reyting xizmati</b><small>Jonli hisob-kitob</small></span><strong>FAOL</strong></article></div>
+    </section>
+  </main>
+
+  <div class="admin-toast" id="adminToast" role="status"></div>
+  <div class="admin-setup" id="adminSetup" aria-hidden="true">
+    <div class="setup-visual"><span class="setup-logo"><svg viewBox="0 0 42 42"><path d="M3 23h8l4-13 7 24 6-19 4 8h7"/></svg></span><small>IDROK CONTROL</small><h2>Birinchi administratorni yarating.</h2><p>Bu bir martalik xavfsiz sozlash. Admin profili barcha statistika va sinov vositalariga to‘liq kiradi.</p><div><span>∞</span><b>Cheksiz Impulse</b><small>Barcha kurs va bog‘ elementlarini erkin sinash</small></div></div>
+    <form id="adminSetupForm"><small>LOCAL ADMIN SETUP</small><h1>Boshqaruv kaliti</h1><p>Ma’lumotlarni eslab qoling — keyingi kirishlarda shu account ishlatiladi.</p><label>Ism va familiya<input name="name" placeholder="Mansur Umidov" required minlength="3"></label><label>Admin email<input name="email" type="email" placeholder="admin@idrok.uz" required></label><label>Kuchli parol<input name="password" type="password" placeholder="Kamida 10 ta belgi" required minlength="10"></label><button type="submit"><span>Admin profilini yaratish</span><i>→</i></button><div class="setup-message"></div><a href="index.html">← Bosh sahifaga qaytish</a></form>
+  </div>
+  <script src="admin.js?v=1"></script>
+</body>
+</html>
