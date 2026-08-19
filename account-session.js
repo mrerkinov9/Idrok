@@ -25,6 +25,7 @@
     if(user.garden)localStorage.setItem('idrokGarden',JSON.stringify(user.garden));
   }
   async function request(path,options={}){
+    if(window.IDROK_AUTH?.configured)return window.IDROK_AUTH.request(path,options);
     const token=localStorage.getItem(TOKEN_KEY)||'';
     const response=await fetch(path,{...options,headers:{'Content-Type':'application/json',...(token?{Authorization:`Bearer ${token}`}:{}) ,...(options.headers||{})}});
     const payload=await response.json().catch(()=>({}));
@@ -39,8 +40,9 @@
   }
 
   const token=localStorage.getItem(TOKEN_KEY)||'';
-  if(!token)goToLogin();
-  const ready=token?request('/api/me').then(({user})=>{cacheUser(user);dispatchEvent(new CustomEvent('idrok:account-ready',{detail:user}));return user}).catch(()=>{
+  const cloudAuth=window.IDROK_AUTH?.configured===true;
+  if(!token&&!cloudAuth)goToLogin();
+  const ready=cloudAuth?window.IDROK_AUTH.ready().then(user=>{if(!user){goToLogin();return null}cacheUser(user);dispatchEvent(new CustomEvent('idrok:account-ready',{detail:user}));return user}).catch(()=>{clearSession();goToLogin();return null}):token?request('/api/me').then(({user})=>{cacheUser(user);dispatchEvent(new CustomEvent('idrok:account-ready',{detail:user}));return user}).catch(()=>{
     clearSession();goToLogin();return null;
   }):Promise.resolve(null);
 
@@ -48,6 +50,6 @@
     ready,request,cacheUser,clearSession,
     current:()=>{const email=localStorage.getItem(CURRENT_KEY)||'';return read(USERS_KEY,[]).find(user=>user.email===email)||null},
     sync:async()=>{const result=await request('/api/progress',{method:'POST',body:JSON.stringify(progressPayload())});if(result.user)cacheUser(result.user);return result.user||null},
-    logout:async()=>{try{await request('/api/logout',{method:'POST'})}catch{}clearSession()},
+    logout:async()=>{try{if(cloudAuth)await window.IDROK_AUTH.logout();else await request('/api/logout',{method:'POST'})}catch{}clearSession()},
   };
 })();
