@@ -132,7 +132,11 @@
     if (create && String(name || '').trim().length < 3) throw new Error('Ism va familiyangizni to‘liq kiriting.');
     const {error} = await sdk.auth.signInWithOtp({
       email: cleanEmail,
-      options: {shouldCreateUser: create, data: {full_name: String(name || '').trim(), ...(create ? {initial_impulse: 50} : {})}},
+      options: {
+        shouldCreateUser: create,
+        emailRedirectTo: `${location.origin}${location.pathname}`,
+        data: {full_name: String(name || '').trim(), ...(create ? {initial_impulse: 50} : {})},
+      },
     });
     if (error) throw error;
     sessionStorage.setItem('idrokPendingAuth', JSON.stringify({email: cleanEmail, name: String(name || '').trim(), create, sentAt: Date.now()}));
