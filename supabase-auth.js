@@ -125,40 +125,13 @@
     return bootPromise;
   }
 
-  async function sendOtp({email, name = '', create = false}) {
-    const sdk = getClient();
-    const cleanEmail = String(email || '').trim().toLowerCase();
-    if (!/^\S+@\S+\.\S+$/.test(cleanEmail)) throw new Error('To‘g‘ri email manzilini kiriting.');
-    if (create && String(name || '').trim().length < 3) throw new Error('Ism va familiyangizni to‘liq kiriting.');
-    const {error} = await sdk.auth.signInWithOtp({
-      email: cleanEmail,
-      options: {
-        shouldCreateUser: create,
-        emailRedirectTo: `${location.origin}${location.pathname}`,
-        data: {full_name: String(name || '').trim(), ...(create ? {initial_impulse: 50} : {})},
-      },
-    });
-    if (error) throw error;
-    sessionStorage.setItem('idrokPendingAuth', JSON.stringify({email: cleanEmail, name: String(name || '').trim(), create, sentAt: Date.now()}));
-    return {email: cleanEmail};
-  }
-
-  async function verifyOtp({email, code}) {
-    const sdk = getClient();
-    const cleanCode = String(code || '').replace(/\D/g, '');
-    if (cleanCode.length !== 6) throw new Error('Emailga kelgan 6 xonali kodni kiriting.');
-    const {data, error} = await sdk.auth.verifyOtp({email: String(email || '').trim().toLowerCase(), token: cleanCode, type: 'email'});
-    if (error) throw error;
-    if (!data.user || !data.session) throw new Error('Kod tasdiqlanmadi. Yangi kod so‘rab ko‘ring.');
-    sessionStorage.removeItem('idrokPendingAuth');
-    const user = await loadProfile(data.user);
-    return {token: data.session.access_token, user};
-  }
-
   async function signInWithGoogle() {
     const sdk = getClient();
-    const redirectTo = `${location.origin}${location.pathname}`;
-    const {data, error} = await sdk.auth.signInWithOAuth({provider: 'google', options: {redirectTo}});
+    const redirectTo = `${location.origin}${location.pathname}${location.search}`;
+    const {data, error} = await sdk.auth.signInWithOAuth({
+      provider: 'google',
+      options: {redirectTo, queryParams: {prompt: 'select_account'}},
+    });
     if (error) throw error;
     return data;
   }
@@ -232,5 +205,5 @@
     throw new Error('Bu xizmat hali production hisobiga ulanmagan.');
   }
 
-  window.IDROK_AUTH = {configured, ready, sendOtp, verifyOtp, signInWithGoogle, providers, sync, leaderboard, logout, request, current: () => cachedUser};
+  window.IDROK_AUTH = {configured, ready, signInWithGoogle, providers, sync, leaderboard, logout, request, current: () => cachedUser};
 })();
