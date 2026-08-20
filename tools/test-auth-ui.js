@@ -8,6 +8,7 @@ const app = read('app.js');
 const styles = read('styles.css');
 const auth = read('supabase-auth.js');
 const authConfig = read('auth-config.js');
+const emailTemplate = read('supabase/email-template.html');
 const pages = ['index.html', 'garden.html', 'lab.html', 'labs.html', 'physics.html', 'physics7.html', 'physics8.html', 'physics10.html', 'physics11.html'];
 let assertionCount = 0;
 
@@ -27,6 +28,10 @@ assert(/\.auth-google\{/.test(styles) && /\.otp-input/.test(styles), 'Profession
 assert(/https:\/\/[a-z0-9-]+\.supabase\.co/.test(authConfig) && /sb_publishable_/.test(authConfig), 'Production Supabase konfiguratsiyasi ulanmagan');
 assert(/isMissingProfileStore/.test(auth) && /profileStoreAvailable/.test(auth), 'Profil jadvali kechiksa auth fallback yo‘q');
 assert(/auth\/v1\/settings/.test(auth) && /availability\.google===false/.test(app), 'O‘chiq Google provider tugmasi xato chiqarishdan himoyalanmagan');
+assert(/emailRedirectTo:\s*`\$\{location\.origin\}\$\{location\.pathname\}`/.test(auth), 'Email auth production sahifasiga qaytish manzilini yubormayapti');
+assert(/auth-quantum-stage/.test(index) && /quantum-cube/.test(index) && /auth-tilt-x/.test(app), 'Interaktiv 3D auth sahnasi to‘liq ulanmagan');
+assert(/otp-delivery-guide/.test(index) && /“Sign in” tugmasi/.test(index), 'Magic Link fallback foydalanuvchiga tushuntirilmagan');
+assert(/\{\{ \.Token \}\}/.test(emailTemplate) && /IDROK/.test(emailTemplate), '6 xonali OTP email shabloni tayyor emas');
 
 for (const page of pages) {
   const html = read(page);
