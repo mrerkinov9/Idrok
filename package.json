@@ -11,6 +11,9 @@
     "test:garden": "node tools/test-garden.js",
     "test:account": "node tools/test-account.js",
     "test:admin": "node tools/test-admin.js",
-    "test:auth-ui": "node tools/test-auth-ui.js"
+    "test:auth-ui": "node tools/test-auth-ui.js",
+    "test:foundation": "node tools/test-production-foundation.js",
+    "test:supabase": "node tools/test-supabase-adapter.js",
+    "test": "npm run test:auth-ui && npm run test:foundation && npm run test:supabase && npm run test:garden && npm run test:account && npm run test:admin"
   }
 }

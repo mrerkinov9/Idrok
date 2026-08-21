@@ -39,10 +39,8 @@
   async function postAccountEvent(path, body) {
     const token = localStorage.getItem('idrokAuthToken');
     if (!token) return {email:{status:'not_signed_in'}};
-    const response = await fetch(path, {method:'POST', headers:{'Content-Type':'application/json', Authorization:`Bearer ${token}`}, body:JSON.stringify(body)});
-    const payload = await response.json().catch(() => ({}));
-    if (!response.ok) throw new Error(payload.error || 'Server bilan aloqa xatosi.');
-    return payload;
+    if (window.IDROK_ACCOUNT?.request) return window.IDROK_ACCOUNT.request(path, {method:'POST', body:JSON.stringify(body)});
+    throw new Error('Hisob sinxronizatsiyasi yuklanmadi. Sahifani qayta oching.');
   }
 
   async function reportLessonCompletion(lesson, score) {
@@ -138,6 +136,7 @@
   }
   function stageTotal(id) { return stagesFor(id).length; }
 
+  let syncTimer = 0;
   function syncUser() {
     const email = localStorage.getItem('idrokCurrentUser');
     if (!email) return;
@@ -157,8 +156,20 @@
       scores: {...physicsState.scores},
     };
     localStorage.setItem('idrokUsers', JSON.stringify(users));
-    const token = localStorage.getItem('idrokAuthToken');
-    if (token) fetch('/api/progress', {method:'POST', headers:{'Content-Type':'application/json', Authorization:`Bearer ${token}`}, body:JSON.stringify({impulse:user.impulse,score:user.score,completed:user.completed,theme:user.theme,[profileStateField]:user[profileStateField]})}).catch(() => {});
+    if (localStorage.getItem('idrokAuthToken') && window.IDROK_ACCOUNT?.request) {
+      clearTimeout(syncTimer);
+      syncTimer = setTimeout(() => {
+        window.IDROK_ACCOUNT.request('/api/progress', {method:'POST', body:JSON.stringify({
+          impulse:user.impulse,
+          score:user.score,
+          completed:user.completed,
+          theme:user.theme,
+          [profileStateField]:user[profileStateField],
+        })}).then(result => {
+          if (result.user) window.IDROK_ACCOUNT.cacheUser(result.user);
+        }).catch(error => console.warn('Progress sinxronlanmadi:', error.message));
+      }, 450);
+    }
   }
 
   function save() {

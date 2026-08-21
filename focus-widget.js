@@ -1,9 +1,11 @@
-(() => {
+(async() => {
   'use strict';
 
   const catalogApi = window.IDROK_GARDEN_CATALOG;
   const core = window.IDROK_GARDEN_CORE;
   if (!catalogApi || !core) return;
+
+  if(window.IDROK_ACCOUNT?.ready)await window.IDROK_ACCOUNT.ready;
 
   const token = localStorage.getItem('idrokAuthToken') || '';
   const learningPage = /(?:physics(?:7|8|10)?|lab)\.html$/i.test(location.pathname);
@@ -44,6 +46,7 @@
     window.dispatchEvent(new CustomEvent('idrok:garden-update',{detail:core.publicGarden(value)}));
   }
   async function api(path, options={}) {
+    if(window.IDROK_ACCOUNT?.request)return window.IDROK_ACCOUNT.request(path,options);
     const response=await fetch(path,{...options,headers:{'Content-Type':'application/json',Authorization:`Bearer ${token}`,...options.headers}});
     const data=await response.json().catch(()=>({}));
     if(!response.ok) throw Object.assign(new Error(data.error||'Bog‘ serverida xato.'),{data,status:response.status});
