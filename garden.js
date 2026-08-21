@@ -8,6 +8,7 @@ if(!catalogApi||!core)throw new Error('Bog‘ katalogi yuklanmadi.');
 
 const $=selector=>document.querySelector(selector);
 const $$=selector=>[...document.querySelectorAll(selector)];
+const escapeHTML=value=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
 const token=localStorage.getItem('idrokAuthToken')||'';
 const guestKey='idrokGarden';
 const state=JSON.parse(localStorage.getItem('idrokState')||'{"impulse":0,"theme":"light"}');
@@ -46,6 +47,7 @@ function syncLocal(){
   dispatchEvent(new CustomEvent('idrok:garden-update',{detail:core.publicGarden(garden)}));
 }
 async function api(path,options={}){
+  if(window.IDROK_ACCOUNT?.request)return window.IDROK_ACCOUNT.request(path,options);
   const response=await fetch(path,{...options,headers:{'Content-Type':'application/json',Authorization:`Bearer ${token}`,...options.headers}});
   const data=await response.json().catch(()=>({}));if(!response.ok)throw new Error(data.error||'Bog‘ serverida xato yuz berdi.');return data;
 }
@@ -290,25 +292,16 @@ function renderWorldItems(){
   }
   addScenery();selectItem(selectedItemId,false);applyEnvironment(garden.settings.timeOfDay,false);
 }
-function demoWorldPlots(){
-  return[
-    {id:'demo-zilola',name:'Zilola bog‘i',level:2,beautyScore:640,focusMinutes:180,dimensions:{cols:28,rows:28},items:[],position:{x:PLOT_GAP,z:0}},
-    {id:'demo-temur',name:'Temur tajriba bog‘i',level:3,beautyScore:910,focusMinutes:265,dimensions:{cols:32,rows:30},items:[],position:{x:0,z:PLOT_GAP}},
-    {id:'demo-madina',name:'Madina gullar vodiysi',level:2,beautyScore:735,focusMinutes:210,dimensions:{cols:28,rows:30},items:[],position:{x:-PLOT_GAP,z:0}},
-    {id:'demo-aziz',name:'Aziz fizika hovlisi',level:4,beautyScore:1180,focusMinutes:340,dimensions:{cols:34,rows:32},items:[],position:{x:0,z:-PLOT_GAP}},
-  ];
-}
 async function loadPublicWorld(){
   let plots=[];try{const data=await api('/api/garden/world');plots=Array.isArray(data.plots)?data.plots:[]}catch{}
   const me=currentUser(),real=plots.filter(plot=>!me?.id||plot.id!==me.id).slice(0,4);
   const slots=[{x:PLOT_GAP,z:0},{x:0,z:PLOT_GAP},{x:-PLOT_GAP,z:0},{x:0,z:-PLOT_GAP}];
   publicPlots=real.map((plot,index)=>({...plot,position:slots[index]}));
-  for(const demo of demoWorldPlots())if(publicPlots.length<4&&!publicPlots.some(plot=>plot.id===demo.id))publicPlots.push({...demo,position:slots[publicPlots.length]});
 }
 function renderWorldMap(filter=''){
   const clean=String(filter||'').trim().toLocaleLowerCase('uz'),plots=publicPlots.filter(plot=>!clean||plot.name.toLocaleLowerCase('uz').includes(clean));
-  const visual=$('#worldMapVisual');visual.innerHTML=`<button class="map-plot mine ${activePlotId==='mine'?'active':''}" data-visit="mine" type="button" style="left:50%;top:50%" aria-label="O‘z bog‘im"><span>🏡</span></button>${plots.map(plot=>{const left=50+plot.position.x/PLOT_GAP*31,top=50+plot.position.z/PLOT_GAP*31;return`<button class="map-plot ${activePlotId===plot.id?'active':''}" data-visit="${plot.id}" type="button" style="left:${left}%;top:${top}%" aria-label="${plot.name}"><span>🌳</span></button>`}).join('')}`;
-  $('#worldPlotList').innerHTML=`<button class="world-plot" data-visit="mine" type="button"><span>🏡</span><div><b>Mening bog‘im</b><small>${core.expansionFor(garden).cols} × ${core.expansionFor(garden).rows} yer · qurish mumkin</small></div><em>Uyim</em></button>${plots.map(plot=>`<button class="world-plot" data-visit="${plot.id}" type="button"><span>🌿</span><div><b>${plot.name}</b><small>${plot.dimensions?.cols||24} × ${plot.dimensions?.rows||24} yer · ${plot.focusMinutes||0} daqiqa fokus</small></div><em>${plot.beautyScore||0} ball</em></button>`).join('')}`;
+  const visual=$('#worldMapVisual');visual.innerHTML=`<button class="map-plot mine ${activePlotId==='mine'?'active':''}" data-visit="mine" type="button" style="left:50%;top:50%" aria-label="O‘z bog‘im"><span>🏡</span></button>${plots.map(plot=>{const left=50+plot.position.x/PLOT_GAP*31,top=50+plot.position.z/PLOT_GAP*31,safeId=escapeHTML(plot.id),safeName=escapeHTML(plot.name);return`<button class="map-plot ${activePlotId===plot.id?'active':''}" data-visit="${safeId}" type="button" style="left:${left}%;top:${top}%" aria-label="${safeName}"><span>🌳</span></button>`}).join('')}`;
+  $('#worldPlotList').innerHTML=`<button class="world-plot" data-visit="mine" type="button"><span>🏡</span><div><b>Mening bog‘im</b><small>${core.expansionFor(garden).cols} × ${core.expansionFor(garden).rows} yer · qurish mumkin</small></div><em>Uyim</em></button>${plots.map(plot=>`<button class="world-plot" data-visit="${escapeHTML(plot.id)}" type="button"><span>🌿</span><div><b>${escapeHTML(plot.name)}</b><small>${Number(plot.dimensions?.cols)||24} × ${Number(plot.dimensions?.rows)||24} yer · ${Number(plot.focusMinutes)||0} daqiqa fokus</small></div><em>${Number(plot.beautyScore)||0} ball</em></button>`).join('')}`;
   $$('[data-visit]').forEach(button=>button.addEventListener('click',()=>visitPlot(button.dataset.visit)));
 }
 function openWorldMap(open=true){
@@ -563,7 +556,7 @@ $('#gardenTheme').addEventListener('click',()=>{document.body.classList.toggle('
 addEventListener('resize',resize);addEventListener('keydown',event=>{if(event.key==='Escape'){cancelPlacement();selectItem('');closeModal('focusModal');closeModal('howModal');openWorldMap(false);openMissions(false);closeShopMobile();setMenu(false)}if((event.ctrlKey||event.metaKey)&&event.key.toLowerCase()==='z'){event.preventDefault();event.shiftKey?redo():undo()}});
 async function initialize(){
   if(state.theme==='dark')document.body.classList.add('dark');
-  if(token){try{const data=await api('/api/garden');garden=core.normalizeGarden(data.garden);impulse=data.impulse;missions=data.missions||[]}catch(error){garden=readGuest();missions=guestMissions();toast(`${error.message} Mahalliy rejim ochildi.`,true)}}
+  if(token){try{const data=await api('/api/garden');garden=core.normalizeGarden(data.garden);impulse=data.impulse;missions=data.missions||[]}catch(error){garden=readGuest();missions=guestMissions();toast(`${error.message} Oxirgi saqlangan nusxa ochildi.`,true)}}
   else{garden=readGuest();missions=guestMissions()}
   await loadPublicWorld();createLights();syncLocal();cameraTarget.set(garden.camera.targetX||0,1.2,garden.camera.targetZ||0);cameraDistance=Math.max(30,garden.camera.distance||38);cameraAzimuth=garden.camera.azimuth||.75;cameraElevation=garden.camera.elevation||.72;updateCamera();resize();renderAll();renderWorldMap();worldReady=true;$('#qualityToggle').classList.toggle('active',garden.settings.quality==='high');$('#soundToggle').classList.toggle('active',garden.settings.sound);
   requestAnimationFrame(animate);requestAnimationFrame(()=>{
