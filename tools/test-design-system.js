@@ -56,8 +56,12 @@ const css = read('design-system.css');
   ['grade-10', '--ds-grade-10'],
   ['grade-11', '--ds-grade-11'],
 ].forEach(([grade, token]) => {
-  check(css.includes(`.idrok-course.${grade}`), `${grade} accent selector missing`);
+  check(css.includes(`body.idrok-course.${grade}`), `${grade} accent selector missing`);
   check(css.includes(`var(${token})`), `${grade} accent token is not used`);
+  check(
+    css.includes(`body.idrok-course.${grade} { --idrok-accent: var(${token}); --violet: var(${token}); }`),
+    `${grade} does not override the legacy course accent`,
+  );
 });
 
 const pages = {
