@@ -236,11 +236,21 @@ html {
   --cyan: var(--ds-science);
 }
 
-.idrok-course.grade-7 { --idrok-accent: var(--ds-grade-7); }
-.idrok-course.grade-8 { --idrok-accent: var(--ds-grade-8); }
-.idrok-course.grade-9 { --idrok-accent: var(--ds-grade-9); }
-.idrok-course.grade-10 { --idrok-accent: var(--ds-grade-10); }
-.idrok-course.grade-11 { --idrok-accent: var(--ds-grade-11); }
+body.idrok-course.grade-7 { --idrok-accent: var(--ds-grade-7); --violet: var(--ds-grade-7); }
+body.idrok-course.grade-8 { --idrok-accent: var(--ds-grade-8); --violet: var(--ds-grade-8); }
+body.idrok-course.grade-9 { --idrok-accent: var(--ds-grade-9); --violet: var(--ds-grade-9); }
+body.idrok-course.grade-10 { --idrok-accent: var(--ds-grade-10); --violet: var(--ds-grade-10); }
+body.idrok-course.grade-11 { --idrok-accent: var(--ds-grade-11); --violet: var(--ds-grade-11); }
+
+body.idrok-course[class*="grade-"] {
+  --violet-dark: color-mix(in srgb, var(--idrok-accent) 78%, var(--ds-navy));
+  --violet-soft: color-mix(in srgb, var(--idrok-accent) 13%, var(--surface, white));
+}
+
+body.idrok-course.dark[class*="grade-"] {
+  --violet-dark: color-mix(in srgb, var(--idrok-accent) 72%, white);
+  --violet-soft: color-mix(in srgb, var(--idrok-accent) 18%, var(--surface, var(--ds-navy-raised)));
+}
 
 .idrok-course :where(.module-nav button, .back-link, .side-ai-button, .side-lab-button,
   .side-user, .lesson-tabs button, .lesson-tabs a) {
