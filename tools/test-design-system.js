@@ -78,7 +78,7 @@ const pages = {
 
 Object.entries(pages).forEach(([file, bodyClass]) => {
   const html = read(file);
-  check(html.includes('design-system.css?v=1'), `${file} does not load the shared design system`);
+  check(html.includes('design-system.css?v=2'), `${file} does not load the current shared design system`);
   check(html.includes(bodyClass), `${file} is missing its product-shell class`);
 });
 
