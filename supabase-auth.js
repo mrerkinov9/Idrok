@@ -56,6 +56,7 @@
       physicsState: row?.physics_state || fallback.physicsState,
       physics10State: row?.physics10_state || fallback.physics10State,
       physics11State: row?.physics11_state || fallback.physics11State,
+      updatedAt: row?.updated_at || null,
     };
   }
 
@@ -144,10 +145,23 @@
         const {data, error} = await sdk.auth.getSession();
         if (error) throw error;
         if (!data.session?.user) return null;
-        return loadProfile(data.session.user);
+        try { return await loadProfile(data.session.user); }
+        catch (profileError) {
+          if (typeof navigator !== 'undefined' && navigator.onLine === false) return cacheProfile(data.session.user);
+          throw profileError;
+        }
       })();
     }
     return bootPromise;
+  }
+
+  async function refresh() {
+    if (!configured) return null;
+    const sdk = getClient();
+    const {data, error} = await sdk.auth.getUser();
+    if (error) throw error;
+    if (!data.user) return null;
+    return loadProfile(data.user);
   }
 
   async function signInWithGoogle() {
@@ -317,6 +331,10 @@
   }
 
   async function persistGarden(context, options = {}) {
+    if (context.mutationId) {
+      context.garden.revision = Math.max(0, Number(context.garden.revision) || 0) + 1;
+      context.garden.appliedMutations = [...new Set([...(context.garden.appliedMutations || []), context.mutationId])].slice(-80);
+    }
     const publicGarden = context.core.publicGarden(context.garden);
     const impulse = Number.isFinite(options.impulse) ? Math.max(0, options.impulse) : Math.max(0, Number(context.user.impulse) || 0);
     const user = await sync(
@@ -340,6 +358,11 @@
     const body = requestBody(options);
     let impulse = Math.max(0, Number(context.user.impulse) || 0);
     let lifetimeGain = 0;
+
+    if (body.mutationId && garden.appliedMutations?.includes(String(body.mutationId))) {
+      return {garden:core.publicGarden(garden), impulse, duplicate:true, missions:missionsFor(garden, core)};
+    }
+    context.mutationId = body.mutationId ? String(body.mutationId).slice(0, 100) : '';
 
     if (path === '/api/garden') {
       if (context.expired) await persistGarden(context, {impulse});
@@ -490,14 +513,21 @@
   }
 
   function gardenRequest(path, options = {}) {
-    const operation = () => performGardenRequest(path, options);
+    let requestOptions = options;
+    const method = String(options.method || 'GET').toUpperCase();
+    if (method !== 'GET' && path !== '/api/garden') {
+      const body = requestBody(options);
+      if (!body.mutationId) body.mutationId = crypto.randomUUID?.() || `mutation-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+      requestOptions = {...options, body:JSON.stringify(body)};
+    }
+    const operation = () => performGardenRequest(path, requestOptions);
     const pending = gardenQueue.then(operation, operation);
     gardenQueue = pending.catch(() => null);
     return pending;
   }
 
   async function request(path, options = {}) {
-    if (path === '/api/me') return {user: await ready()};
+    if (path === '/api/me') return {user: options.refresh ? await refresh() : await ready()};
     if (path === '/api/progress') return {ok: true, user: await sync(JSON.parse(options.body || '{}'))};
     if (path === '/api/logout') { await logout(); return {ok: true}; }
     if (path === '/api/leaderboard') return {leaders: await leaderboard()};
@@ -511,5 +541,5 @@
     throw new Error('Bu xizmat hali production hisobiga ulanmagan.');
   }
 
-  window.IDROK_AUTH = {configured, ready, signInWithGoogle, providers, sync, leaderboard, logout, request, current: () => cachedUser};
+  window.IDROK_AUTH = {configured, ready, refresh, signInWithGoogle, providers, sync, leaderboard, logout, request, current: () => cachedUser};
 })();

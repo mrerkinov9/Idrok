@@ -7,7 +7,7 @@
 
   function createGarden(now=Date.now()){
     return{
-      version:2,level:1,items:[],focus:null,
+      version:2,revision:0,appliedMutations:[],level:1,items:[],focus:null,
       stats:{totalFocusSeconds:0,completedSessions:0,failedSessions:0,plantsGrown:0,impulseSpent:0,itemsSold:0,missionsClaimed:[]},
       settings:{timeOfDay:'day',quality:'high',sound:false},
       camera:{targetX:0,targetZ:0,distance:32,azimuth:0.75,elevation:0.8},
@@ -65,7 +65,7 @@
       x:Math.floor((expansion.cols-(legacySizes[level]?.[0]||6))/2),
       y:Math.floor((expansion.rows-(legacySizes[level]?.[1]||5))/2),
     }:{x:0,y:0};
-    const garden={...base,...value,version:2,level,items:[],focus:null};
+    const garden={...base,...value,version:2,revision:Math.max(0,Math.floor(Number(value.revision)||0)),appliedMutations:Array.isArray(value.appliedMutations)?[...new Set(value.appliedMutations.map(String))].slice(-80):[],level,items:[],focus:null};
     const rawItems=Array.isArray(value.items)?value.items.slice(0,1800):[];
     for(const raw of rawItems){
       const catalog=catalogApi.byId[raw?.catalogId];

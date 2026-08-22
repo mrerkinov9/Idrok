@@ -116,10 +116,15 @@ vm.runInNewContext(source, context, {filename:'supabase-auth.js'});
 
   let result = await auth.request('/api/garden');
   assert.strictEqual(result.impulse, 50);
-  result = await auth.request('/api/garden/purchase', {method:'POST',body:JSON.stringify({catalogId:'rayhon',x:0,y:0,rotation:0})});
+  result = await auth.request('/api/garden/purchase', {method:'POST',body:JSON.stringify({catalogId:'rayhon',x:0,y:0,rotation:0,mutationId:'purchase-1'})});
   assert.strictEqual(result.impulse, 25, 'Garden xaridi balansni kamaytirmadi');
   const plantId = result.item.id;
   assert.strictEqual(profile.garden.items.length, 1, 'Garden Supabase profiliga saqlanmadi');
+  assert.strictEqual(profile.garden.revision, 1, 'Garden revision oshmadi');
+  result = await auth.request('/api/garden/purchase', {method:'POST',body:JSON.stringify({catalogId:'rayhon',x:0,y:0,rotation:0,mutationId:'purchase-1'})});
+  assert.strictEqual(result.duplicate, true, 'Takroriy garden mutatsiyasi aniqlanmadi');
+  assert.strictEqual(profile.garden.items.length, 1, 'Takroriy purchase ikkinchi element yaratdi');
+  assert.strictEqual(result.impulse, 25, 'Takroriy purchase balansni yana kamaytirdi');
 
   result = await auth.request('/api/garden/move', {method:'POST',body:JSON.stringify({itemId:plantId,x:2,y:2,rotation:90})});
   assert.strictEqual(result.garden.items[0].x, 2, 'Garden move saqlanmadi');
@@ -132,10 +137,13 @@ vm.runInNewContext(source, context, {filename:'supabase-auth.js'});
   assert.strictEqual(result.completed, true, 'Fokus yakunlanmadi');
   assert.strictEqual(profile.garden.items[0].state, 'mature', 'O‘simlik yetilmadi');
 
-  result = await auth.request('/api/garden/mission/claim', {method:'POST',body:JSON.stringify({missionId:'first-bloom'})});
+  result = await auth.request('/api/garden/mission/claim', {method:'POST',body:JSON.stringify({missionId:'first-bloom',mutationId:'mission-first-bloom'})});
   assert.strictEqual(result.reward, 30, 'Mission reward berilmadi');
   assert.strictEqual(result.impulse, 55, 'Mission balansi noto‘g‘ri');
   assert.strictEqual(profile.garden.stats.missionsClaimed[0], 'first-bloom');
+  result = await auth.request('/api/garden/mission/claim', {method:'POST',body:JSON.stringify({missionId:'first-bloom',mutationId:'mission-first-bloom'})});
+  assert.strictEqual(result.duplicate, true, 'Mission replay idempotent emas');
+  assert.strictEqual(result.impulse, 55, 'Mission replay rewardni takror berdi');
 
   result = await auth.request('/api/garden/purchase', {method:'POST',body:JSON.stringify({catalogId:'rayhon',x:4,y:4})});
   const secondPlantId = result.item.id;
@@ -149,5 +157,5 @@ vm.runInNewContext(source, context, {filename:'supabase-auth.js'});
   assert.strictEqual(profile.garden.focus, null, 'Uzilgan fokus server holatidan tozalanmadi');
   assert.strictEqual(profile.garden.items.find(item=>item.id===secondPlantId).state, 'wilted', 'Uzilgan fokus o‘simligi qurigan holatga o‘tmadi');
 
-  console.log('SUPABASE ADAPTER TEST: 16/16 muvaffaqiyatli');
+  console.log('SUPABASE ADAPTER TEST: 22/22 muvaffaqiyatli');
 })().catch(error=>{console.error(error.stack||error);process.exitCode=1});
