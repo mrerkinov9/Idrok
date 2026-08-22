@@ -37,7 +37,7 @@ assert(/leaderboard_opt_in boolean not null default false/.test(schema), 'Leader
 assert(/revoke all on public\.leaderboard from anon/.test(schema), 'Anon leaderboard yopilmagan');
 assert(/guard_profile_update/.test(schema) && /new\.lifetime_impulse/.test(schema), 'Profil iqtisod himoyasi yo‘q');
 assert(/profiles_garden_size/.test(schema) && /profiles_completed_array/.test(schema), 'Profil JSON limitlari yo‘q');
-assert(/configured\)return window\.IDROK_AUTH\.request/.test(account), 'Account request Supabase adapteriga delegatsiya qilmayapti');
+assert(/cloudAuth\)result=await window\.IDROK_AUTH\.request/.test(account), 'Account request Supabase adapteriga delegatsiya qilmayapti');
 
 const securityHeaders = Object.fromEntries(vercel.headers[0].headers.map(item => [item.key.toLowerCase(), item.value]));
 assert(securityHeaders['content-security-policy']?.includes("object-src 'none'"), 'CSP object himoyasi yo‘q');
@@ -47,7 +47,7 @@ assert(securityHeaders['referrer-policy'] === 'strict-origin-when-cross-origin',
 
 for (const page of protectedPages) {
   const html = read(page);
-  assert(/supabase-auth\.js\?v=5/.test(html), `${page}: yangi Supabase adapter versiyasi ulanmagan`);
+  assert(/supabase-auth\.js\?v=6/.test(html), `${page}: yangi Supabase adapter versiyasi ulanmagan`);
   assert(/focus-widget\.js\?v=2/.test(html), `${page}: yangi focus widget versiyasi ulanmagan`);
 }
 
