@@ -64,7 +64,7 @@ const pages = [
 
 for (const file of pages) {
   const html = read(file);
-  check(html.includes('science-studio.css?v=1'), `${file} does not load Science Studio`);
+  check(/science-studio\.css\?v=\d+/.test(html), `${file} does not load Science Studio`);
   check(/<body class="[^"]*science-studio/.test(html), `${file} does not activate Science Studio`);
 }
 

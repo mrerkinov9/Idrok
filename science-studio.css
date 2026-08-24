@@ -286,6 +286,12 @@ body.science-studio .journey-meta span {
   font-size: 12px !important;
 }
 
+body.science-studio :where(.journey-copy > i, .journey-progress > span,
+  .ai-spotlight em, .home-ai-context span) {
+  font-size: 12px !important;
+  line-height: 1.45 !important;
+}
+
 body.science-studio .journey-meta .journey-reward {
   border-color: #ead9a8 !important;
   background: var(--ss-reward-soft) !important;
