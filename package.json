@@ -16,6 +16,7 @@
     "test:supabase": "node tools/test-supabase-adapter.js",
     "test:day2": "node tools/test-day2-flows.js",
     "test:design": "node tools/test-design-system.js",
-    "test": "npm run test:auth-ui && npm run test:foundation && npm run test:supabase && npm run test:day2 && npm run test:design && npm run test:garden && npm run test:account && npm run test:admin"
+    "test:studio": "node tools/test-science-studio.js",
+    "test": "npm run test:auth-ui && npm run test:foundation && npm run test:supabase && npm run test:day2 && npm run test:design && npm run test:studio && npm run test:garden && npm run test:account && npm run test:admin"
   }
 }

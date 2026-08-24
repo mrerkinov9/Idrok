@@ -369,7 +369,30 @@
       return {garden:core.publicGarden(context.garden), impulse, unlimitedImpulse:context.user.role==='admin', catalog:catalog.catalog, expansions:catalog.expansions, missions:missionsFor(context.garden, core)};
     }
 
-    if (path === '/api/garden/world') return {plots:[]};
+    if (path === '/api/garden/world') {
+      const sdk = getClient();
+      const {data, error} = await sdk.rpc('get_garden_world');
+      if (error) {
+        const missing = String(error.code || '').toUpperCase() === 'PGRST202'
+          || String(error.message || '').toLowerCase().includes('get_garden_world');
+        if (!missing) throw error;
+        return {plots:[], setupRequired:true};
+      }
+      const plots = (data || []).map((row) => {
+        const shared = core.publicGarden(row.garden);
+        return {
+          id: row.id,
+          name: String(row.name || 'Idrok bog‘boni').slice(0, 60),
+          level: shared.level,
+          beautyScore: shared.beautyScore,
+          focusMinutes: shared.focusMinutes,
+          dimensions: shared.dimensions,
+          items: shared.items.slice(0, 600),
+          updatedAt: row.updated_at || shared.updatedAt,
+        };
+      });
+      return {plots};
+    }
 
     if (path === '/api/garden/focus/heartbeat' && context.expired) {
       await persistGarden(context, {impulse});

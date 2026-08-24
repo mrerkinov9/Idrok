@@ -15,12 +15,15 @@ create table if not exists public.profiles (
   physics10_state jsonb,
   physics11_state jsonb,
   leaderboard_opt_in boolean not null default false,
+  garden_public boolean not null default true,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
 
 alter table public.profiles
   add column if not exists leaderboard_opt_in boolean not null default false;
+alter table public.profiles
+  add column if not exists garden_public boolean not null default true;
 
 update public.profiles
 set name = coalesce(nullif(left(regexp_replace(trim(name), '[<>]', '', 'g'), 80), ''), 'Idrok foydalanuvchisi')
@@ -52,7 +55,7 @@ alter table public.profiles enable row level security;
 
 revoke all on public.profiles from authenticated;
 grant select on public.profiles to authenticated;
-grant update (name, email, impulse, score, completed, theme, garden, physics7_state, physics8_state, physics_state, physics10_state, physics11_state, leaderboard_opt_in, updated_at) on public.profiles to authenticated;
+grant update (name, email, impulse, score, completed, theme, garden, physics7_state, physics8_state, physics_state, physics10_state, physics11_state, leaderboard_opt_in, garden_public, updated_at) on public.profiles to authenticated;
 revoke all on public.profiles from anon;
 
 drop policy if exists "Users read own profile" on public.profiles;
@@ -138,3 +141,30 @@ where role = 'student' and leaderboard_opt_in = true;
 
 revoke all on public.leaderboard from anon;
 grant select on public.leaderboard to authenticated;
+
+-- Social garden directory. This security-definer RPC intentionally exposes
+-- only the public display name and garden snapshot; email, role, progress and
+-- every other private profile field remain protected by profile RLS.
+create or replace function public.get_garden_world()
+returns table (
+  id uuid,
+  name text,
+  garden jsonb,
+  updated_at timestamptz
+)
+language sql
+stable
+security definer
+set search_path = ''
+as $$
+  select p.id, p.name, p.garden, p.updated_at
+  from public.profiles as p
+  where p.role = 'student'
+    and p.garden_public = true
+    and p.garden is not null
+  order by p.updated_at desc
+  limit 48;
+$$;
+
+revoke all on function public.get_garden_world() from public, anon;
+grant execute on function public.get_garden_world() to authenticated;

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="description" content="Idrok 3D bilim bog‘i — fokus qiling, o‘simlik o‘stiring va o‘z bog‘ingizni erkin yarating.">
-  <meta name="theme-color" content="#0d1734">
+  <meta name="theme-color" content="#f5f2ea">
   <title>3D Mening bog‘im — Idrok</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,8 +13,9 @@
   <link rel="stylesheet" href="focus-widget.css?v=1">
   <link rel="stylesheet" href="idrok-next.css?v=2">
   <link rel="stylesheet" href="design-system.css?v=2">
+  <link rel="stylesheet" href="science-studio.css?v=1">
 </head>
-<body class="idrok-garden">
+<body class="idrok-garden science-studio">
   <aside class="garden-sidebar" id="gardenSidebar">
     <div class="garden-brand-row">
       <a class="garden-brand" href="index.html#bosh"><span><svg viewBox="0 0 34 34" aria-hidden="true"><path d="M3 18h7l3-9 6 17 4-11 3 3h5"/></svg></span><b>IDROK</b></a>
@@ -71,8 +72,8 @@
 
       <section class="garden-game-layout">
         <div class="garden-world-card" id="gardenWorldCard">
-          <canvas id="gardenCanvas" aria-label="Erkin boshqariladigan uch o‘lchamli bilim bog‘i"></canvas>
-          <div class="world-loading" id="worldLoading"><span class="loading-seed">🌍</span><b>Idrok dunyosi tayyorlanmoqda…</b><small>Tog‘lar, bog‘lar va qo‘shnilar yuklanmoqda</small><i></i></div>
+          <canvas id="gardenCanvas" tabindex="0" aria-label="Erkin boshqariladigan uch o‘lchamli bilim bog‘i"></canvas>
+          <div class="world-loading" id="worldLoading"><span class="loading-seed"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3.5 9h17M3.5 15h17M12 3c2.5 2.6 3.6 5.6 3.6 9S14.5 18.4 12 21c-2.5-2.6-3.6-5.6-3.6-9S9.5 5.6 12 3Z"/></svg></span><b>Idrok dunyosi tayyorlanmoqda…</b><small>Tog‘lar, bog‘lar va qo‘shnilar yuklanmoqda</small><i></i></div>
           <div class="world-vignette" aria-hidden="true"></div>
 
           <div class="world-top-left">
@@ -88,6 +89,7 @@
             <button id="cameraZoomIn" type="button" aria-label="Yaqinlashtirish">＋</button>
             <button id="cameraZoomOut" type="button" aria-label="Uzoqlashtirish">−</button>
             <button id="cameraExplore" type="button" aria-label="Dunyoni yuqoridan ko‘rish">⌘</button>
+            <button id="cameraWalk" type="button" aria-label="Bog‘ ichida erkin yurish" aria-pressed="false">WASD</button>
           </div>
 
           <div class="environment-tools" aria-label="Bog‘ muhiti">
@@ -98,8 +100,8 @@
             <button id="soundToggle" type="button"><span>♫</span><small>Ovoz</small></button>
           </div>
 
-          <div class="world-help" id="worldHelp"><span>🖱</span><p><b>Sudrang — kamera</b><small>O‘ng tugma bilan aylantiring · g‘ildirak bilan yaqinlashing</small></p><button id="closeWorldHelp" type="button" aria-label="Maslahatni yopish">×</button></div>
-          <div class="visit-banner" id="visitBanner" aria-hidden="true"><span>👁</span><div><small>TASHRIF REJIMI</small><b id="visitGardenName">Qo‘shni bog‘i</b></div><button id="returnHomePlot" type="button">O‘z bog‘imga qaytish</button></div>
+          <div class="world-help" id="worldHelp"><span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2" width="10" height="19" rx="5"/><path d="M12 2v7M7 10h10"/></svg></span><p><b>Sudrang — kamera</b><small>O‘ng tugma bilan aylantiring · g‘ildirak bilan yaqinlashing</small></p><button id="closeWorldHelp" type="button" aria-label="Maslahatni yopish">×</button></div>
+          <div class="visit-banner" id="visitBanner" aria-hidden="true"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"/><circle cx="12" cy="12" r="2.7"/></svg></span><div><small>TASHRIF REJIMI</small><b id="visitGardenName">Qo‘shni bog‘i</b></div><button id="returnHomePlot" type="button">O‘z bog‘imga qaytish</button></div>
           <div class="placement-tip" id="placementTip" aria-hidden="true"><span id="placementIcon">✿</span><div><small>JOYLASHTIRISH</small><b id="placementName">Atirgul</b></div><em id="placementState">Yashil joyga bosing</em></div>
 
           <div class="selection-panel" id="selectionPanel" aria-hidden="true">
