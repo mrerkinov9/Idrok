@@ -24,12 +24,12 @@ const missionDefs=[
   {id:'focus-hour',title:'Bir soatlik bog‘bon',description:'Jami 60 daqiqa fokus qiling.',reward:80,test:g=>core.focusMinutes(g)>=60},
   {id:'garden-designer',title:'Bog‘ dizayneri',description:'Bog‘ingizga 20 ta element joylashtiring.',reward:100,test:g=>g.items.length>=20},
 ];
-const icons={rayhon:'🌿',yalpiz:'🍃',moychechak:'🌼',atirgul:'🌹',lola:'🌷',nargiz:'🌻',lavanda:'🪻',kungaboqar:'🌻',gortenziya:'🟣',olma:'🍎',gilos:'🍒',orik:'🟠',sakura:'🌸',archa:'🌲',chinor:'🌳',magnoliya:'🌺',yolak:'▦',shaghal:'◌',tuproq:'◼',chiroq:'💡',orindiq:'🪑','tirik-devor':'▰','gul-arkasi':'⚘',koprik:'⌒',hovuz:'💧',favvora:'⛲',pergola:'⌂','atom-haykali':'⚛',raketa:'🚀'};
 const filters={
   plant:[['all','Barchasi'],['flower','Gullar'],['herb','Giyohlar'],['bush','Butalar'],['tree','Daraxtlar']],
   decor:[['all','Barchasi'],['path','Yo‘lak'],['water','Suv'],['furniture','Mebel'],['architecture','Arxitektura'],['idrok','Idrok']],
 };
 const kindGroup=kind=>['flower'].includes(kind)?'flower':['herb'].includes(kind)?'herb':['bush'].includes(kind)?'bush':['fruit-tree','blossom-tree','pine','tree'].includes(kind)?'tree':['path','soil'].includes(kind)?'path':['pond','fountain','bridge'].includes(kind)?'water':['bench','lamp','hedge'].includes(kind)?'furniture':['arch','pergola'].includes(kind)?'architecture':'idrok';
+const catalogArt=catalog=>`<span class="catalog-art-visual kind-${kindGroup(catalog?.kind)}" aria-hidden="true"><i></i><i></i><i></i></span>`;
 
 function toast(message,error=false){
   const node=$('#gardenToast');node.textContent=message;node.classList.toggle('error',error);node.classList.add('show');
@@ -389,7 +389,7 @@ function removeGhost(){if(ghost){world.remove(ghost);disposeGroup(ghost);ghost=n
 function buildGhost(catalogId){
   removeGhost();const catalog=catalogApi.byId[catalogId],fake={id:'preview',catalogId,state:catalog.type==='plant'?'mature':'placed',progress:1,rotation:placementRotation,variant:1};
   ghost=createItemModel(fake,true);world.add(ghost);ghostRing=new THREE.Mesh(new THREE.RingGeometry(.42,.58,32),new THREE.MeshBasicMaterial({color:'#56e59a',transparent:true,opacity:.55,side:THREE.DoubleSide}));ghostRing.rotation.x=-Math.PI/2;world.add(ghostRing);canvas.classList.add('placing');
-  $('#placementIcon').textContent=icons[catalogId]||'✿';$('#placementName').textContent=catalog.name;$('#placementTip').classList.add('show');
+  $('#placementIcon').innerHTML=catalogArt(catalog);$('#placementName').textContent=catalog.name;$('#placementTip').classList.add('show');
 }
 function updateGhost(event){
   if(!ghost||(!pendingCatalogId&&!movingId))return;const cell=pointerToGround(event);if(!cell)return;hoverCell=cell;
@@ -441,7 +441,7 @@ function selectItem(itemId,announce=true){
   if(!selectedItemId)return;
   const item=garden.items.find(entry=>entry.id===selectedItemId),catalog=catalogApi.byId[item.catalogId],position=itemPosition(item),[w,h]=core.footprintFor(catalog,item.rotation);
   selectionRing=new THREE.Mesh(new THREE.RingGeometry(.42,.58,40),new THREE.MeshBasicMaterial({color:'#78f4d0',transparent:true,opacity:.85,side:THREE.DoubleSide}));selectionRing.rotation.x=-Math.PI/2;selectionRing.position.set(position.x,.06,position.z);selectionRing.scale.set(w,h,1);world.add(selectionRing);
-  $('#selectionArt').textContent=icons[catalog.id]||'✿';$('#selectionName').textContent=catalog.name;$('#selectionMeta').textContent=`${catalog.type==='plant'?`${catalog.minutes} daqiqa · `:''}${w}×${h} joy · ${item.state==='mature'?'gullagan':item.state==='wilted'?'qurigan':item.state==='growing'?`${Math.round(item.progress*100)}% o‘sgan`:'yangi'}`;
+  $('#selectionArt').innerHTML=catalogArt(catalog);$('#selectionName').textContent=catalog.name;$('#selectionMeta').textContent=`${catalog.type==='plant'?`${catalog.minutes} daqiqa · `:''}${w}×${h} joy · ${item.state==='mature'?'gullagan':item.state==='wilted'?'qurigan':item.state==='growing'?`${Math.round(item.progress*100)}% o‘sgan`:'yangi'}`;
   const focusButton=$('#focusSelected');focusButton.style.display=catalog.type==='plant'&&['seed','wilted'].includes(item.state)?'block':'none';
   if(announce)$('#gardenMessage').textContent=`${catalog.name} tanlandi. Uni ko‘chirish, aylantirish yoki sotish mumkin.`;
 }
@@ -520,7 +520,7 @@ async function claimMission(id){
 /* ---------- FOKUS ---------- */
 function openFocus(item){
   const catalog=catalogApi.byId[item.catalogId],revive=item.state==='wilted',minutes=Math.round(catalog.minutes*(revive ? .6 : 1));modalPlantId=item.id;
-  $('#focusPlantPreview').textContent=icons[catalog.id]||'🌱';$('#focusTitle').textContent=`${catalog.name}${revive?'ni tiklash':'ni o‘stirish'}`;$('#focusDescription').textContent=revive?`Qurigan ${catalog.name.toLowerCase()}ni ${minutes} daqiqalik fokus bilan qayta tiklang.`:`${catalog.name} ${minutes} daqiqalik faol o‘rganishdan keyin to‘liq o‘sadi.`;$('#focusDuration').textContent=`${minutes} daqiqa`;openModal('focusModal');
+  $('#focusPlantPreview').innerHTML=catalogArt(catalog);$('#focusTitle').textContent=`${catalog.name}${revive?'ni tiklash':'ni o‘stirish'}`;$('#focusDescription').textContent=revive?`Qurigan ${catalog.name.toLowerCase()}ni ${minutes} daqiqalik fokus bilan qayta tiklang.`:`${catalog.name} ${minutes} daqiqalik faol o‘rganishdan keyin to‘liq o‘sadi.`;$('#focusDuration').textContent=`${minutes} daqiqa`;openModal('focusModal');
 }
 async function startFocus(){
   if(!modalPlantId||busy)return;busy=true;
@@ -535,7 +535,7 @@ async function startFocus(){
 function renderShop(){
   const list=catalogApi.catalog.filter(item=>item.type===shopType&&(shopFilter==='all'||kindGroup(item.kind)===shopFilter));
   $('#shopFilters').innerHTML=filters[shopType].map(([id,label])=>`<button class="${shopFilter===id?'active':''}" data-filter="${id}" type="button">${label}</button>`).join('');
-  $('#shopList').innerHTML=list.map(item=>{const[w,h]=item.footprint;return`<button class="shop-item ${pendingCatalogId===item.id?'selected':''}" data-catalog="${item.id}" type="button"><span class="shop-art">${icons[item.id]||'✿'}</span><span class="shop-copy"><b>${item.name}</b><small>${item.description}</small><em>${item.type==='plant'?`${item.minutes} daqiqa fokus`:`${w}×${h} joy`}</em></span><span class="shop-price"><b>${item.price} ϟ</b><small>+${item.points} ball</small><i>${item.rarity}</i></span></button>`}).join('');
+  $('#shopList').innerHTML=list.map(item=>{const[w,h]=item.footprint;return`<button class="shop-item ${pendingCatalogId===item.id?'selected':''}" data-catalog="${item.id}" type="button"><span class="shop-art">${catalogArt(item)}</span><span class="shop-copy"><b>${item.name}</b><small>${item.description}</small><em>${item.type==='plant'?`${item.minutes} daqiqa fokus`:`${w}×${h} joy`}</em></span><span class="shop-price"><b>${item.price} ϟ</b><small>+${item.points} ball</small><i>${item.rarity}</i></span></button>`}).join('');
   $$('[data-catalog]').forEach(button=>button.addEventListener('click',()=>beginPlacement(button.dataset.catalog)));
   $$('#shopFilters [data-filter]').forEach(button=>button.addEventListener('click',()=>{shopFilter=button.dataset.filter;renderShop()}));
 }
