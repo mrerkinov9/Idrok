@@ -61,7 +61,7 @@ const canvas=$('#gardenCanvas');
 const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:false,powerPreference:'high-performance'});
 renderer.outputColorSpace=THREE.SRGBColorSpace;
 renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.05;
-renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFShadowMap;
+renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
 const scene=new THREE.Scene();
 const camera=new THREE.PerspectiveCamera(47,1,.1,520);
 const raycaster=new THREE.Raycaster(),pointer=new THREE.Vector2();
@@ -71,6 +71,8 @@ let itemGroups=new Map(),animated=[],butterflies=[],waterObjects=[],lampLights=[
 let cameraTarget=new THREE.Vector3(),cameraDistance=32,cameraAzimuth=.75,cameraElevation=.8;
 let pointerDown=null,dragMode='',lastFrame=performance.now(),audioContext=null,ambientSource=null;
 let publicPlots=[],activePlotId='mine',worldReady=false;
+let walkMode=false,walkYaw=.7,walkPitch=-.08;
+const walkPosition=new THREE.Vector3(0,2.2,8),walkKeys=new Set();
 const WORLD_SIZE=280,WORLD_SEGMENTS=150,PLOT_GAP=82,ownPlotCenter=new THREE.Vector3(0,0,0);
 const textureCache={};
 
@@ -232,6 +234,14 @@ function addCottage(parent,center,variant=0){
   [-1.75,1.75].forEach(x=>{addMesh(parent,new THREE.BoxGeometry(1.25,1.2,.12),mat('#9bd4e4',{metalness:.05,roughness:.12}),center.x+x,1.85,center.z-2.13);addMesh(parent,new THREE.BoxGeometry(.06,1.2,.16),mat('#f4f0de'),center.x+x,1.85,center.z-2.2);addMesh(parent,new THREE.BoxGeometry(1.25,.06,.16),mat('#f4f0de'),center.x+x,1.85,center.z-2.2)});
   addMesh(parent,new THREE.CylinderGeometry(.24,.3,2.2,10),mat('#6c4d3b',{roughness:1}),center.x+1.8,4.1,center.z+.9);
 }
+function addMeadowDetails(parent){
+  const high=garden.settings.quality==='high',grassCount=high?1300:520,flowerCount=high?210:70,dummy=new THREE.Object3D();
+  const insidePlot=(x,z,center,dims)=>Math.abs(x-center.x)<dims.cols/2+3&&Math.abs(z-center.z)<dims.rows/2+3;
+  const blocked=(x,z)=>insidePlot(x,z,ownPlotCenter,core.expansionFor(garden))||publicPlots.some(plot=>insidePlot(x,z,plot.position,plot.dimensions||{cols:24,rows:24}))||(Math.abs(x+63)<21&&Math.abs(z-58)<17)||Math.abs(z+42)<4||Math.abs(x+42)<4;
+  const grass=new THREE.InstancedMesh(new THREE.ConeGeometry(.07,.48,4),mat('#4f7d3e',{roughness:1}),grassCount);grass.castShadow=false;grass.receiveShadow=true;
+  let used=0;for(let i=0;i<grassCount*3&&used<grassCount;i++){const x=(seededNoise(i,31)-.5)*250,z=(seededNoise(i,47)-.5)*250;if(blocked(x,z))continue;const scale=.55+seededNoise(i,73)*.8;dummy.position.set(x,terrainHeight(x,z)+.18*scale,z);dummy.rotation.set(0,seededNoise(i,59)*Math.PI,0);dummy.scale.set(scale,scale,scale);dummy.updateMatrix();grass.setMatrixAt(used,dummy.matrix);grass.setColorAt(used,new THREE.Color(i%3?'#517f3f':'#6a934b'));used++}grass.count=used;grass.instanceMatrix.needsUpdate=true;if(grass.instanceColor)grass.instanceColor.needsUpdate=true;parent.add(grass);
+  const flowers=new THREE.InstancedMesh(new THREE.IcosahedronGeometry(.075,1),mat('#f2d17a',{roughness:.9}),flowerCount);flowers.castShadow=false;used=0;for(let i=0;i<flowerCount*4&&used<flowerCount;i++){const x=(seededNoise(i,101)-.5)*230,z=(seededNoise(i,127)-.5)*230;if(blocked(x,z))continue;dummy.position.set(x,terrainHeight(x,z)+.38,z);dummy.rotation.set(0,seededNoise(i,149)*Math.PI,0);dummy.scale.setScalar(.65+seededNoise(i,163)*.65);dummy.updateMatrix();flowers.setMatrixAt(used,dummy.matrix);flowers.setColorAt(used,new THREE.Color(['#f1cf63','#f7ede0','#d8a6b6','#b9cee9'][i%4]));used++}flowers.count=used;flowers.instanceMatrix.needsUpdate=true;if(flowers.instanceColor)flowers.instanceColor.needsUpdate=true;parent.add(flowers);
+}
 function labelSprite(text,color='#59d3be'){
   const canvas=document.createElement('canvas');canvas.width=512;canvas.height=128;const context=canvas.getContext('2d');
   context.fillStyle='rgba(8,20,38,.88)';context.roundRect(6,6,500,116,30);context.fill();context.strokeStyle=color;context.lineWidth=5;context.stroke();
@@ -279,6 +289,7 @@ function addScenery(){
   for(let i=0;i<24;i++){const x=-50+(i%8)*4,z=44+Math.floor(i/8)*4,rock=addMesh(sceneryGroup,new THREE.DodecahedronGeometry(.5+(i%4)*.25,1),mat(i%2?'#777a71':'#5f655e',{roughness:1}),x,terrainHeight(x,z)+.3,z,1,.65,1);rock.rotation.set(i*.2,i*.7,0)}
   const roadMat=mat('#9a835f',{map:canvasTexture('road','#9d8a69','#6f624e',800),roughness:1});
   addMesh(sceneryGroup,new THREE.BoxGeometry(WORLD_SIZE*.72,.06,5.4),roadMat,0,.055,-42);addMesh(sceneryGroup,new THREE.BoxGeometry(5.4,.06,WORLD_SIZE*.72),roadMat,-42,.06,0);
+  addMeadowDetails(sceneryGroup);
   for(let i=0;i<8;i++){const cloud=new THREE.Group();for(let p=0;p<5;p++){const puff=addMesh(cloud,new THREE.SphereGeometry(2.4+(p%3),14,9),new THREE.MeshLambertMaterial({color:'#ffffff',transparent:true,opacity:.34,depthWrite:false}),p*2.6-5.2,(p%2)*1.2,0,1,.52,1);puff.castShadow=false;puff.receiveShadow=false}cloud.position.set((i-4)*34,34+(i%3)*6,-86+(i%4)*54);sceneryGroup.add(cloud);animated.push({object:cloud,type:'cloud',speed:.35+(i%3)*.1,phase:i})}
   butterflies=[];
   const butterflyCount=garden.settings.quality==='high'?14:5;
@@ -294,14 +305,18 @@ function renderWorldItems(){
 }
 async function loadPublicWorld(){
   let plots=[];try{const data=await api('/api/garden/world');plots=Array.isArray(data.plots)?data.plots:[]}catch{}
-  const me=currentUser(),real=plots.filter(plot=>!me?.id||plot.id!==me.id).slice(0,4);
-  const slots=[{x:PLOT_GAP,z:0},{x:0,z:PLOT_GAP},{x:-PLOT_GAP,z:0},{x:0,z:-PLOT_GAP}];
+  const me=currentUser(),real=plots.filter(plot=>!me?.id||plot.id!==me.id).slice(0,8);
+  const slots=[
+    {x:PLOT_GAP,z:0},{x:54,z:54},{x:0,z:PLOT_GAP},{x:-54,z:54},
+    {x:-PLOT_GAP,z:0},{x:-54,z:-54},{x:0,z:-PLOT_GAP},{x:54,z:-54},
+  ];
   publicPlots=real.map((plot,index)=>({...plot,position:slots[index]}));
 }
 function renderWorldMap(filter=''){
   const clean=String(filter||'').trim().toLocaleLowerCase('uz'),plots=publicPlots.filter(plot=>!clean||plot.name.toLocaleLowerCase('uz').includes(clean));
-  const visual=$('#worldMapVisual');visual.innerHTML=`<button class="map-plot mine ${activePlotId==='mine'?'active':''}" data-visit="mine" type="button" style="left:50%;top:50%" aria-label="O‘z bog‘im"><span>🏡</span></button>${plots.map(plot=>{const left=50+plot.position.x/PLOT_GAP*31,top=50+plot.position.z/PLOT_GAP*31,safeId=escapeHTML(plot.id),safeName=escapeHTML(plot.name);return`<button class="map-plot ${activePlotId===plot.id?'active':''}" data-visit="${safeId}" type="button" style="left:${left}%;top:${top}%" aria-label="${safeName}"><span>🌳</span></button>`}).join('')}`;
-  $('#worldPlotList').innerHTML=`<button class="world-plot" data-visit="mine" type="button"><span>🏡</span><div><b>Mening bog‘im</b><small>${core.expansionFor(garden).cols} × ${core.expansionFor(garden).rows} yer · qurish mumkin</small></div><em>Uyim</em></button>${plots.map(plot=>`<button class="world-plot" data-visit="${escapeHTML(plot.id)}" type="button"><span>🌿</span><div><b>${escapeHTML(plot.name)}</b><small>${Number(plot.dimensions?.cols)||24} × ${Number(plot.dimensions?.rows)||24} yer · ${Number(plot.focusMinutes)||0} daqiqa fokus</small></div><em>${Number(plot.beautyScore)||0} ball</em></button>`).join('')}`;
+  const homeIcon='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5M6.5 10v9h11v-9M10 19v-5h4v5"/></svg>',treeIcon='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 7.5 9h2L6 14h4.5v6h3v-6H18l-3.5-5h2z"/></svg>';
+  const visual=$('#worldMapVisual');visual.innerHTML=`<button class="map-plot mine ${activePlotId==='mine'?'active':''}" data-visit="mine" type="button" style="left:50%;top:50%" aria-label="O‘z bog‘im"><span>${homeIcon}</span></button>${plots.map(plot=>{const left=50+plot.position.x/PLOT_GAP*31,top=50+plot.position.z/PLOT_GAP*31,safeId=escapeHTML(plot.id),safeName=escapeHTML(plot.name);return`<button class="map-plot ${activePlotId===plot.id?'active':''}" data-visit="${safeId}" type="button" style="left:${left}%;top:${top}%" aria-label="${safeName}"><span>${treeIcon}</span></button>`}).join('')}`;
+  $('#worldPlotList').innerHTML=`<button class="world-plot" data-visit="mine" type="button"><span>${homeIcon}</span><div><b>Mening bog‘im</b><small>${core.expansionFor(garden).cols} × ${core.expansionFor(garden).rows} yer · qurish mumkin</small></div><em>Uyim</em></button>${plots.map(plot=>`<button class="world-plot" data-visit="${escapeHTML(plot.id)}" type="button"><span>${treeIcon}</span><div><b>${escapeHTML(plot.name)}</b><small>${Number(plot.dimensions?.cols)||24} × ${Number(plot.dimensions?.rows)||24} yer · ${Number(plot.focusMinutes)||0} daqiqa fokus</small></div><em>${Number(plot.beautyScore)||0} ball</em></button>`).join('')}`;
   $$('[data-visit]').forEach(button=>button.addEventListener('click',()=>visitPlot(button.dataset.visit)));
 }
 function openWorldMap(open=true){
@@ -309,7 +324,7 @@ function openWorldMap(open=true){
 }
 function visitPlot(plotId){
   const mine=plotId==='mine',plot=mine?null:publicPlots.find(entry=>entry.id===plotId);if(!mine&&!plot)return;
-  activePlotId=mine?'mine':plot.id;cancelPlacement();selectItem('',false);const center=mine?ownPlotCenter:new THREE.Vector3(plot.position.x,0,plot.position.z);
+  setWalkMode(false);activePlotId=mine?'mine':plot.id;cancelPlacement();selectItem('',false);const center=mine?ownPlotCenter:new THREE.Vector3(plot.position.x,0,plot.position.z);
   cameraTarget.set(center.x,1.2,center.z);cameraDistance=mine?Math.max(25,core.expansionFor(garden).cols*.92):Math.max(27,(plot.dimensions?.cols||24)*.95);cameraElevation=.64;cameraAzimuth=.78;updateCamera();
   $('#gardenWorldCard').classList.toggle('visiting',!mine);$('#visitBanner').classList.toggle('show',!mine);$('#visitBanner').setAttribute('aria-hidden',String(mine));
   if(!mine){$('#visitGardenName').textContent=plot.name;$('#gardenMessage').textContent=`${plot.name}: bu hudud faqat tomosha uchun ochildi.`}else $('#gardenMessage').textContent='O‘z bog‘ingizga qaytdingiz. Endi ekish va bezash mumkin.';
@@ -330,9 +345,24 @@ function applyEnvironment(mode='day',persist=true){
   if(persist)persistSettings();
 }
 function updateCamera(){
+  if(walkMode)return updateWalkCamera();
   const horizontal=Math.cos(cameraElevation)*cameraDistance;
   camera.position.set(cameraTarget.x+Math.sin(cameraAzimuth)*horizontal,cameraTarget.y+Math.sin(cameraElevation)*cameraDistance,cameraTarget.z+Math.cos(cameraAzimuth)*horizontal);
   camera.lookAt(cameraTarget);
+}
+function updateWalkCamera(){
+  walkPosition.x=THREE.MathUtils.clamp(walkPosition.x,-128,128);walkPosition.z=THREE.MathUtils.clamp(walkPosition.z,-128,128);walkPosition.y=terrainHeight(walkPosition.x,walkPosition.z)+1.72;
+  camera.position.copy(walkPosition);camera.rotation.order='YXZ';camera.rotation.y=walkYaw;camera.rotation.x=walkPitch;camera.rotation.z=0;
+}
+function updateWalk(dt){
+  if(!walkMode)return;const direction=new THREE.Vector3(),forward=new THREE.Vector3(-Math.sin(walkYaw),0,-Math.cos(walkYaw)),right=new THREE.Vector3(Math.cos(walkYaw),0,-Math.sin(walkYaw));
+  if(walkKeys.has('KeyW')||walkKeys.has('ArrowUp'))direction.add(forward);if(walkKeys.has('KeyS')||walkKeys.has('ArrowDown'))direction.sub(forward);if(walkKeys.has('KeyD')||walkKeys.has('ArrowRight'))direction.add(right);if(walkKeys.has('KeyA')||walkKeys.has('ArrowLeft'))direction.sub(right);
+  if(direction.lengthSq()){direction.normalize();walkPosition.addScaledVector(direction,(walkKeys.has('ShiftLeft')?15:8)*dt)}updateWalkCamera();
+}
+function setWalkMode(enabled){
+  walkMode=Boolean(enabled);walkKeys.clear();const button=$('#cameraWalk');button.classList.toggle('active',walkMode);button.setAttribute('aria-pressed',String(walkMode));canvas.classList.toggle('walk-mode',walkMode);
+  if(walkMode){const center=plotCenter();walkPosition.set(center.x,terrainHeight(center.x,center.z+8)+1.72,center.z+8);walkYaw=cameraAzimuth+Math.PI;walkPitch=-.08;updateWalkCamera();canvas.focus();canvas.requestPointerLock?.();$('#gardenMessage').textContent='Sayr rejimi: WASD bilan yuring, sichqoncha bilan atrofga qarang, Shift bilan tez yuring.'}
+  else{if(document.pointerLockElement===canvas)document.exitPointerLock?.();updateCamera()}
 }
 function resetCamera(){
   const dims=activePlotId==='mine'?core.expansionFor(garden):(publicPlots.find(plot=>plot.id===activePlotId)?.dimensions||{cols:24});
@@ -370,6 +400,7 @@ function updateGhost(event){
 }
 function animate(now){
   const dt=Math.min(.05,(now-lastFrame)/1000);lastFrame=now;
+  updateWalk(dt);
   animated.forEach(entry=>{if(entry.type==='sway')entry.object.rotation.z=Math.sin(now*.001*entry.speed+entry.phase)*.012;if(entry.type==='spin')entry.object.rotation.y+=dt*entry.speed;if(entry.type==='pulse')entry.object.scale.y=.85+Math.sin(now*.001*entry.speed)*.18;if(entry.type==='cloud'){entry.object.position.x+=dt*entry.speed;if(entry.object.position.x>145)entry.object.position.x=-145}});
   butterflies.forEach((b,index)=>{const t=now*.00025+index;b.group.position.x=b.base.x+Math.cos(t*(1+index*.03))*b.radius;b.group.position.z=b.base.z+Math.sin(t*.9)*b.radius;b.group.position.y=b.base.y+Math.sin(t*4)*.25;b.l.rotation.y=Math.sin(t*18)*.8;b.r.rotation.y=-Math.sin(t*18)*.8;b.group.lookAt(camera.position)});
   waterObjects.forEach((object,index)=>{object.position.y+=Math.sin(now*.002+index)*.00035});
@@ -380,10 +411,12 @@ function animate(now){
 /* ---------- 3D BOSHQARUV ---------- */
 canvas.addEventListener('contextmenu',event=>event.preventDefault());
 canvas.addEventListener('pointerdown',event=>{
+  if(walkMode){canvas.requestPointerLock?.();return}
   canvas.setPointerCapture(event.pointerId);pointerDown={x:event.clientX,y:event.clientY,lastX:event.clientX,lastY:event.clientY,moved:false};
   dragMode=event.button===2||event.pointerType==='touch'?'rotate':'pan';canvas.classList.add('dragging');
 });
 canvas.addEventListener('pointermove',event=>{
+  if(walkMode){if(document.pointerLockElement===canvas){walkYaw-=event.movementX*.0022;walkPitch=THREE.MathUtils.clamp(walkPitch-event.movementY*.0018,-1.2,1.05);updateWalkCamera()}return}
   updateGhost(event);if(!pointerDown)return;
   const dx=event.clientX-pointerDown.lastX,dy=event.clientY-pointerDown.lastY;pointerDown.lastX=event.clientX;pointerDown.lastY=event.clientY;
   if(Math.hypot(event.clientX-pointerDown.x,event.clientY-pointerDown.y)>6)pointerDown.moved=true;
@@ -392,13 +425,14 @@ canvas.addEventListener('pointermove',event=>{
   updateCamera();
 });
 canvas.addEventListener('pointerup',async event=>{
+  if(walkMode)return;
   canvas.releasePointerCapture(event.pointerId);canvas.classList.remove('dragging');const clicked=pointerDown&&!pointerDown.moved;pointerDown=null;persistCamera();
   if(!clicked)return;
   if((pendingCatalogId||movingId)&&hoverCell?.valid){if(movingId)await moveItem(movingId,hoverCell.x,hoverCell.y,hoverCell.rotation);else await purchase(pendingCatalogId,hoverCell.x,hoverCell.y,placementRotation);return}
   const itemId=objectAt(event);selectItem(itemId);
 });
 canvas.addEventListener('pointerleave',()=>{if(pointerDown){pointerDown=null;canvas.classList.remove('dragging')}});
-canvas.addEventListener('wheel',event=>{event.preventDefault();cameraDistance=THREE.MathUtils.clamp(cameraDistance+event.deltaY*.025,7,175);updateCamera()},{passive:false});
+canvas.addEventListener('wheel',event=>{event.preventDefault();if(walkMode)return;cameraDistance=THREE.MathUtils.clamp(cameraDistance+event.deltaY*.025,7,175);updateCamera()},{passive:false});
 
 function selectItem(itemId,announce=true){
   selectedItemId=garden.items.some(item=>item.id===itemId)?itemId:'';
@@ -550,10 +584,10 @@ $('#openWorldMap').addEventListener('click',()=>openWorldMap(true));$$('[data-cl
 $('#shopTabs').addEventListener('click',event=>{const button=event.target.closest('[data-shop]');if(!button)return;shopType=button.dataset.shop;shopFilter='all';$$('[data-shop]').forEach(node=>node.classList.toggle('active',node===button));renderShop()});
 $('#moveSelected').addEventListener('click',beginMove);$('#rotateSelected').addEventListener('click',rotateSelected);$('#sellSelected').addEventListener('click',sellSelected);$('#focusSelected').addEventListener('click',()=>{const item=garden.items.find(entry=>entry.id===selectedItemId);if(item)openFocus(item)});$('#clearSelection').addEventListener('click',()=>selectItem(''));
 $('#expandGarden').addEventListener('click',expand);$('#undoGarden').addEventListener('click',undo);$('#redoGarden').addEventListener('click',redo);
-$('#cameraHome').addEventListener('click',resetCamera);$('#cameraLeft').addEventListener('click',()=>{cameraAzimuth-=Math.PI/4;updateCamera();if(activePlotId==='mine')persistCamera()});$('#cameraRight').addEventListener('click',()=>{cameraAzimuth+=Math.PI/4;updateCamera();if(activePlotId==='mine')persistCamera()});$('#cameraZoomIn').addEventListener('click',()=>{cameraDistance=Math.max(7,cameraDistance-7);updateCamera();if(activePlotId==='mine')persistCamera()});$('#cameraZoomOut').addEventListener('click',()=>{cameraDistance=Math.min(175,cameraDistance+7);updateCamera();if(activePlotId==='mine')persistCamera()});$('#cameraExplore').addEventListener('click',()=>{activePlotId='mine';cameraTarget.set(0,4,0);cameraDistance=118;cameraElevation=.58;cameraAzimuth=.72;updateCamera();$('#gardenMessage').textContent='Idrok dunyosi: atrofdagi bog‘lar, yo‘llar, ko‘l va tog‘larni ko‘ring.'});
+$('#cameraHome').addEventListener('click',()=>{setWalkMode(false);resetCamera()});$('#cameraLeft').addEventListener('click',()=>{setWalkMode(false);cameraAzimuth-=Math.PI/4;updateCamera();if(activePlotId==='mine')persistCamera()});$('#cameraRight').addEventListener('click',()=>{setWalkMode(false);cameraAzimuth+=Math.PI/4;updateCamera();if(activePlotId==='mine')persistCamera()});$('#cameraZoomIn').addEventListener('click',()=>{setWalkMode(false);cameraDistance=Math.max(7,cameraDistance-7);updateCamera();if(activePlotId==='mine')persistCamera()});$('#cameraZoomOut').addEventListener('click',()=>{setWalkMode(false);cameraDistance=Math.min(175,cameraDistance+7);updateCamera();if(activePlotId==='mine')persistCamera()});$('#cameraExplore').addEventListener('click',()=>{setWalkMode(false);activePlotId='mine';cameraTarget.set(0,4,0);cameraDistance=118;cameraElevation=.58;cameraAzimuth=.72;updateCamera();$('#gardenMessage').textContent='Idrok dunyosi: atrofdagi bog‘lar, yo‘llar, ko‘l va tog‘larni ko‘ring.'});$('#cameraWalk').addEventListener('click',()=>setWalkMode(!walkMode));
 $$('[data-time]').forEach(button=>button.addEventListener('click',()=>applyEnvironment(button.dataset.time)));$('#qualityToggle').addEventListener('click',toggleQuality);$('#soundToggle').addEventListener('click',toggleSound);$('#closeWorldHelp').addEventListener('click',()=>$('#worldHelp').remove());
 $('#gardenTheme').addEventListener('click',()=>{document.body.classList.toggle('dark');state.theme=document.body.classList.contains('dark')?'dark':'light';localStorage.setItem('idrokState',JSON.stringify(state))});
-addEventListener('resize',resize);addEventListener('keydown',event=>{if(event.key==='Escape'){cancelPlacement();selectItem('');closeModal('focusModal');closeModal('howModal');openWorldMap(false);openMissions(false);closeShopMobile();setMenu(false)}if((event.ctrlKey||event.metaKey)&&event.key.toLowerCase()==='z'){event.preventDefault();event.shiftKey?redo():undo()}});
+addEventListener('resize',resize);addEventListener('keydown',event=>{if(walkMode&&['KeyW','KeyA','KeyS','KeyD','ArrowUp','ArrowDown','ArrowLeft','ArrowRight','ShiftLeft'].includes(event.code)){event.preventDefault();walkKeys.add(event.code)}if(event.key==='Escape'){setWalkMode(false);cancelPlacement();selectItem('');closeModal('focusModal');closeModal('howModal');openWorldMap(false);openMissions(false);closeShopMobile();setMenu(false)}if((event.ctrlKey||event.metaKey)&&event.key.toLowerCase()==='z'){event.preventDefault();event.shiftKey?redo():undo()}});addEventListener('keyup',event=>walkKeys.delete(event.code));
 async function initialize(){
   if(state.theme==='dark')document.body.classList.add('dark');
   if(token){try{const data=await api('/api/garden');garden=core.normalizeGarden(data.garden);impulse=data.impulse;missions=data.missions||[]}catch(error){garden=readGuest();missions=guestMissions();toast(`${error.message} Oxirgi saqlangan nusxa ochildi.`,true)}}

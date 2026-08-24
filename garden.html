@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="description" content="Idrok 3D bilim bog‘i — fokus qiling, o‘simlik o‘stiring va o‘z bog‘ingizni erkin yarating.">
-  <meta name="theme-color" content="#0d1734">
+  <meta name="theme-color" content="#f5f2ea">
   <title>3D Mening bog‘im — Idrok</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,8 +13,9 @@
   <link rel="stylesheet" href="focus-widget.css?v=1">
   <link rel="stylesheet" href="idrok-next.css?v=2">
   <link rel="stylesheet" href="design-system.css?v=2">
+  <link rel="stylesheet" href="science-studio.css?v=1">
 </head>
-<body class="idrok-garden">
+<body class="idrok-garden science-studio">
   <aside class="garden-sidebar" id="gardenSidebar">
     <div class="garden-brand-row">
       <a class="garden-brand" href="index.html#bosh"><span><svg viewBox="0 0 34 34" aria-hidden="true"><path d="M3 18h7l3-9 6 17 4-11 3 3h5"/></svg></span><b>IDROK</b></a>
@@ -71,7 +72,7 @@
 
       <section class="garden-game-layout">
         <div class="garden-world-card" id="gardenWorldCard">
-          <canvas id="gardenCanvas" aria-label="Erkin boshqariladigan uch o‘lchamli bilim bog‘i"></canvas>
+          <canvas id="gardenCanvas" tabindex="0" aria-label="Erkin boshqariladigan uch o‘lchamli bilim bog‘i"></canvas>
           <div class="world-loading" id="worldLoading"><span class="loading-seed">🌍</span><b>Idrok dunyosi tayyorlanmoqda…</b><small>Tog‘lar, bog‘lar va qo‘shnilar yuklanmoqda</small><i></i></div>
           <div class="world-vignette" aria-hidden="true"></div>
 
@@ -88,6 +89,7 @@
             <button id="cameraZoomIn" type="button" aria-label="Yaqinlashtirish">＋</button>
             <button id="cameraZoomOut" type="button" aria-label="Uzoqlashtirish">−</button>
             <button id="cameraExplore" type="button" aria-label="Dunyoni yuqoridan ko‘rish">⌘</button>
+            <button id="cameraWalk" type="button" aria-label="Bog‘ ichida erkin yurish" aria-pressed="false">WASD</button>
           </div>
 
           <div class="environment-tools" aria-label="Bog‘ muhiti">

@@ -63,6 +63,12 @@ const sdk = {
     }
     throw new Error(`Unexpected table: ${table}`);
   },
+  async rpc(name) {
+    assert.strictEqual(name, 'get_garden_world');
+    const neighbor = gardenCore.createGarden();
+    neighbor.items.push({id:'neighbor-plant',catalogId:'rayhon',x:2,y:2,rotation:0,state:'mature',progress:1,variant:1});
+    return {data:[{id:'22222222-2222-2222-2222-222222222222',name:'Qo‘shni bog‘bon',garden:gardenCore.publicGarden(neighbor),updated_at:new Date().toISOString()}],error:null};
+  },
 };
 
 const storage = new Map([
@@ -116,6 +122,9 @@ vm.runInNewContext(source, context, {filename:'supabase-auth.js'});
 
   let result = await auth.request('/api/garden');
   assert.strictEqual(result.impulse, 50);
+  result = await auth.request('/api/garden/world');
+  assert.strictEqual(result.plots.length, 1, 'Ommaviy bog‘lar Supabase RPC orqali yuklanmadi');
+  assert.strictEqual(result.plots[0].name, 'Qo‘shni bog‘bon');
   result = await auth.request('/api/garden/purchase', {method:'POST',body:JSON.stringify({catalogId:'rayhon',x:0,y:0,rotation:0,mutationId:'purchase-1'})});
   assert.strictEqual(result.impulse, 25, 'Garden xaridi balansni kamaytirmadi');
   const plantId = result.item.id;
@@ -157,5 +166,5 @@ vm.runInNewContext(source, context, {filename:'supabase-auth.js'});
   assert.strictEqual(profile.garden.focus, null, 'Uzilgan fokus server holatidan tozalanmadi');
   assert.strictEqual(profile.garden.items.find(item=>item.id===secondPlantId).state, 'wilted', 'Uzilgan fokus o‘simligi qurigan holatga o‘tmadi');
 
-  console.log('SUPABASE ADAPTER TEST: 22/22 muvaffaqiyatli');
+  console.log('SUPABASE ADAPTER TEST: 24/24 muvaffaqiyatli');
 })().catch(error=>{console.error(error.stack||error);process.exitCode=1});

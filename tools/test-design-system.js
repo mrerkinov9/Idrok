@@ -79,7 +79,9 @@ const pages = {
 Object.entries(pages).forEach(([file, bodyClass]) => {
   const html = read(file);
   check(html.includes('design-system.css?v=2'), `${file} does not load the current shared design system`);
-  check(html.includes(bodyClass), `${file} is missing its product-shell class`);
+  const expectedClasses = bodyClass.match(/class="([^"]+)"/)?.[1].split(/\s+/) || [];
+  const actualClasses = html.match(/<body[^>]*class="([^"]+)"/)?.[1].split(/\s+/) || [];
+  check(expectedClasses.every(name => actualClasses.includes(name)), `${file} is missing its product-shell class`);
 });
 
 check(contrast('#f6f8ff', '#081326') >= 4.5, 'Dark shell text contrast is below WCAG AA');
