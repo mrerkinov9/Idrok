@@ -8,7 +8,8 @@
   const courseKeys={physics7State:'idrokPhysics7',physics8State:'idrokPhysics8',physicsState:'idrokPhysics',physics10State:'idrokPhysics10',physics11State:'idrokPhysics11'};
   const accountCacheKeys=['idrokState','idrokGarden','idrokNotifications','idrokCertificate','idrokCertificate7','idrokCertificate8','idrokCertificate10','idrokCertificate11',...Object.values(courseKeys)];
   const page=(location.pathname.split('/').pop()||'index.html').toLowerCase();
-  const isProtected=!new Set(['','index.html']).has(page);
+  const localPreview=['127.0.0.1','localhost'].includes(location.hostname)&&new URLSearchParams(location.search).has('studioPreview');
+  const isProtected=!localPreview&&!new Set(['','index.html']).has(page);
   const cloudAuth=window.IDROK_AUTH?.configured===true;
   let lastRefresh=0;
   let flushPromise=null;
