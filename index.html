@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Idrok — fizika va muhandislikni o‘zbek tilida o‘rganish platformasi." />
   <title>Idrok — O‘zbekcha fizika va muhandislik</title>
+  <script>if(['127.0.0.1','localhost'].includes(location.hostname)&&new URLSearchParams(location.search).has('studioPreview'))document.documentElement.classList.add('studio-preview')</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
@@ -13,8 +14,9 @@
   <link rel="stylesheet" href="idrok-next.css?v=2" />
   <link rel="stylesheet" href="design-system.css?v=2" />
   <link rel="stylesheet" href="science-studio.css?v=3" />
+  <link rel="stylesheet" href="studio-v2.css?v=1" />
 </head>
-<body class="idrok-next-home science-studio">
+<body class="idrok-next-home science-studio studio-v2">
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-top">
       <a class="brand" href="#bosh" aria-label="Idrok bosh sahifasi">
@@ -77,7 +79,7 @@
               <div class="progress-dial" id="homeJourneyDial"><div><strong id="homeJourneyPercent">0%</strong><small>kurs yakunlandi</small></div></div>
               <span id="homeJourneyCount">0 / 59 dars</span>
             </div>
-            <div class="journey-apparatus" aria-hidden="true"><span class="apparatus-formula">F = ma</span><i class="apparatus-stand"></i><i class="apparatus-spring"></i><i class="apparatus-mass">m</i><i class="apparatus-wave"></i></div>
+            <div class="journey-apparatus" aria-hidden="true"><img src="assets/studio/physics-diorama-v1.webp" alt=""><span class="apparatus-formula">F = ma</span><span class="apparatus-chip apparatus-chip-a">KUCH · 12.4 N</span><span class="apparatus-chip apparatus-chip-b">JONLI TAJRIBA</span></div>
           </article>
 
           <div class="analytics-grid command-stats">
@@ -101,7 +103,7 @@
 
         <aside class="command-side">
           <button class="ai-spotlight" id="homeAiSpotlight" type="button"><span class="ai-star">✦<i></i></span><span><small>IDROK AI · ONLAYN</small><strong>Birga tushunamiz.</strong><em>Mavzuni tushuntirish, masala yechish va quizga tayyorlanish.</em></span><b>→</b></button>
-          <a class="garden-spotlight" href="garden.html"><header><span><small>FOKUS OLAMI</small><strong>Mening bog‘im</strong></span><b>↗</b></header><div class="garden-island" aria-hidden="true"><span class="island-halo"></span><i class="island-tree">♠</i><i class="island-ground"></i><i class="garden-spark s1"></i><i class="garden-spark s2"></i><i class="garden-spark s3"></i></div><p id="homeGardenMessage">Birinchi niholingizni eking va dars bilan o‘stiring.</p><footer><span><b id="homeGardenPlants">0</b><small>o‘simlik</small></span><span><b id="homeGardenFocus">0</b><small>daqiqa fokus</small></span></footer></a>
+          <a class="garden-spotlight" href="garden.html"><header><span><small>FOKUS OLAMI</small><strong>Mening bog‘im</strong></span><b>↗</b></header><div class="garden-island" aria-hidden="true"><img src="assets/studio/focus-garden-v1.webp" alt=""></div><p id="homeGardenMessage">Birinchi niholingizni eking va dars bilan o‘stiring.</p><footer><span><b id="homeGardenPlants">0</b><small>o‘simlik</small></span><span><b id="homeGardenFocus">0</b><small>daqiqa fokus</small></span></footer></a>
           <article class="daily-focus"><header><span>KUNLIK MAQSAD</span><b id="dailyPercent">0%</b></header><div class="daily-track"><i id="dailyTrack"></i></div><p>Bitta darsni yakunlab, bugungi bilim zanjirini davom ettiring.</p></article>
         </aside>
       </div>

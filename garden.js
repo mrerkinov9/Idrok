@@ -234,6 +234,46 @@ function addCottage(parent,center,variant=0){
   [-1.75,1.75].forEach(x=>{addMesh(parent,new THREE.BoxGeometry(1.25,1.2,.12),mat('#9bd4e4',{metalness:.05,roughness:.12}),center.x+x,1.85,center.z-2.13);addMesh(parent,new THREE.BoxGeometry(.06,1.2,.16),mat('#f4f0de'),center.x+x,1.85,center.z-2.2);addMesh(parent,new THREE.BoxGeometry(1.25,.06,.16),mat('#f4f0de'),center.x+x,1.85,center.z-2.2)});
   addMesh(parent,new THREE.CylinderGeometry(.24,.3,2.2,10),mat('#6c4d3b',{roughness:1}),center.x+1.8,4.1,center.z+.9);
 }
+function addNaturalTree(parent,x,z,scale=1,variant=0){
+  const y=terrainHeight(x,z),group=new THREE.Group();
+  group.position.set(x,y,z);group.rotation.y=seededNoise(variant,22)*Math.PI*2;group.scale.setScalar(scale);
+  const bark=mat(variant%2?'#6f4c34':'#79563a',{roughness:1});
+  addMesh(group,new THREE.CylinderGeometry(.18,.34,3.4,12),bark,0,1.7,0);
+  [[-.55,2.65,.1,.72],[.5,2.82,.12,.82],[-.08,3.25,.42,.9],[.1,3.45,-.35,.78],[.05,3.72,.05,.88]].forEach(([lx,ly,lz,s],index)=>{
+    const geometry=new THREE.IcosahedronGeometry(s,2),pos=geometry.attributes.position;
+    for(let i=0;i<pos.count;i++){const n=.9+seededNoise(i+variant*17,index+3)*.22;pos.setXYZ(i,pos.getX(i)*n,pos.getY(i)*n,pos.getZ(i)*n)}
+    geometry.computeVertexNormals();addMesh(group,geometry,mat(index%2?'#467a49':'#5b8e54',{roughness:1}),lx,ly,lz,1,1.08,1);
+  });
+  parent.add(group);return group;
+}
+function addBoulder(parent,x,z,scale=1,variant=0){
+  const geometry=new THREE.IcosahedronGeometry(scale,2),pos=geometry.attributes.position;
+  for(let i=0;i<pos.count;i++){const n=.78+seededNoise(i+variant*13,61)*.38;pos.setXYZ(i,pos.getX(i)*n,pos.getY(i)*(.68+seededNoise(i,72)*.18),pos.getZ(i)*n)}
+  geometry.computeVertexNormals();const rock=addMesh(parent,geometry,mat(variant%2?'#788178':'#8a8d82',{roughness:1}),x,terrainHeight(x,z)+scale*.48,z);rock.rotation.set(.08*variant,.7*variant,.04);return rock;
+}
+function addLivingLandscape(parent,dims){
+  const halfX=dims.cols/2,halfZ=dims.rows/2;
+  const borderTrees=[[-halfX-6,-halfZ-1,1.2],[-halfX-7,-4,1.05],[-halfX-6,halfZ-1,1.28],[-halfX+2,halfZ+6,1.08],[halfX-2,halfZ+6,1.3],[halfX+7,halfZ-2,1.12],[halfX+7,2,1.2],[halfX+6,-halfZ+2,1.05]];
+  borderTrees.forEach(([x,z,s],index)=>addNaturalTree(parent,x,z,s,index+40));
+  [[-halfX-3,-halfZ-5,.95],[halfX+3,-halfZ-6,1.15],[-halfX-8,halfZ-7,.75],[halfX+8,halfZ-6,.9]].forEach(([x,z,s],index)=>addBoulder(parent,x,z,s,index+8));
+
+  const streamMat=mat('#4f9db5',{transparent:true,opacity:.78,roughness:.14,metalness:.05});
+  const stream=new THREE.Mesh(new THREE.PlaneGeometry(7,78,2,18),streamMat);stream.rotation.x=-Math.PI/2;stream.rotation.z=-.08;stream.position.set(halfX+16,.18,3);stream.receiveShadow=true;parent.add(stream);waterObjects.push(stream);
+  for(let i=0;i<28;i++){const z=-37+i*2.8,x=halfX+12.6+(i%3)*3.25;addBoulder(parent,x,z,.28+(i%4)*.08,i+90)}
+
+  const bedMat=mat('#67442c',{map:canvasTexture('garden-bed','#68452c','#382519',650),roughness:1});
+  [-1,1].forEach(side=>{
+    const bedX=side*(halfX-3.2);addMesh(parent,new THREE.BoxGeometry(3.8,.18,7.8),bedMat,bedX,.13,halfZ-5.6,1,1,1,0,0,0);
+    for(let row=0;row<3;row++)for(let col=0;col<4;col++){
+      const flower=new THREE.Group(),px=bedX-1.25+col*.84,pz=halfZ-8.1+row*2.1;
+      addMesh(flower,new THREE.CylinderGeometry(.025,.04,.42,7),mat('#397149'),0,.21,0);
+      flowerHead(flower,0,.49,0,['#f06d4f','#eeb84b','#e79ab1','#f4eee1'][(row+col)%4],'#e6b43f',.55);
+      flower.position.set(px,.2,pz);parent.add(flower);
+    }
+  });
+  const stepping=mat('#c7b89e',{roughness:1});
+  for(let i=0;i<9;i++){const stone=addMesh(parent,new THREE.CylinderGeometry(.72,.8,.12,18),stepping,Math.sin(i*.72)*1.15,.13,-halfZ+2.6+i*2.6,1,.72,1);stone.rotation.y=i*.34}
+}
 function addMeadowDetails(parent){
   const high=garden.settings.quality==='high',grassCount=high?1300:520,flowerCount=high?210:70,dummy=new THREE.Object3D();
   const insidePlot=(x,z,center,dims)=>Math.abs(x-center.x)<dims.cols/2+3&&Math.abs(z-center.z)<dims.rows/2+3;
@@ -276,15 +316,15 @@ function addScenery(){
   const dims=core.expansionFor(garden),count=garden.settings.quality==='high'?85:38;
   sceneryGroup=new THREE.Group();world.add(sceneryGroup);
   addPlotSurface(sceneryGroup,ownPlotCenter,dims,true);addFence(sceneryGroup,ownPlotCenter,dims,'stone');addCottage(sceneryGroup,new THREE.Vector3(0,0,dims.rows/2-4),0);
-  publicPlots.forEach((plot,index)=>addPublicPlot(sceneryGroup,plot,index));
+  addLivingLandscape(sceneryGroup,dims);publicPlots.forEach((plot,index)=>addPublicPlot(sceneryGroup,plot,index));
   for(let i=0;i<count;i++){
     const angle=i*2.399,radius=48+(i%11)*8,x=Math.cos(angle)*radius,z=Math.sin(angle)*radius;
     if(publicPlots.some(plot=>Math.abs(x-plot.position.x)<22&&Math.abs(z-plot.position.z)<22))continue;
     const fake={state:'mature',progress:1,variant:i},catalog={...catalogApi.byId[i%5===0?'archa':'chinor'],height:2.7+(i%4)*.35,colors:[i%3?'#356f40':'#4b8045','#244b30']};
     const model=treeModel(catalog,fake);model.position.set(x,terrainHeight(x,z),z);model.scale.multiplyScalar(.82+(i%5)*.1);model.rotation.y=seededNoise(i,8)*Math.PI;sceneryGroup.add(model);animated.push({object:model,type:'sway',speed:.25+i%4*.03,phase:i});
   }
-  const mountainMat=mat('#697664',{roughness:1}),snowMat=mat('#dbe2db',{roughness:.95});
-  for(let i=0;i<18;i++){const angle=i/18*Math.PI*2,r=118+(i%4)*8,x=Math.cos(angle)*r,z=Math.sin(angle)*r,height=18+(i%6)*5;addMesh(sceneryGroup,new THREE.ConeGeometry(13+(i%3)*4,height,10),mountainMat,x,terrainHeight(x,z)+height/2,z,1,1,1,0,seededNoise(i,9)*2,0);if(i%3===0)addMesh(sceneryGroup,new THREE.ConeGeometry(4.8,height*.3,10),snowMat,x,terrainHeight(x,z)+height*.82,z)}
+  const ridgeMat=mat('#738477',{roughness:1});
+  for(let i=0;i<13;i++){const angle=i/13*Math.PI*2,r=128+(i%3)*6,x=Math.cos(angle)*r,z=Math.sin(angle)*r,height=12+(i%5)*3.5,geometry=new THREE.IcosahedronGeometry(8+(i%3)*2.5,2),pos=geometry.attributes.position;for(let p=0;p<pos.count;p++)pos.setY(p,pos.getY(p)*(1.35+seededNoise(p,i)*.45));geometry.computeVertexNormals();addMesh(sceneryGroup,geometry,ridgeMat,x,terrainHeight(x,z)+height*.42,z,1,height/18,1,0,seededNoise(i,9)*2,0)}
   const waterMat=mat('#2b88a3',{transparent:true,opacity:.82,roughness:.18,metalness:.15});const lake=addMesh(sceneryGroup,new THREE.CircleGeometry(18,64),waterMat,-63,.18,58,1,.72,1,-Math.PI/2);waterObjects.push(lake);
   for(let i=0;i<24;i++){const x=-50+(i%8)*4,z=44+Math.floor(i/8)*4,rock=addMesh(sceneryGroup,new THREE.DodecahedronGeometry(.5+(i%4)*.25,1),mat(i%2?'#777a71':'#5f655e',{roughness:1}),x,terrainHeight(x,z)+.3,z,1,.65,1);rock.rotation.set(i*.2,i*.7,0)}
   const roadMat=mat('#9a835f',{map:canvasTexture('road','#9d8a69','#6f624e',800),roughness:1});
@@ -339,7 +379,7 @@ function createLights(){
 function applyEnvironment(mode='day',persist=true){
   garden.settings.timeOfDay=mode;
   const themes={day:{bg:'#8fcdf0',fog:'#b9def0',top:'#3a98d5',bottom:'#d7edf2',hemi:1.7,sun:4.1,fill:.85,weather:['☀','Yorqin kun']},sunset:{bg:'#e89279',fog:'#d8a48c',top:'#5d5ea5',bottom:'#f5ad78',hemi:1.15,sun:2.8,fill:1.2,weather:['◐','Oltin shom']},night:{bg:'#07142c',fog:'#0d2340',top:'#02081a',bottom:'#122b50',hemi:.38,sun:.26,fill:.28,weather:['☾','Yulduzli tun']}};
-  const theme=themes[mode];scene.background=new THREE.Color(theme.bg);scene.fog=new THREE.Fog(theme.fog,120,310);hemisphere.intensity=theme.hemi;sunLight.intensity=theme.sun;fillLight.intensity=theme.fill;if(skyDome){skyDome.material.uniforms.top.value.set(theme.top);skyDome.material.uniforms.bottom.value.set(theme.bottom)}lampLights.forEach(light=>light.intensity=mode==='night'?2.2:mode==='sunset'?.7:0);
+  const theme=themes[mode];scene.background=new THREE.Color(theme.bg);scene.fog=new THREE.Fog(theme.fog,82,235);hemisphere.intensity=theme.hemi;sunLight.intensity=theme.sun;fillLight.intensity=theme.fill;if(skyDome){skyDome.material.uniforms.top.value.set(theme.top);skyDome.material.uniforms.bottom.value.set(theme.bottom)}lampLights.forEach(light=>light.intensity=mode==='night'?2.2:mode==='sunset'?.7:0);
   $$('.environment-tools [data-time]').forEach(button=>button.classList.toggle('active',button.dataset.time===mode));
   $('#worldWeather').innerHTML=`<span>${theme.weather[0]}</span><div><small>HOZIRGI MUHIT</small><b>${theme.weather[1]}</b></div>`;
   if(persist)persistSettings();
@@ -584,7 +624,7 @@ $('#openWorldMap').addEventListener('click',()=>openWorldMap(true));$$('[data-cl
 $('#shopTabs').addEventListener('click',event=>{const button=event.target.closest('[data-shop]');if(!button)return;shopType=button.dataset.shop;shopFilter='all';$$('[data-shop]').forEach(node=>node.classList.toggle('active',node===button));renderShop()});
 $('#moveSelected').addEventListener('click',beginMove);$('#rotateSelected').addEventListener('click',rotateSelected);$('#sellSelected').addEventListener('click',sellSelected);$('#focusSelected').addEventListener('click',()=>{const item=garden.items.find(entry=>entry.id===selectedItemId);if(item)openFocus(item)});$('#clearSelection').addEventListener('click',()=>selectItem(''));
 $('#expandGarden').addEventListener('click',expand);$('#undoGarden').addEventListener('click',undo);$('#redoGarden').addEventListener('click',redo);
-$('#cameraHome').addEventListener('click',()=>{setWalkMode(false);resetCamera()});$('#cameraLeft').addEventListener('click',()=>{setWalkMode(false);cameraAzimuth-=Math.PI/4;updateCamera();if(activePlotId==='mine')persistCamera()});$('#cameraRight').addEventListener('click',()=>{setWalkMode(false);cameraAzimuth+=Math.PI/4;updateCamera();if(activePlotId==='mine')persistCamera()});$('#cameraZoomIn').addEventListener('click',()=>{setWalkMode(false);cameraDistance=Math.max(7,cameraDistance-7);updateCamera();if(activePlotId==='mine')persistCamera()});$('#cameraZoomOut').addEventListener('click',()=>{setWalkMode(false);cameraDistance=Math.min(175,cameraDistance+7);updateCamera();if(activePlotId==='mine')persistCamera()});$('#cameraExplore').addEventListener('click',()=>{setWalkMode(false);activePlotId='mine';cameraTarget.set(0,4,0);cameraDistance=118;cameraElevation=.58;cameraAzimuth=.72;updateCamera();$('#gardenMessage').textContent='Idrok dunyosi: atrofdagi bog‘lar, yo‘llar, ko‘l va tog‘larni ko‘ring.'});$('#cameraWalk').addEventListener('click',()=>setWalkMode(!walkMode));
+$('#cameraHome').addEventListener('click',()=>{setWalkMode(false);resetCamera()});$('#cameraLeft').addEventListener('click',()=>{setWalkMode(false);cameraAzimuth-=Math.PI/4;updateCamera();if(activePlotId==='mine')persistCamera()});$('#cameraRight').addEventListener('click',()=>{setWalkMode(false);cameraAzimuth+=Math.PI/4;updateCamera();if(activePlotId==='mine')persistCamera()});$('#cameraZoomIn').addEventListener('click',()=>{setWalkMode(false);cameraDistance=Math.max(7,cameraDistance-7);updateCamera();if(activePlotId==='mine')persistCamera()});$('#cameraZoomOut').addEventListener('click',()=>{setWalkMode(false);cameraDistance=Math.min(88,cameraDistance+7);updateCamera();if(activePlotId==='mine')persistCamera()});$('#cameraExplore').addEventListener('click',()=>{setWalkMode(false);activePlotId='mine';cameraTarget.set(0,2,0);cameraDistance=68;cameraElevation=.62;cameraAzimuth=.72;updateCamera();$('#gardenMessage').textContent='Idrok dunyosi: bog‘lar, soy, sayr yo‘laklari va qo‘shni hududlarni tomosha qiling.'});$('#cameraWalk').addEventListener('click',()=>setWalkMode(!walkMode));
 $$('[data-time]').forEach(button=>button.addEventListener('click',()=>applyEnvironment(button.dataset.time)));$('#qualityToggle').addEventListener('click',toggleQuality);$('#soundToggle').addEventListener('click',toggleSound);$('#closeWorldHelp').addEventListener('click',()=>$('#worldHelp').remove());
 $('#gardenTheme').addEventListener('click',()=>{document.body.classList.toggle('dark');state.theme=document.body.classList.contains('dark')?'dark':'light';localStorage.setItem('idrokState',JSON.stringify(state))});
 addEventListener('resize',resize);addEventListener('keydown',event=>{if(walkMode&&['KeyW','KeyA','KeyS','KeyD','ArrowUp','ArrowDown','ArrowLeft','ArrowRight','ShiftLeft'].includes(event.code)){event.preventDefault();walkKeys.add(event.code)}if(event.key==='Escape'){setWalkMode(false);cancelPlacement();selectItem('');closeModal('focusModal');closeModal('howModal');openWorldMap(false);openMissions(false);closeShopMobile();setMenu(false)}if((event.ctrlKey||event.metaKey)&&event.key.toLowerCase()==='z'){event.preventDefault();event.shiftKey?redo():undo()}});addEventListener('keyup',event=>walkKeys.delete(event.code));
@@ -592,7 +632,7 @@ async function initialize(){
   if(state.theme==='dark')document.body.classList.add('dark');
   if(token){try{const data=await api('/api/garden');garden=core.normalizeGarden(data.garden);impulse=data.impulse;missions=data.missions||[]}catch(error){garden=readGuest();missions=guestMissions();toast(`${error.message} Oxirgi saqlangan nusxa ochildi.`,true)}}
   else{garden=readGuest();missions=guestMissions()}
-  await loadPublicWorld();createLights();syncLocal();cameraTarget.set(garden.camera.targetX||0,1.2,garden.camera.targetZ||0);cameraDistance=Math.max(30,garden.camera.distance||38);cameraAzimuth=garden.camera.azimuth||.75;cameraElevation=garden.camera.elevation||.72;updateCamera();resize();renderAll();renderWorldMap();worldReady=true;$('#qualityToggle').classList.toggle('active',garden.settings.quality==='high');$('#soundToggle').classList.toggle('active',garden.settings.sound);
+  await loadPublicWorld();createLights();syncLocal();cameraTarget.set(THREE.MathUtils.clamp(garden.camera.targetX||0,-12,12),1.35,THREE.MathUtils.clamp(garden.camera.targetZ||0,-12,12));cameraDistance=THREE.MathUtils.clamp(garden.camera.distance||34,27,48);cameraAzimuth=garden.camera.azimuth||.75;cameraElevation=THREE.MathUtils.clamp(garden.camera.elevation||.66,.48,.82);updateCamera();resize();renderAll();renderWorldMap();worldReady=true;$('#qualityToggle').classList.toggle('active',garden.settings.quality==='high');$('#soundToggle').classList.toggle('active',garden.settings.sound);
   requestAnimationFrame(animate);requestAnimationFrame(()=>{
     const loading=$('#worldLoading');loading.classList.add('hide');
     setTimeout(()=>{loading.hidden=true},450);
