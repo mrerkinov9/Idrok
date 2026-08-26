@@ -1,0 +1,502 @@
+/*
+  IDROK ORBIT — 2026 product system
+  A full visual reset. Loaded after route-level functional CSS.
+*/
+:root{
+  --orb-ink:#0b0d0c;
+  --orb-ink-2:#171a18;
+  --orb-paper:#f6f7f2;
+  --orb-white:#ffffff;
+  --orb-line:#d8ddd5;
+  --orb-muted:#606862;
+  --orb-lime:#c7ff5e;
+  --orb-lime-2:#a8e63f;
+  --orb-lav:#b5adff;
+  --orb-orange:#ff713d;
+  --orb-radius:22px;
+  --orb-shadow:0 24px 70px rgba(8,12,9,.13);
+}
+
+body.orbit-ui{
+  margin:0!important;
+  color:var(--orb-ink)!important;
+  background:var(--orb-paper)!important;
+  font-family:Inter,"Segoe UI",Arial,sans-serif!important;
+  font-size:16px!important;
+  line-height:1.55!important;
+  -webkit-font-smoothing:antialiased;
+}
+body.orbit-ui *,body.orbit-ui *::before,body.orbit-ui *::after{box-sizing:border-box}
+body.orbit-ui button,body.orbit-ui input,body.orbit-ui textarea{font:inherit}
+body.orbit-ui button,body.orbit-ui a{outline-offset:4px}
+body.orbit-ui :focus-visible{outline:3px solid var(--orb-lime)!important}
+
+/* ---------- COURSE APP SHELL ---------- */
+body.orbit-ui.idrok-course{min-height:100vh;background:var(--orb-paper)!important}
+body.orbit-ui .course-sidebar{
+  position:fixed!important;inset:0 auto 0 0!important;z-index:1000!important;
+  width:264px!important;padding:20px 16px 18px!important;overflow-y:auto!important;
+  color:#fff!important;background:var(--orb-ink)!important;border:0!important;
+  box-shadow:none!important;scrollbar-width:thin;scrollbar-color:#3b413d transparent;
+}
+body.orbit-ui .physics-brand{display:flex!important;align-items:center!important;gap:12px!important;padding:2px 7px 19px!important;color:#fff!important;text-decoration:none!important}
+body.orbit-ui .physics-brand .pulse-logo{display:grid!important;width:42px!important;height:42px!important;place-items:center!important;border-radius:50%!important;background:var(--orb-lime)!important;box-shadow:none!important}
+body.orbit-ui .physics-brand .pulse-logo svg{width:25px!important;fill:none!important;stroke:var(--orb-ink)!important;stroke-width:2.3!important}
+body.orbit-ui .physics-brand b{font-size:20px!important;letter-spacing:.08em!important}
+body.orbit-ui .back-link{display:flex!important;align-items:center!important;gap:9px!important;margin:0 0 18px!important;padding:10px 11px!important;border:1px solid #2c312e!important;border-radius:12px!important;color:#aeb6b0!important;text-decoration:none!important;font-size:13px!important;font-weight:700!important}
+body.orbit-ui .back-link:hover{border-color:#616b64!important;color:#fff!important}
+
+body.orbit-ui .course-mini{
+  display:grid!important;grid-template-columns:48px minmax(0,1fr)!important;gap:12px!important;
+  margin:0 0 12px!important;padding:15px!important;border:0!important;border-radius:18px!important;
+  color:var(--orb-ink)!important;background:var(--orb-lime)!important;box-shadow:none!important;
+}
+body.orbit-ui .course-mini .mini-icon{display:grid!important;width:48px!important;height:48px!important;place-items:center!important;border:2px solid rgba(11,13,12,.22)!important;border-radius:50%!important;background:rgba(255,255,255,.36)!important}
+body.orbit-ui .course-mini small{display:block!important;color:#3a4538!important;font-size:11px!important;font-weight:800!important;letter-spacing:.09em!important}
+body.orbit-ui .course-mini b{display:block!important;margin-top:2px!important;font-size:18px!important;line-height:1.2!important}
+body.orbit-ui .course-mini p{margin:3px 0 0!important;color:#3d493b!important;font-size:12px!important}
+body.orbit-ui .side-progress{height:7px!important;margin:0 2px!important;overflow:hidden!important;border-radius:99px!important;background:#2a2f2c!important}
+body.orbit-ui .side-progress i{display:block!important;height:100%!important;background:var(--orb-lime)!important}
+body.orbit-ui .side-progress-meta{display:flex!important;justify-content:space-between!important;padding:7px 2px 14px!important;color:#9da69f!important;font-size:12px!important}
+body.orbit-ui .side-label{margin:8px 10px!important;color:#767f79!important;font-size:11px!important;font-weight:800!important;letter-spacing:.14em!important}
+
+body.orbit-ui .module-nav{display:grid!important;gap:5px!important;margin:0!important;padding:0 0 12px!important}
+body.orbit-ui .module-nav button{
+  display:grid!important;grid-template-columns:32px minmax(0,1fr) auto!important;align-items:center!important;gap:9px!important;
+  width:100%!important;min-height:52px!important;padding:8px 10px!important;border:1px solid transparent!important;border-radius:13px!important;
+  color:#aeb6b0!important;background:transparent!important;text-align:left!important;cursor:pointer!important;
+}
+body.orbit-ui .module-nav button:hover{border-color:#323835!important;background:#171a18!important;color:#fff!important}
+body.orbit-ui .module-nav button.active{border-color:#495247!important;background:#222722!important;color:#fff!important}
+body.orbit-ui .module-nav button>span{display:grid!important;width:31px!important;height:31px!important;place-items:center!important;border-radius:9px!important;background:#262b28!important;color:var(--orb-lime)!important;font-size:12px!important;font-weight:800!important}
+body.orbit-ui .module-nav button b{display:block!important;min-width:0!important;width:auto!important;overflow:visible!important;white-space:normal!important;color:inherit!important;font-size:12px!important;line-height:1.28!important;text-overflow:clip!important}
+body.orbit-ui .module-nav button small{color:#778079!important;font-size:11px!important}
+
+body.orbit-ui .side-ai-button,body.orbit-ui .side-lab-button{
+  display:grid!important;grid-template-columns:38px minmax(0,1fr) auto!important;align-items:center!important;gap:10px!important;
+  width:100%!important;margin:6px 0 0!important;padding:10px!important;border:1px solid #303632!important;border-radius:14px!important;
+  color:#e8ece9!important;background:#151816!important;text-align:left!important;text-decoration:none!important;
+}
+body.orbit-ui .side-ai-button:hover,body.orbit-ui .side-lab-button:hover{border-color:#687368!important;background:#1e231f!important}
+body.orbit-ui .mini-ai-logo,body.orbit-ui .mini-lab-logo{display:grid!important;width:38px!important;height:38px!important;place-items:center!important;border-radius:11px!important;background:var(--orb-lime)!important;color:var(--orb-ink)!important;font-size:17px!important}
+body.orbit-ui .side-ai-button b,body.orbit-ui .side-lab-button b{display:block!important;font-size:12px!important}
+body.orbit-ui .side-ai-button small,body.orbit-ui .side-lab-button small{display:block!important;margin-top:2px!important;color:#89928c!important;font-size:11px!important}
+body.orbit-ui .side-user{display:grid!important;grid-template-columns:40px minmax(0,1fr) 18px!important;align-items:center!important;gap:10px!important;margin-top:10px!important;padding:11px!important;border-top:1px solid #2b302d!important;color:#fff!important}
+body.orbit-ui .side-user>span{display:grid!important;width:40px!important;height:40px!important;place-items:center!important;border-radius:50%!important;background:#2a302b!important;color:var(--orb-lime)!important;font-size:12px!important;font-weight:800!important}
+body.orbit-ui .side-user b{display:block!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important;font-size:12px!important}
+body.orbit-ui .side-user small{display:block!important;color:#929b95!important;font-size:11px!important}
+
+body.orbit-ui .course-shell{min-height:100vh!important;margin-left:264px!important;background:var(--orb-paper)!important}
+body.orbit-ui .course-header{
+  position:sticky!important;top:0!important;z-index:500!important;display:flex!important;height:72px!important;align-items:center!important;
+  padding:0 30px!important;border:0!important;border-bottom:1px solid var(--orb-line)!important;background:rgba(246,247,242,.9)!important;backdrop-filter:blur(18px)!important;
+}
+body.orbit-ui .header-location{display:grid!important;gap:2px!important}
+body.orbit-ui .header-location small{color:#757e77!important;font-size:11px!important;font-weight:800!important;letter-spacing:.12em!important}
+body.orbit-ui .header-location b{color:var(--orb-ink)!important;font-size:14px!important}
+body.orbit-ui .course-actions{display:flex!important;align-items:center!important;gap:8px!important;margin-left:auto!important}
+body.orbit-ui .course-actions>span,body.orbit-ui .course-actions>button{display:flex!important;min-width:43px!important;height:42px!important;align-items:center!important;justify-content:center!important;gap:6px!important;padding:0 12px!important;border:1px solid #ced4cd!important;border-radius:13px!important;background:#fff!important;color:var(--orb-ink)!important}
+body.orbit-ui .course-actions i{color:#5c675e!important;font-style:normal!important}
+body.orbit-ui .course-actions .impulse{border-color:var(--orb-ink)!important;background:var(--orb-ink)!important;color:#fff!important}
+body.orbit-ui .course-actions .impulse i{color:var(--orb-lime)!important}
+
+body.orbit-ui #courseOverview{display:block!important;max-width:1500px!important;margin:0 auto!important;padding:30px!important}
+body.orbit-ui #courseOverview.hidden{display:none!important}
+body.orbit-ui .course-hero{
+  position:relative!important;display:grid!important;grid-template-columns:minmax(0,1.05fr) minmax(360px,.95fr)!important;
+  min-height:560px!important;padding:0!important;overflow:hidden!important;border:1px solid #cfd5ce!important;border-radius:30px!important;
+  color:var(--orb-ink)!important;background:#fff!important;box-shadow:var(--orb-shadow)!important;
+}
+body.orbit-ui .hero-copy{position:relative!important;z-index:2!important;display:flex!important;min-width:0!important;flex-direction:column!important;align-items:flex-start!important;justify-content:center!important;padding:42px!important}
+body.orbit-ui .hero-copy .pill{display:inline-flex!important;align-items:center!important;gap:8px!important;padding:8px 12px!important;border:1px solid #c8cfc8!important;border-radius:999px!important;background:#f2f4ef!important;color:#3c443e!important;font-size:12px!important;font-weight:800!important;letter-spacing:.06em!important}
+body.orbit-ui .hero-copy .pill i{width:8px!important;height:8px!important;border-radius:50%!important;background:var(--orb-lime-2)!important;box-shadow:none!important}
+body.orbit-ui .hero-copy h1{max-width:670px!important;margin:24px 0 20px!important;color:var(--orb-ink)!important;font-size:clamp(44px,4.3vw,68px)!important;line-height:.94!important;letter-spacing:-.068em!important}
+body.orbit-ui .hero-copy h1 br{display:none!important}
+body.orbit-ui .hero-copy h1 em{display:block!important;color:var(--orb-ink)!important;font-style:normal!important;text-decoration:underline!important;text-decoration-color:var(--orb-lime)!important;text-decoration-thickness:.16em!important;text-underline-offset:.05em!important}
+body.orbit-ui .hero-copy>p{max-width:620px!important;margin:0!important;color:#525b54!important;font-size:16px!important;line-height:1.65!important}
+body.orbit-ui .hero-actions{display:flex!important;width:auto!important;max-width:none!important;flex-direction:row!important;flex-wrap:wrap!important;gap:10px!important;margin-top:28px!important}
+body.orbit-ui .hero-actions button{min-height:52px!important;padding:0 19px!important;border-radius:14px!important;font-size:14px!important;font-weight:800!important}
+body.orbit-ui .hero-actions .primary{border:1px solid var(--orb-ink)!important;background:var(--orb-ink)!important;color:#fff!important;box-shadow:none!important}
+body.orbit-ui .hero-actions .primary span{color:var(--orb-lime)!important}
+body.orbit-ui .hero-actions .secondary{border:1px solid #c6cdc6!important;background:#fff!important;color:var(--orb-ink)!important}
+body.orbit-ui .hero-trust{display:flex!important;flex-wrap:wrap!important;gap:13px!important;margin-top:25px!important;color:#616a63!important;font-size:12px!important;font-weight:700!important}
+body.orbit-ui .hero-trust span{display:inline-flex!important;align-items:center!important;gap:5px!important}
+
+body.orbit-ui .hero-lab{
+  position:relative!important;min-height:560px!important;overflow:hidden!important;background:var(--orb-ink)!important;
+  border-radius:0 29px 29px 0!important;isolation:isolate!important;
+}
+body.orbit-ui .hero-lab::before{content:"10";position:absolute;right:-10%;bottom:-25%;color:rgba(255,255,255,.05);font-size:330px;font-weight:900;line-height:1;letter-spacing:-.1em}
+body.orbit-ui.grade-7 .hero-lab::before{content:"07"}
+body.orbit-ui.grade-8 .hero-lab::before{content:"08"}
+body.orbit-ui.grade-9 .hero-lab::before{content:"09"}
+body.orbit-ui.grade-10 .hero-lab::before{content:"10"}
+body.orbit-ui.grade-11 .hero-lab::before{content:"11"}
+body.orbit-ui .hero-lab::after{content:"F = ma";position:absolute;left:38px;bottom:34px;color:var(--orb-lime);font:800 25px/1 ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:-.05em}
+body.orbit-ui .lab-grid{position:absolute!important;inset:0!important;background-image:linear-gradient(rgba(255,255,255,.075) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.075) 1px,transparent 1px)!important;background-size:34px 34px!important;mask-image:linear-gradient(to bottom,#000,transparent 85%)!important}
+body.orbit-ui .orbit{position:absolute!important;left:50%!important;top:45%!important;border:1px solid rgba(199,255,94,.55)!important;border-radius:50%!important;transform:translate(-50%,-50%) rotate(-20deg)!important}
+body.orbit-ui .orbit-one{width:320px!important;height:150px!important}
+body.orbit-ui .orbit-two{width:170px!important;height:330px!important;transform:translate(-50%,-50%) rotate(38deg)!important}
+body.orbit-ui .orbit i{position:absolute!important;left:12%!important;top:8%!important;width:17px!important;height:17px!important;border-radius:50%!important;background:var(--orb-lime)!important;box-shadow:0 0 32px rgba(199,255,94,.75)!important}
+body.orbit-ui .atom-core{position:absolute!important;left:50%!important;top:45%!important;display:grid!important;width:128px!important;height:128px!important;place-items:center!important;border:1px solid #646b66!important;border-radius:50%!important;background:#222623!important;color:#fff!important;transform:translate(-50%,-50%)!important;box-shadow:0 0 0 22px rgba(255,255,255,.035)!important}
+body.orbit-ui .atom-core span{color:var(--orb-lime)!important;font-size:37px!important}
+body.orbit-ui .atom-core small{font-size:10px!important;letter-spacing:.14em!important}
+body.orbit-ui .lab-card{position:absolute!important;width:auto!important;height:auto!important;min-width:126px!important;max-width:170px!important;padding:13px!important;border:1px solid #3b423d!important;border-radius:14px!important;background:rgba(24,28,25,.92)!important;color:#fff!important;transform:none!important;backdrop-filter:blur(10px)!important}
+body.orbit-ui .lab-card small{display:block!important;color:#8e9890!important;font-size:10px!important;letter-spacing:.1em!important}
+body.orbit-ui .lab-card b{display:block!important;margin-top:5px!important;color:var(--orb-lime)!important;font-size:16px!important}
+body.orbit-ui .lab-card-a{left:28px!important;right:auto!important;top:30px!important;bottom:auto!important}
+body.orbit-ui .lab-card-b{left:auto!important;right:28px!important;top:auto!important;bottom:38px!important}
+body.orbit-ui .hero-wave{position:absolute!important;inset:auto 0 96px!important;width:100%!important;opacity:.28!important}
+body.orbit-ui .hero-wave path{fill:none!important;stroke:var(--orb-lime)!important;stroke-width:2!important}
+
+body.orbit-ui .course-stats{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:12px!important;margin:18px 0 0!important}
+body.orbit-ui .course-stats>div{display:grid!important;grid-template-columns:44px minmax(0,1fr)!important;align-items:center!important;gap:12px!important;min-height:96px!important;padding:17px!important;border:1px solid #cfd5ce!important;border-radius:18px!important;background:#fff!important;box-shadow:none!important}
+body.orbit-ui .stat-icon{display:grid!important;width:44px!important;height:44px!important;place-items:center!important;border-radius:13px!important;background:#eaede7!important;color:#283029!important;font-size:18px!important}
+body.orbit-ui .course-stats p{margin:0!important}.course-stats small{display:block!important;color:#727b74!important;font-size:11px!important;font-weight:800!important;letter-spacing:.08em!important}.course-stats strong{display:block!important;margin-top:2px!important;color:var(--orb-ink)!important;font-size:19px!important}
+
+body.orbit-ui .roadmap{margin-top:52px!important;padding:36px!important;border:1px solid #ccd3cc!important;border-radius:28px!important;background:#fff!important}
+body.orbit-ui .title-row{display:flex!important;align-items:end!important;justify-content:space-between!important;gap:18px!important;margin-bottom:22px!important}
+body.orbit-ui .section-kicker{color:#667068!important;font-size:11px!important;font-weight:800!important;letter-spacing:.14em!important}
+body.orbit-ui .title-row h2{margin:5px 0 0!important;color:var(--orb-ink)!important;font-size:clamp(28px,3vw,42px)!important;line-height:1!important;letter-spacing:-.045em!important}
+body.orbit-ui .module-cards{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:12px!important}
+body.orbit-ui .module-card{min-height:170px!important;padding:20px!important;border:1px solid #cfd5ce!important;border-radius:18px!important;background:#f5f6f2!important;color:var(--orb-ink)!important;box-shadow:none!important;transform:none!important}
+body.orbit-ui .module-card:hover,body.orbit-ui .module-card.active{border-color:var(--orb-ink)!important;background:var(--orb-ink)!important;color:#fff!important;transform:translateY(-3px)!important}
+body.orbit-ui .module-card :where(h3,b,strong){color:inherit!important}.module-card p{color:#687169!important;font-size:13px!important}.module-card:hover p,.module-card.active p{color:#aeb7b0!important}
+body.orbit-ui .topic-panel{margin-top:18px!important;padding:24px!important;border:1px solid #cfd5ce!important;border-radius:20px!important;background:#f1f3ee!important}
+body.orbit-ui .topic-panel-head{display:grid!important;grid-template-columns:50px minmax(0,1fr) auto!important;align-items:center!important;gap:14px!important;margin-bottom:15px!important}
+body.orbit-ui .module-number{display:grid!important;width:50px!important;height:50px!important;place-items:center!important;border-radius:50%!important;background:var(--orb-ink)!important;color:var(--orb-lime)!important;font-size:13px!important;font-weight:800!important}
+body.orbit-ui .topic-list{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}
+body.orbit-ui .topic-list button{display:grid!important;grid-template-columns:38px minmax(0,1fr) auto!important;align-items:center!important;gap:10px!important;min-height:64px!important;padding:10px!important;border:1px solid #d0d6cf!important;border-radius:14px!important;background:#fff!important;color:var(--orb-ink)!important;text-align:left!important}
+body.orbit-ui .topic-list button:hover{border-color:#7e897f!important}.topic-list button b{min-width:0!important;overflow:visible!important;white-space:normal!important;font-size:13px!important;line-height:1.35!important;text-overflow:clip!important}.topic-list button small{font-size:11px!important;color:#737c75!important}
+
+/* ---------- LESSON WORKSPACE ---------- */
+body.orbit-ui #lessonView{max-width:1500px!important;margin:0 auto!important;padding:24px 30px 54px!important;background:var(--orb-paper)!important}
+body.orbit-ui #lessonView.hidden{display:none!important}
+body.orbit-ui .lesson-top{margin-bottom:16px!important;border:1px solid #ccd3cc!important;border-radius:20px!important;background:#fff!important;box-shadow:none!important}
+body.orbit-ui .lesson-workspace{display:grid!important;grid-template-columns:220px minmax(0,1fr)!important;gap:16px!important;align-items:start!important}
+body.orbit-ui .lesson-tabs{position:sticky!important;top:88px!important;display:grid!important;gap:7px!important;padding:12px!important;border:1px solid #ccd3cc!important;border-radius:18px!important;background:#fff!important}
+body.orbit-ui .lesson-tabs button{display:grid!important;grid-template-columns:30px minmax(0,1fr)!important;align-items:center!important;gap:9px!important;min-height:48px!important;padding:8px!important;border:0!important;border-radius:11px!important;background:transparent!important;color:#657068!important;text-align:left!important;font-size:12px!important;font-weight:800!important}
+body.orbit-ui .lesson-tabs button.active{background:var(--orb-ink)!important;color:#fff!important}.lesson-tabs button.active span{color:var(--orb-lime)!important}
+body.orbit-ui .lesson-content{min-width:0!important;padding:32px!important;border:1px solid #ccd3cc!important;border-radius:22px!important;background:#fff!important;box-shadow:none!important}
+body.orbit-ui .lesson-content h1,body.orbit-ui .lesson-content h2,body.orbit-ui .lesson-content h3{color:var(--orb-ink)!important;line-height:1.12!important;letter-spacing:-.035em!important}
+body.orbit-ui .lesson-content h1{font-size:clamp(32px,4vw,54px)!important}.lesson-content h2{font-size:28px!important}.lesson-content h3{font-size:20px!important}
+body.orbit-ui .lesson-content p,body.orbit-ui .lesson-content li{color:#3f4841!important;font-size:16px!important;line-height:1.75!important}
+body.orbit-ui .lesson-content img{display:block!important;max-width:100%!important;height:auto!important;margin-inline:auto!important;border-radius:16px!important}
+body.orbit-ui .lesson-content :where(.formula-card,.theory-card,.example-card,.quiz-card,.video-card,.simulation-card){overflow:hidden!important;border:1px solid #cfd5ce!important;border-radius:18px!important;background:#f5f6f2!important;box-shadow:none!important}
+
+/* ---------- AI ---------- */
+body.orbit-ui .ai-launcher{right:22px!important;bottom:22px!important;border:1px solid #353b37!important;border-radius:999px!important;background:var(--orb-ink)!important;color:#fff!important;box-shadow:0 16px 38px rgba(6,9,7,.22)!important}
+body.orbit-ui .ai-orb{display:grid!important;width:44px!important;height:44px!important;place-items:center!important;border-radius:50%!important;background:var(--orb-lime)!important;color:var(--orb-ink)!important;overflow:hidden!important}
+body.orbit-ui .ai-orb i{display:none!important}.ai-orb b{font-size:18px!important}
+body.orbit-ui .ai-panel{border:1px solid #343a36!important;border-radius:22px!important;background:var(--orb-ink)!important;color:#fff!important;box-shadow:0 30px 80px rgba(0,0,0,.3)!important}
+body.orbit-ui .ai-panel-head{border-bottom:1px solid #2d332f!important}.ai-context{background:#171a18!important}.ai-quick-prompts{display:flex!important;width:100%!important;max-width:100%!important;overflow-x:auto!important;gap:7px!important;padding-bottom:4px!important}.ai-quick-prompts button{flex:0 0 auto!important;border:1px solid #3a413c!important;background:#1b1f1c!important;color:#dfe5e0!important;font-size:12px!important}.ai-input-row{border-color:#3a413c!important;background:#171a18!important}.ai-input-row textarea{color:#fff!important}
+
+/* ---------- RESPONSIVE ---------- */
+@media(max-width:1180px){
+  body.orbit-ui .course-hero{grid-template-columns:minmax(0,1.15fr) 340px!important}
+  body.orbit-ui .hero-copy{padding:38px!important}
+  body.orbit-ui .hero-copy h1{font-size:50px!important}
+  body.orbit-ui .course-stats{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  body.orbit-ui .module-cards{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+@media(max-width:900px){
+  body.orbit-ui .course-sidebar{width:min(300px,88vw)!important;transform:translateX(-105%)!important;transition:transform .25s ease!important}
+  body.orbit-ui .course-sidebar.open{transform:none!important}
+  body.orbit-ui .course-shell{margin-left:0!important}
+  body.orbit-ui .mobile-course-menu{display:grid!important}
+  body.orbit-ui .course-hero{grid-template-columns:1fr!important}
+  body.orbit-ui .hero-lab{min-height:360px!important;border-radius:0 0 29px 29px!important}
+  body.orbit-ui .lesson-workspace{grid-template-columns:1fr!important}
+  body.orbit-ui .lesson-tabs{position:static!important;display:flex!important;overflow-x:auto!important}
+  body.orbit-ui .lesson-tabs button{flex:0 0 auto!important;min-width:150px!important}
+}
+@media(max-width:620px){
+  body.orbit-ui .course-header{padding:0 14px!important}
+  body.orbit-ui #courseOverview,body.orbit-ui #lessonView{padding:14px!important}
+  body.orbit-ui .course-hero{min-height:0!important;border-radius:22px!important}
+  body.orbit-ui .hero-copy{padding:28px 22px!important}
+  body.orbit-ui .hero-copy h1{font-size:42px!important}
+  body.orbit-ui .hero-copy>p{font-size:15px!important}
+  body.orbit-ui .hero-lab{min-height:300px!important}
+  body.orbit-ui .course-stats,body.orbit-ui .module-cards,body.orbit-ui .topic-list{grid-template-columns:1fr!important}
+  body.orbit-ui .roadmap{padding:22px 16px!important}
+  body.orbit-ui .lesson-content{padding:22px 17px!important}
+}
+@media(prefers-reduced-motion:reduce){body.orbit-ui *,body.orbit-ui *::before,body.orbit-ui *::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+
+/* ---------- HOME / LEARNING COMMAND CENTER ---------- */
+body.orbit-ui.idrok-next-home{background:var(--orb-paper)!important;color:var(--orb-ink)!important}
+body.orbit-ui.idrok-next-home .sidebar{
+  position:fixed!important;inset:0 auto 0 0!important;z-index:1000!important;width:244px!important;padding:20px 14px!important;
+  overflow-y:auto!important;border:0!important;background:var(--orb-ink)!important;color:#fff!important;box-shadow:none!important;
+}
+body.orbit-ui.idrok-next-home .sidebar .brand{display:flex!important;align-items:center!important;gap:11px!important;margin:0 6px 26px!important;color:#fff!important;font-size:20px!important;letter-spacing:.08em!important}
+body.orbit-ui.idrok-next-home .sidebar .brand>span:first-child{display:grid!important;width:42px!important;height:42px!important;place-items:center!important;border-radius:50%!important;background:var(--orb-lime)!important;box-shadow:none!important}
+body.orbit-ui.idrok-next-home .sidebar .brand>span:last-child{display:block!important;width:auto!important;height:auto!important;background:none!important}
+body.orbit-ui.idrok-next-home .sidebar .brand svg{stroke:var(--orb-ink)!important}
+body.orbit-ui.idrok-next-home .sidebar .nav-label{margin:18px 11px 7px!important;color:#707a73!important;font-size:11px!important;letter-spacing:.14em!important}
+body.orbit-ui.idrok-next-home .sidebar nav{display:grid!important;gap:4px!important}
+body.orbit-ui.idrok-next-home .sidebar nav :where(a,button){display:grid!important;grid-template-columns:30px minmax(0,1fr) auto!important;align-items:center!important;gap:10px!important;min-height:47px!important;padding:8px 11px!important;border:1px solid transparent!important;border-radius:12px!important;background:transparent!important;color:#aeb7b0!important;text-align:left!important;text-decoration:none!important;font-size:13px!important;font-weight:700!important}
+body.orbit-ui.idrok-next-home .sidebar nav :where(a,button):hover,body.orbit-ui.idrok-next-home .sidebar nav :where(a,button).active{border-color:#333936!important;background:#1a1e1b!important;color:#fff!important}
+body.orbit-ui.idrok-next-home .sidebar nav svg{width:20px!important;height:20px!important;fill:none!important;stroke:currentColor!important}
+body.orbit-ui.idrok-next-home .sidebar nav small{display:inline-flex!important;min-width:27px!important;justify-content:center!important;padding:4px 7px!important;border:0!important;border-radius:999px!important;background:#2b312d!important;color:var(--orb-lime)!important;font-size:10px!important}
+body.orbit-ui .side-login,body.orbit-ui .side-profile{margin-top:12px!important;border:1px solid #303632!important;border-radius:15px!important;background:#151816!important;color:#fff!important}
+body.orbit-ui .page-shell{min-height:100vh!important;margin-left:244px!important;background:var(--orb-paper)!important}
+body.orbit-ui .site-header{position:sticky!important;top:0!important;z-index:600!important;display:flex!important;height:72px!important;align-items:center!important;padding:0 28px!important;border:0!important;border-bottom:1px solid var(--orb-line)!important;background:rgba(246,247,242,.92)!important;backdrop-filter:blur(18px)!important}
+body.orbit-ui .header-search{max-width:520px!important}.header-search input{height:44px!important;border:1px solid #cbd2cb!important;border-radius:13px!important;background:#fff!important;color:var(--orb-ink)!important;font-size:13px!important}
+body.orbit-ui .site-header .header-actions{display:flex!important;align-items:center!important;gap:8px!important;margin-left:auto!important}
+body.orbit-ui .site-header .header-actions :where(button,.impulse-pill){display:flex!important;height:42px!important;align-items:center!important;gap:7px!important;padding:0 12px!important;border:1px solid #cbd2cb!important;border-radius:13px!important;background:#fff!important;color:var(--orb-ink)!important;box-shadow:none!important}
+body.orbit-ui .site-header .header-actions .impulse-pill{border-color:var(--orb-ink)!important;background:var(--orb-ink)!important;color:#fff!important}
+body.orbit-ui .site-header .header-actions .impulse-pill i{color:var(--orb-lime)!important}
+
+body.orbit-ui .home-command{width:min(100%,1500px)!important;margin:0 auto!important;padding:30px!important}
+body.orbit-ui .command-greeting{display:flex!important;align-items:end!important;gap:18px!important;margin-bottom:24px!important}
+body.orbit-ui .command-greeting .online-signal{color:#647068!important;font-size:11px!important;letter-spacing:.14em!important}
+body.orbit-ui .command-greeting h1{margin:5px 0!important;color:var(--orb-ink)!important;font-size:clamp(34px,4vw,58px)!important;line-height:1!important;letter-spacing:-.06em!important}
+body.orbit-ui .command-greeting h1 em{color:inherit!important;font-style:normal!important;text-decoration:underline!important;text-decoration-color:var(--orb-lime)!important;text-decoration-thickness:.15em!important;text-underline-offset:.03em!important}
+body.orbit-ui .command-greeting p{color:#677069!important;font-size:14px!important}
+body.orbit-ui .command-streak,body.orbit-ui .command-results{min-height:48px!important;border:1px solid #ccd3cc!important;border-radius:14px!important;background:#fff!important;color:var(--orb-ink)!important;box-shadow:none!important}
+
+body.orbit-ui .command-grid{display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:16px!important;align-items:start!important}
+body.orbit-ui .command-main{min-width:0!important}
+body.orbit-ui .journey-card{
+  position:relative!important;display:block!important;min-height:510px!important;height:auto!important;padding:0!important;overflow:hidden!important;
+  border:0!important;border-radius:28px!important;background:var(--orb-lime)!important;color:var(--orb-ink)!important;box-shadow:var(--orb-shadow)!important;
+}
+body.orbit-ui .journey-card::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(11,13,12,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(11,13,12,.09) 1px,transparent 1px);background-size:40px 40px;mask-image:linear-gradient(90deg,transparent 10%,#000 100%)}
+body.orbit-ui .journey-card::after{content:"IDROK / NEXT";position:absolute;right:27px;top:22px;color:rgba(11,13,12,.48);font-size:10px;font-weight:900;letter-spacing:.16em}
+body.orbit-ui .journey-copy{position:relative!important;z-index:4!important;display:flex!important;width:58%!important;max-width:610px!important;min-height:510px!important;flex-direction:column!important;align-items:flex-start!important;justify-content:center!important;padding:42px!important}
+body.orbit-ui .journey-kicker{color:#3a4737!important;font-size:11px!important;letter-spacing:.12em!important}
+body.orbit-ui .journey-kicker i{padding:4px 7px!important;border-radius:7px!important;background:var(--orb-ink)!important;color:var(--orb-lime)!important;font-size:9px!important}
+body.orbit-ui .journey-copy h2{max-width:560px!important;margin:20px 0 15px!important;color:var(--orb-ink)!important;font-size:clamp(38px,4.4vw,66px)!important;line-height:.96!important;letter-spacing:-.07em!important}
+body.orbit-ui .journey-copy>p{max-width:520px!important;color:#344132!important;font-size:15px!important;line-height:1.65!important}
+body.orbit-ui .journey-meta{display:flex!important;flex-wrap:wrap!important;gap:7px!important;margin-top:17px!important}
+body.orbit-ui .journey-meta span{padding:6px 9px!important;border:1px solid rgba(11,13,12,.2)!important;border-radius:999px!important;background:rgba(255,255,255,.3)!important;color:#283326!important;font-size:11px!important;font-weight:750!important}
+body.orbit-ui .journey-meta .journey-reward{border-color:var(--orb-ink)!important;background:var(--orb-ink)!important;color:var(--orb-lime)!important}
+body.orbit-ui .journey-actions{display:flex!important;flex-direction:row!important;gap:9px!important;margin-top:22px!important}
+body.orbit-ui .journey-primary{min-height:52px!important;padding:0 18px!important;border:1px solid var(--orb-ink)!important;border-radius:14px!important;background:var(--orb-ink)!important;color:#fff!important;box-shadow:none!important;font-size:13px!important}
+body.orbit-ui .journey-primary span{color:var(--orb-lime)!important}.journey-actions>a{display:grid!important;width:52px!important;height:52px!important;place-items:center!important;border:1px solid rgba(11,13,12,.28)!important;border-radius:14px!important;background:rgba(255,255,255,.28)!important;color:var(--orb-ink)!important}
+body.orbit-ui .journey-apparatus{position:absolute!important;z-index:2!important;inset:84px 20px 22px auto!important;width:39%!important;height:auto!important;min-height:370px!important;overflow:hidden!important;border:1px solid #303632!important;border-radius:22px!important;background:var(--orb-ink)!important;transform:none!important}
+body.orbit-ui .journey-apparatus::before{content:"λ";position:absolute;left:50%;top:47%;color:var(--orb-lime);font:800 112px/1 Georgia,serif;transform:translate(-50%,-50%);text-shadow:0 0 60px rgba(199,255,94,.18)}
+body.orbit-ui .journey-apparatus::after{content:"MOTION FIELD / LIVE";position:absolute;left:20px;top:17px;color:#7f8982;font-size:9px;font-weight:900;letter-spacing:.16em}
+body.orbit-ui .journey-apparatus img{display:none!important}
+body.orbit-ui .journey-apparatus .apparatus-formula,body.orbit-ui .journey-apparatus .apparatus-chip{position:absolute!important;z-index:3!important;padding:7px 9px!important;border:1px solid #373e39!important;border-radius:9px!important;background:#171a18!important;color:#fff!important;font-size:10px!important;font-style:normal!important;font-weight:800!important;letter-spacing:.04em!important}
+body.orbit-ui .journey-apparatus .apparatus-formula{right:18px!important;bottom:18px!important}.journey-apparatus .apparatus-chip-a{right:18px!important;top:18px!important}.journey-apparatus .apparatus-chip-b{left:18px!important;bottom:18px!important;color:var(--orb-lime)!important}
+body.orbit-ui .journey-progress{position:absolute!important;z-index:5!important;right:calc(39% + 35px)!important;bottom:23px!important;display:flex!important;align-items:center!important;gap:7px!important;width:auto!important;height:auto!important;padding:6px 9px!important;border:1px solid rgba(11,13,12,.22)!important;border-radius:999px!important;background:rgba(255,255,255,.56)!important;color:var(--orb-ink)!important;box-shadow:none!important;transform:none!important}
+body.orbit-ui .progress-dial{width:38px!important;height:38px!important;border:2px solid var(--orb-ink)!important;background:transparent!important}.progress-dial strong{font-size:11px!important}.journey-progress>span{font-size:11px!important;color:#303a31!important}
+
+body.orbit-ui .analytics-grid.command-stats{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:1px!important;margin-top:12px!important;overflow:hidden!important;border:1px solid #cdd4cd!important;border-radius:18px!important;background:#cdd4cd!important}
+body.orbit-ui .analytics-grid.command-stats>article{min-height:112px!important;padding:18px!important;border:0!important;border-radius:0!important;background:#fff!important;color:var(--orb-ink)!important;box-shadow:none!important}
+body.orbit-ui .analytics-grid.command-stats small{color:#6d776f!important;font-size:11px!important}.analytics-grid.command-stats strong{display:block!important;margin:6px 0!important;color:var(--orb-ink)!important;font-size:25px!important}.analytics-grid.command-stats em{color:#747e76!important;font-size:11px!important}
+
+body.orbit-ui .command-side{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:12px!important}
+body.orbit-ui .command-side :where(.ai-spotlight,.garden-spotlight,.daily-focus){border:1px solid #cdd4cd!important;border-radius:20px!important;background:#fff!important;color:var(--orb-ink)!important;box-shadow:none!important}
+body.orbit-ui .ai-spotlight{min-height:180px!important;padding:19px!important}.ai-spotlight .mini-ai-logo{background:var(--orb-ink)!important;color:var(--orb-lime)!important}.ai-spotlight strong{font-size:19px!important}.ai-spotlight em{color:#687169!important;font-size:13px!important;line-height:1.5!important}
+body.orbit-ui .garden-spotlight{min-height:292px!important;height:auto!important;padding:18px!important}.garden-spotlight header small{color:#687269!important;font-size:10px!important;letter-spacing:.13em!important}.garden-spotlight header strong{font-size:18px!important}.garden-island{height:145px!important;margin:13px 0!important;overflow:hidden!important;border-radius:14px!important;background:var(--orb-ink)!important}.garden-island img{width:100%!important;height:100%!important;object-fit:cover!important;filter:grayscale(1) contrast(1.08)!important;transform:none!important}.garden-spotlight>p{color:#667068!important;font-size:12px!important}.garden-spotlight footer{border-top:1px solid #e0e4df!important;color:var(--orb-ink)!important;font-size:11px!important}
+body.orbit-ui .daily-focus{padding:17px!important}.daily-focus i{background:var(--orb-lime)!important}
+
+body.orbit-ui .my-courses{margin-top:34px!important}.command-section-head{margin-bottom:14px!important}.command-section-head>span{color:#657068!important;font-size:10px!important;letter-spacing:.14em!important}.command-section-head h3{font-size:27px!important;letter-spacing:-.04em!important}.command-section-head a{color:var(--orb-ink)!important;font-size:12px!important}
+body.orbit-ui .course-rail{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}.continue-card{min-height:160px!important;padding:17px!important;border:1px solid #cbd2cb!important;border-radius:18px!important;background:#fff!important;color:var(--orb-ink)!important;box-shadow:none!important}.continue-card:hover{border-color:var(--orb-ink)!important;transform:translateY(-2px)!important}.continue-card>div:first-child{background:#eaede7!important}.continue-card strong{font-size:17px!important}.continue-card>span{font-size:12px!important;color:#687169!important}
+
+body.orbit-ui .content-wrap{max-width:1500px!important;margin:0 auto!important;padding:70px 30px!important}
+body.orbit-ui .course-showcase,body.orbit-ui .experience-section,body.orbit-ui .leader-section,body.orbit-ui .about-section{background:var(--orb-paper)!important;color:var(--orb-ink)!important}
+body.orbit-ui .section-kicker,body.orbit-ui .editorial-kicker{color:#647068!important}
+body.orbit-ui .section-title,body.orbit-ui .showcase-title,body.orbit-ui .experience-copy h2,body.orbit-ui .leader-copy h2,body.orbit-ui .about-copy h2{color:var(--orb-ink)!important;font-size:clamp(38px,5vw,70px)!important;line-height:.96!important;letter-spacing:-.065em!important}
+body.orbit-ui :where(.section-title,.showcase-title,.experience-copy h2,.leader-copy h2,.about-copy h2) em{color:inherit!important;font-style:normal!important;text-decoration:underline!important;text-decoration-color:var(--orb-lime)!important;text-decoration-thickness:.14em!important;text-underline-offset:.03em!important}
+body.orbit-ui .course-grid{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:12px!important}.course-card{min-height:390px!important;padding:24px!important;border:1px solid #cbd2cb!important;border-radius:22px!important;background:#fff!important;color:var(--orb-ink)!important;box-shadow:none!important}.course-card:hover{border-color:var(--orb-ink)!important;transform:translateY(-4px)!important}.course-card h3{color:var(--orb-ink)!important;font-size:28px!important}.course-card p{color:#566057!important;font-size:14px!important;line-height:1.7!important}.course-card button{border-radius:13px!important;background:var(--orb-ink)!important;color:var(--orb-lime)!important}
+body.orbit-ui .experience-panel,body.orbit-ui .league-card,body.orbit-ui .impulse-card,body.orbit-ui .about-card{border:1px solid #cbd2cb!important;border-radius:26px!important;background:#fff!important;color:var(--orb-ink)!important;box-shadow:none!important}
+
+@media(max-width:1180px){body.orbit-ui .command-grid{grid-template-columns:1fr!important}.garden-spotlight{min-height:210px!important}.course-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:900px){body.orbit-ui.idrok-next-home .sidebar{width:min(290px,88vw)!important;transform:translateX(-105%)!important}.sidebar.open{transform:none!important}.page-shell{margin-left:0!important}.command-side{grid-template-columns:1fr!important}.journey-copy{width:100%!important;padding-right:42%!important}.journey-apparatus{width:38%!important}.course-grid{grid-template-columns:1fr!important}}
+@media(max-width:650px){body.orbit-ui .home-command,body.orbit-ui .content-wrap{padding:18px 14px 45px!important}.command-greeting{align-items:flex-start!important;flex-direction:column!important}.journey-card{min-height:auto!important}.journey-copy{width:100%!important;min-height:auto!important;padding:28px 20px 360px!important}.journey-copy h2{font-size:42px!important}.journey-apparatus{inset:auto 16px 16px!important;width:calc(100% - 32px)!important;min-height:320px!important}.journey-progress{right:28px!important;bottom:28px!important}.analytics-grid.command-stats,.course-rail{grid-template-columns:1fr!important}.command-side{grid-template-columns:1fr!important}}
+
+/* ---------- LABORATORY LIBRARY ---------- */
+body.orbit-ui.idrok-labs,body.orbit-ui.idrok-lab{background:var(--orb-paper)!important;color:var(--orb-ink)!important}
+body.orbit-ui :where(.labs-sidebar,.sim-sidebar){position:fixed!important;inset:0 auto 0 0!important;z-index:1000!important;width:244px!important;padding:20px 14px!important;overflow-y:auto!important;border:0!important;background:var(--orb-ink)!important;color:#fff!important;box-shadow:none!important}
+body.orbit-ui :where(.labs-side-head,.sim-side-head){padding:0 6px 20px!important}
+body.orbit-ui :where(.labs-brand,.sim-brand){display:flex!important;align-items:center!important;gap:11px!important;color:#fff!important;text-decoration:none!important;font-size:20px!important;letter-spacing:.08em!important}
+body.orbit-ui :where(.labs-brand,.sim-brand)>span{display:grid!important;width:42px!important;height:42px!important;place-items:center!important;border-radius:50%!important;background:var(--orb-lime)!important;box-shadow:none!important}
+body.orbit-ui :where(.labs-brand,.sim-brand) svg{width:25px!important;fill:none!important;stroke:var(--orb-ink)!important;stroke-width:2.3!important}
+body.orbit-ui :where(.labs-nav-label,.sim-nav-label){margin:6px 11px 8px!important;color:#707a73!important;font-size:11px!important;font-weight:800!important;letter-spacing:.14em!important}
+body.orbit-ui :where(.labs-nav,.sim-nav){display:grid!important;gap:4px!important}
+body.orbit-ui :where(.labs-nav,.sim-nav)>:where(a,button){display:grid!important;grid-template-columns:30px minmax(0,1fr) auto!important;align-items:center!important;gap:9px!important;width:100%!important;min-height:44px!important;padding:7px 10px!important;border:1px solid transparent!important;border-radius:11px!important;background:transparent!important;color:#aeb7b0!important;text-decoration:none!important;text-align:left!important}
+body.orbit-ui :where(.labs-nav,.sim-nav)>:where(a,button):hover,body.orbit-ui :where(.labs-nav,.sim-nav)>:where(a,button).active{border-color:#333936!important;background:#1a1e1b!important;color:#fff!important}
+body.orbit-ui :where(.labs-nav,.sim-nav) b{min-width:0!important;overflow:visible!important;white-space:normal!important;font-size:12px!important;line-height:1.25!important;text-overflow:clip!important}
+body.orbit-ui :where(.labs-nav,.sim-nav)>:where(a,button)>span{color:var(--orb-lime)!important;font-size:16px!important}.labs-nav small,.sim-nav small{padding:3px 6px!important;border-radius:999px!important;background:#2d342e!important;color:var(--orb-lime)!important;font-size:10px!important}
+body.orbit-ui :where(.labs-side-progress,.sim-side-progress){display:grid!important;grid-template-columns:48px minmax(0,1fr)!important;align-items:center!important;gap:10px!important;margin-top:12px!important;padding:12px!important;border:1px solid #303632!important;border-radius:14px!important;background:#151816!important;color:#fff!important}
+body.orbit-ui :where(.labs-side-progress,.sim-side-progress)>span{display:grid!important;width:48px!important;height:48px!important;place-items:center!important;border:2px solid var(--orb-lime)!important;border-radius:50%!important;background:transparent!important;color:var(--orb-lime)!important;font-size:11px!important}
+body.orbit-ui :where(.labs-side-progress,.sim-side-progress) b{font-size:12px!important}.labs-side-progress small,.sim-side-progress small{display:block!important;color:#87918a!important;font-size:11px!important}
+body.orbit-ui :where(.labs-side-user,.sim-side-user){display:grid!important;grid-template-columns:40px minmax(0,1fr)!important;align-items:center!important;gap:10px!important;margin-top:9px!important;padding:11px!important;border-top:1px solid #2d332f!important;color:#fff!important}.labs-side-user>span,.sim-side-user>span{display:grid!important;width:40px!important;height:40px!important;place-items:center!important;border-radius:50%!important;background:#282e2a!important;color:var(--orb-lime)!important;font-size:12px!important;font-weight:800!important}.labs-side-user b,.sim-side-user b{font-size:12px!important}.labs-side-user small,.sim-side-user small{display:block!important;color:#8d9690!important;font-size:11px!important}
+
+body.orbit-ui :where(.labs-header,.sim-header){position:sticky!important;top:0!important;z-index:600!important;display:flex!important;height:72px!important;align-items:center!important;margin-left:244px!important;padding:0 28px!important;border:0!important;border-bottom:1px solid var(--orb-line)!important;background:rgba(246,247,242,.92)!important;color:var(--orb-ink)!important;backdrop-filter:blur(18px)!important}
+body.orbit-ui :where(.labs-header,.sim-header)>div:first-child{display:grid!important;gap:2px!important}.labs-header small,.sim-header small{color:#727c74!important;font-size:10px!important;letter-spacing:.12em!important}.labs-header b,.sim-header b{font-size:13px!important}
+body.orbit-ui :where(.labs-impulse,.sim-impulse){display:flex!important;height:42px!important;align-items:center!important;gap:7px!important;padding:0 12px!important;border-radius:13px!important;background:var(--orb-ink)!important;color:#fff!important}.labs-impulse i,.sim-impulse i{color:var(--orb-lime)!important;font-style:normal!important}
+body.orbit-ui :where(.labs-page,.sim-page){max-width:1600px!important;margin:0 auto 0 244px!important;padding:30px!important}
+
+body.orbit-ui .labs-hero{position:relative!important;display:grid!important;grid-template-columns:minmax(0,1.1fr) minmax(360px,.9fr)!important;min-height:520px!important;padding:0!important;overflow:hidden!important;border:0!important;border-radius:28px!important;background:var(--orb-ink)!important;color:#fff!important;box-shadow:var(--orb-shadow)!important}
+body.orbit-ui .labs-hero-copy{display:flex!important;min-width:0!important;flex-direction:column!important;align-items:flex-start!important;justify-content:center!important;padding:46px!important}
+body.orbit-ui .labs-kicker{padding:7px 10px!important;border:1px solid #3a413c!important;border-radius:999px!important;background:#191d1a!important;color:var(--orb-lime)!important;font-size:11px!important;letter-spacing:.09em!important}
+body.orbit-ui .labs-hero h1{margin:22px 0 18px!important;color:#fff!important;font-size:clamp(45px,5vw,76px)!important;line-height:.95!important;letter-spacing:-.07em!important}.labs-hero h1 em{color:inherit!important;font-style:normal!important;text-decoration:underline!important;text-decoration-color:var(--orb-lime)!important;text-decoration-thickness:.15em!important;text-underline-offset:.03em!important}
+body.orbit-ui .labs-hero p{max-width:650px!important;margin:0!important;color:#b7c0b9!important;font-size:15px!important;line-height:1.7!important}.labs-hero-actions{display:flex!important;flex-wrap:wrap!important;gap:9px!important;margin-top:26px!important}.labs-hero-actions a{display:flex!important;min-height:50px!important;align-items:center!important;padding:0 17px!important;border:1px solid #454d47!important;border-radius:13px!important;background:#181c19!important;color:#fff!important;text-decoration:none!important;font-size:13px!important;font-weight:800!important}.labs-hero-actions a:first-child{border-color:var(--orb-lime)!important;background:var(--orb-lime)!important;color:var(--orb-ink)!important}
+body.orbit-ui .labs-orbit{position:relative!important;display:grid!important;min-height:520px!important;place-items:center!important;overflow:hidden!important;background:#161a17!important}.labs-orbit::before{content:"LAB";position:absolute;right:-10%;bottom:-12%;color:rgba(255,255,255,.035);font-size:260px;font-weight:900;line-height:1}.labs-orbit .orbit-core{display:grid!important;width:150px!important;height:150px!important;place-items:center!important;border:1px solid #596159!important;border-radius:50%!important;background:#222722!important;color:var(--orb-lime)!important;font-size:22px!important;box-shadow:0 0 0 32px rgba(255,255,255,.025)!important}.labs-orbit .orbit-core small{display:block!important;color:#fff!important;font-size:10px!important;letter-spacing:.16em!important}.labs-orbit>i{border-color:rgba(199,255,94,.45)!important}.labs-orbit>i::after{background:var(--orb-lime)!important}
+body.orbit-ui .labs-stat-row{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:10px!important;margin-top:14px!important}.labs-stat-row article{display:grid!important;grid-template-columns:auto minmax(0,1fr)!important;align-items:center!important;gap:14px!important;min-height:110px!important;padding:18px!important;border:1px solid #cdd4cd!important;border-radius:18px!important;background:#fff!important;color:var(--orb-ink)!important;box-shadow:none!important}.labs-stat-row article>span{color:var(--orb-ink)!important;font-size:34px!important;font-weight:850!important;letter-spacing:-.05em!important}.labs-stat-row b{font-size:14px!important}.labs-stat-row small{display:block!important;margin-top:3px!important;color:#6e786f!important;font-size:12px!important}
+body.orbit-ui .bonus-lab{display:grid!important;grid-template-columns:280px minmax(0,1fr) auto!important;align-items:center!important;gap:24px!important;margin-top:40px!important;padding:24px!important;border:1px solid #ccd3cc!important;border-radius:24px!important;background:#fff!important;color:var(--orb-ink)!important;box-shadow:none!important}.bonus-copy h2{margin:5px 0!important;font-size:31px!important;letter-spacing:-.04em!important}.bonus-copy p{color:#626c64!important;font-size:14px!important}.bonus-copy a{color:var(--orb-ink)!important;font-weight:800!important}.bonus-lab>strong{color:#6b912e!important}
+body.orbit-ui .labs-library{margin-top:52px!important}.labs-library-head{display:flex!important;align-items:end!important;justify-content:space-between!important;gap:20px!important}.labs-library-head h2{margin:6px 0!important;font-size:clamp(36px,4.6vw,64px)!important;line-height:1!important;letter-spacing:-.06em!important}.labs-library-head p{color:#687169!important}.labs-search{display:flex!important;width:min(420px,100%)!important;height:50px!important;align-items:center!important;gap:8px!important;padding:0 14px!important;border:1px solid #cbd2cb!important;border-radius:14px!important;background:#fff!important}.labs-search input{min-width:0!important;flex:1!important;border:0!important;background:transparent!important;color:var(--orb-ink)!important;font-size:13px!important}.chapter-filters{display:flex!important;gap:7px!important;margin:20px 0!important;overflow-x:auto!important}.chapter-filters button{flex:0 0 auto!important;min-height:43px!important;padding:0 13px!important;border:1px solid #cbd2cb!important;border-radius:12px!important;background:#fff!important;color:#4f5a51!important;font-size:12px!important}.chapter-filters button.active{border-color:var(--orb-ink)!important;background:var(--orb-ink)!important;color:var(--orb-lime)!important}
+body.orbit-ui .labs-grid{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:12px!important}.lab-card{min-width:0!important;overflow:hidden!important;border:1px solid #cbd2cb!important;border-radius:18px!important;background:#fff!important;color:var(--orb-ink)!important;box-shadow:none!important}.lab-card:hover{border-color:var(--orb-ink)!important;transform:translateY(-3px)!important}.lab-card :where(h3,b,strong){color:var(--orb-ink)!important}.lab-card p{color:#687169!important;font-size:12px!important}.lab-card button,.lab-card a{border-radius:11px!important;background:var(--orb-ink)!important;color:var(--orb-lime)!important}
+
+/* ---------- INTERACTIVE LAB ---------- */
+body.orbit-ui .sim-hero{display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;align-items:end!important;gap:20px!important;margin-bottom:16px!important;padding:30px!important;border:1px solid #cbd2cb!important;border-radius:22px!important;background:#fff!important;color:var(--orb-ink)!important;box-shadow:none!important}.sim-kicker{color:#667068!important;font-size:11px!important;letter-spacing:.12em!important}.sim-hero h1{max-width:900px!important;margin:8px 0!important;color:var(--orb-ink)!important;font-size:clamp(36px,4vw,58px)!important;line-height:1!important;letter-spacing:-.055em!important}.sim-hero p{max-width:750px!important;color:#667068!important;font-size:14px!important}.sim-hero-meta{display:flex!important;flex-wrap:wrap!important;gap:7px!important;margin-top:14px!important}.sim-hero-meta span{padding:6px 9px!important;border:1px solid #ced4ce!important;border-radius:999px!important;background:#f3f5f0!important;color:#4b554d!important;font-size:11px!important}.course-return{display:flex!important;min-height:47px!important;align-items:center!important;padding:0 15px!important;border-radius:12px!important;background:var(--orb-ink)!important;color:#fff!important;text-decoration:none!important;font-size:12px!important;font-weight:800!important}.course-return span{color:var(--orb-lime)!important}
+body.orbit-ui .simulator-shell{display:grid!important;grid-template-columns:minmax(0,1fr) 360px!important;gap:14px!important;align-items:start!important}.sim-stage-column{min-width:0!important;overflow:hidden!important;border:1px solid #242a26!important;border-radius:22px!important;background:var(--orb-ink)!important;box-shadow:var(--orb-shadow)!important}.sim-stage-toolbar{display:flex!important;min-height:58px!important;align-items:center!important;justify-content:space-between!important;padding:0 14px!important;border-bottom:1px solid #303632!important;background:#151816!important;color:#fff!important}.sim-stage-toolbar>span{color:#aeb7b0!important;font-size:10px!important;letter-spacing:.12em!important}.sim-stage-toolbar>span i{background:var(--orb-lime)!important}.sim-stage-toolbar button{min-height:36px!important;border:1px solid #384039!important;border-radius:10px!important;background:#202522!important;color:#e6ebe7!important;font-size:11px!important}.sim-canvas-wrap{position:relative!important;min-height:500px!important;background:#101311!important}.sim-canvas-wrap canvas{display:block!important;width:100%!important;max-width:100%!important;height:auto!important;min-height:500px!important;object-fit:contain!important;background:#101311!important}.sim-stage-footer{border-top:1px solid #303632!important;background:#151816!important;color:#d8ded9!important}.sim-mode-tabs button{border-radius:9px!important;color:#9da69f!important}.sim-mode-tabs button.active{background:var(--orb-lime)!important;color:var(--orb-ink)!important}
+body.orbit-ui .sim-control-panel{min-width:0!important;padding:18px!important;border:1px solid #cbd2cb!important;border-radius:22px!important;background:#fff!important;color:var(--orb-ink)!important;box-shadow:none!important}.control-panel-head{display:grid!important;grid-template-columns:48px minmax(0,1fr) auto!important;gap:10px!important;align-items:center!important}.lab-symbol{display:grid!important;width:48px!important;height:48px!important;place-items:center!important;border-radius:50%!important;background:var(--orb-ink)!important;color:var(--orb-lime)!important;font-size:12px!important}.control-panel-head h2{margin:2px 0!important;font-size:20px!important;letter-spacing:-.03em!important}.control-panel-head p{margin:0!important;color:#6c766e!important;font-size:11px!important}.lab-state{padding:5px 7px!important;border-radius:999px!important;background:var(--orb-lime)!important;color:var(--orb-ink)!important;font-size:9px!important;font-weight:900!important}.dynamic-controls{margin-top:16px!important}.dynamic-controls label{color:#59635b!important;font-size:12px!important}.dynamic-controls input[type=range]{accent-color:#7ca831!important}.metric-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}.metric-grid article{min-width:0!important;padding:12px!important;border:1px solid #d6dcd6!important;border-radius:13px!important;background:#f4f6f1!important}.metric-grid small{display:block!important;color:#707a72!important;font-size:9px!important;letter-spacing:.06em!important}.metric-grid strong{display:block!important;margin-top:3px!important;overflow:hidden!important;color:var(--orb-ink)!important;font-size:18px!important;text-overflow:ellipsis!important}.experiment-action{width:100%!important;min-height:50px!important;margin-top:12px!important;border:0!important;border-radius:13px!important;background:var(--orb-lime)!important;color:var(--orb-ink)!important;font-size:13px!important;font-weight:900!important}.sim-challenge{margin-top:12px!important;padding:15px!important;border:1px solid #d3d9d3!important;border-radius:15px!important;background:#f2f4ef!important}.sim-challenge h3{font-size:16px!important}.sim-challenge p{color:#687169!important;font-size:12px!important}.challenge-progress i{background:var(--orb-lime-2)!important}
+body.orbit-ui .sim-next-nav{display:grid!important;grid-template-columns:1fr 1fr!important;gap:10px!important;margin-top:14px!important}.sim-next-nav a{padding:14px!important;border:1px solid #cbd2cb!important;border-radius:15px!important;background:#fff!important;color:var(--orb-ink)!important;text-decoration:none!important}.sim-next-nav b{font-size:13px!important}.sim-next-nav span{color:#6a746c!important;font-size:11px!important}
+
+@media(max-width:1120px){body.orbit-ui .labs-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}.simulator-shell{grid-template-columns:1fr!important}.sim-control-panel{display:grid!important;grid-template-columns:1fr 1fr!important;gap:14px!important}.sim-control-panel .experiment-action,.sim-control-panel .sim-challenge{grid-column:1/-1!important}}
+@media(max-width:900px){body.orbit-ui :where(.labs-sidebar,.sim-sidebar){width:min(300px,88vw)!important;transform:translateX(-105%)!important}.labs-sidebar.open,.sim-sidebar.open{transform:none!important}body.orbit-ui :where(.labs-header,.sim-header){margin-left:0!important}body.orbit-ui :where(.labs-page,.sim-page){margin-left:0!important}.labs-hero{grid-template-columns:1fr!important}.labs-orbit{min-height:360px!important}.bonus-lab{grid-template-columns:1fr!important}.labs-library-head{align-items:stretch!important;flex-direction:column!important}}
+@media(max-width:650px){body.orbit-ui :where(.labs-page,.sim-page){padding:14px!important}.labs-hero-copy{padding:28px 20px!important}.labs-hero h1{font-size:43px!important}.labs-stat-row,.labs-grid{grid-template-columns:1fr!important}.sim-hero{grid-template-columns:1fr!important;padding:21px!important}.simulator-shell{grid-template-columns:1fr!important}.sim-control-panel{display:block!important}.sim-canvas-wrap,.sim-canvas-wrap canvas{min-height:360px!important}.sim-next-nav{grid-template-columns:1fr!important}}
+
+/* ---------- 3D FOCUS WORLD ---------- */
+body.orbit-ui.idrok-garden{background:var(--orb-paper)!important;color:var(--orb-ink)!important}
+body.orbit-ui .garden-sidebar{position:fixed!important;inset:0 auto 0 0!important;z-index:1000!important;width:244px!important;padding:20px 14px!important;overflow-y:auto!important;border:0!important;background:var(--orb-ink)!important;color:#fff!important;box-shadow:none!important}
+body.orbit-ui .garden-brand-row{padding:0 6px 22px!important}.garden-brand{display:flex!important;align-items:center!important;gap:11px!important;color:#fff!important;text-decoration:none!important;font-size:20px!important;letter-spacing:.08em!important}.garden-brand>span{display:grid!important;width:42px!important;height:42px!important;place-items:center!important;border-radius:50%!important;background:var(--orb-lime)!important;box-shadow:none!important}.garden-brand svg{width:25px!important;fill:none!important;stroke:var(--orb-ink)!important;stroke-width:2.3!important}.garden-sidebar .side-label{margin:6px 11px 8px!important;color:#707a73!important;font-size:11px!important;letter-spacing:.14em!important}
+body.orbit-ui .garden-sidebar nav{display:grid!important;gap:4px!important}.garden-sidebar nav a{display:grid!important;grid-template-columns:30px minmax(0,1fr) auto!important;align-items:center!important;gap:9px!important;width:100%!important;min-height:46px!important;padding:8px 10px!important;border:1px solid transparent!important;border-radius:11px!important;background:transparent!important;color:#aeb7b0!important;text-decoration:none!important;font-size:12px!important}.garden-sidebar nav a:hover,.garden-sidebar nav a.active{border-color:#333936!important;background:#1a1e1b!important;color:#fff!important;box-shadow:none!important}.garden-sidebar nav a>span{color:var(--orb-lime)!important}.garden-sidebar nav a small{padding:3px 6px!important;border-radius:999px!important;background:#2d342e!important;color:var(--orb-lime)!important;font-size:9px!important}
+body.orbit-ui .side-world-card{margin-top:auto!important;padding:15px!important;border:1px solid #303632!important;border-radius:16px!important;background:#151816!important;color:#fff!important;box-shadow:none!important}.side-world-card>div b{color:var(--orb-lime)!important}.side-world-track{background:#303632!important}.side-world-track i{background:var(--orb-lime)!important}.side-world-card small{color:#8d9690!important}.side-missions{border-color:#303632!important;background:#151816!important;color:#fff!important}.side-missions>span{background:var(--orb-lime)!important;color:var(--orb-ink)!important}.side-missions small{color:#8d9690!important}.garden-side-account{color:#fff!important}.garden-side-account>span{border-radius:50%!important;background:#282e2a!important;color:var(--orb-lime)!important}.garden-side-account small{color:#8d9690!important}
+body.orbit-ui .garden-shell{min-height:100vh!important;margin-left:244px!important;background:var(--orb-paper)!important}.garden-topbar{height:72px!important;padding:0 28px!important;border:0!important;border-bottom:1px solid var(--orb-line)!important;background:rgba(246,247,242,.92)!important;color:var(--orb-ink)!important;backdrop-filter:blur(18px)!important}.garden-impulse{height:42px!important;border:0!important;border-radius:13px!important;background:var(--orb-ink)!important;color:#fff!important}.garden-impulse i{color:var(--orb-lime)!important}.garden-top-actions>button{border-color:#cbd2cb!important;background:#fff!important;color:var(--orb-ink)!important}
+body.orbit-ui .garden-main{max-width:1700px!important;margin:0 auto!important;padding:18px 20px 24px!important}.garden-command{display:grid!important;grid-template-columns:minmax(240px,1fr) auto auto!important;gap:14px!important;margin-bottom:12px!important;padding:16px 18px!important;border:0!important;border-radius:19px!important;background:var(--orb-ink)!important;color:#fff!important;box-shadow:none!important}.command-copy>span{color:var(--orb-lime)!important;font-size:10px!important;letter-spacing:.13em!important}.command-copy h1{margin:3px 0!important;color:#fff!important;font-size:23px!important;letter-spacing:-.04em!important}.command-copy p{max-width:560px!important;color:#aeb7b0!important;font-size:12px!important;line-height:1.45!important}.garden-live-stats>div{border-color:#363d38!important}.garden-live-stats small{color:#7f8982!important;font-size:9px!important}.garden-live-stats b{color:#fff!important}.garden-live-stats i{color:rgba(199,255,94,.16)!important}.command-actions button{border-color:#3b423d!important;background:#181c19!important;color:#fff!important}.command-actions .primary{border-color:var(--orb-lime)!important;background:var(--orb-lime)!important;color:var(--orb-ink)!important;box-shadow:none!important}
+body.orbit-ui .garden-game-layout{display:grid!important;grid-template-columns:minmax(0,1fr) 340px!important;gap:12px!important}.garden-world-card{height:clamp(620px,calc(100vh - 176px),900px)!important;min-height:620px!important;border:0!important;border-radius:24px!important;background:#111411!important;box-shadow:var(--orb-shadow)!important}.world-vignette{background:linear-gradient(180deg,rgba(4,8,5,.2),transparent 25%,transparent 72%,rgba(4,8,5,.35))!important}.world-badge,.world-size,.world-weather,.camera-tools,.environment-tools,.world-help{border-color:rgba(255,255,255,.16)!important;background:rgba(11,13,12,.82)!important;color:#fff!important;box-shadow:none!important}.world-badge i{background:var(--orb-lime)!important;box-shadow:0 0 12px rgba(199,255,94,.65)!important}.camera-tools button:hover,.environment-tools button.active{background:var(--orb-lime)!important;color:var(--orb-ink)!important}.world-loading{background:var(--orb-ink)!important}.loading-seed{filter:grayscale(1)}.world-loading i:after{background:var(--orb-lime)!important}
+body.orbit-ui .garden-shop{min-width:0!important;overflow:hidden!important;border:1px solid #cbd2cb!important;border-radius:22px!important;background:#fff!important;color:var(--orb-ink)!important;box-shadow:none!important}.shop-head{border-bottom:1px solid #dfe3de!important}.shop-head>span{color:#687169!important}.shop-head h2{font-size:23px!important;letter-spacing:-.04em!important}.shop-balance{border-radius:13px!important;background:#eff2ec!important;color:var(--orb-ink)!important}.shop-balance i{color:#6e982e!important}.shop-tabs{background:#eff2ec!important}.shop-tabs button{color:#677169!important}.shop-tabs button.active{background:var(--orb-ink)!important;color:var(--orb-lime)!important}.shop-filters{display:flex!important;overflow-x:auto!important}.shop-filters button{flex:0 0 auto!important;border-color:#d2d8d2!important;background:#fff!important;color:#58625a!important}.shop-filters button.active{border-color:var(--orb-ink)!important;background:var(--orb-lime)!important;color:var(--orb-ink)!important}.catalog-list{scrollbar-color:#aeb6ae transparent!important}.catalog-card{border-color:#d6dcd6!important;background:#fff!important;color:var(--orb-ink)!important;box-shadow:none!important}.catalog-card:hover{border-color:#7f8981!important}.catalog-card b,.catalog-card strong{color:var(--orb-ink)!important}.catalog-card p{color:#687169!important;font-size:11px!important}.catalog-card button{border-radius:10px!important;background:var(--orb-ink)!important;color:var(--orb-lime)!important}.ethics-note{border-color:#d6dcd6!important;background:#f1f3ee!important;color:#59635b!important}
+body.orbit-ui .garden-bottom-row{display:grid!important;grid-template-columns:1fr 1fr!important;gap:12px!important;margin-top:12px!important}.garden-bottom-row>article{border:1px solid #cbd2cb!important;border-radius:19px!important;background:#fff!important;color:var(--orb-ink)!important;box-shadow:none!important}.focus-summary>span{border-color:#d9ded9!important}.focus-summary strong,.expand-card strong{color:var(--orb-ink)!important}.focus-summary p,.expand-card p{color:#687169!important}.expand-card button{border:0!important;background:var(--orb-ink)!important;color:var(--orb-lime)!important}
+body.orbit-ui .garden-modal article{border-color:#cbd2cb!important;border-radius:22px!important;background:#fff!important;color:var(--orb-ink)!important}.garden-modal h2{letter-spacing:-.04em!important}.modal-kicker{color:#6f7971!important}.focus-start{background:var(--orb-lime)!important;color:var(--orb-ink)!important}
+@media(max-width:1180px){body.orbit-ui .garden-game-layout{grid-template-columns:1fr!important}.garden-shop{min-height:450px!important}.garden-world-card{height:720px!important}}
+@media(max-width:900px){body.orbit-ui .garden-sidebar{width:min(300px,88vw)!important;transform:translateX(-105%)!important}.garden-sidebar.open{transform:none!important}.garden-shell{margin-left:0!important}.garden-command{grid-template-columns:1fr!important}.garden-live-stats{overflow-x:auto!important}.garden-bottom-row{grid-template-columns:1fr!important}}
+@media(max-width:650px){body.orbit-ui .garden-main{padding:12px!important}.garden-world-card{height:68vh!important;min-height:540px!important;border-radius:18px!important}.garden-game-layout{grid-template-columns:1fr!important}.garden-command{padding:15px!important}.world-help{display:none!important}}
+
+/* High-specificity garden reset: defeats the retired Garden V2 skin. */
+body.orbit-ui.idrok-garden .garden-brand,body.orbit-ui.idrok-garden .garden-brand b{color:#fff!important}
+body.orbit-ui.idrok-garden .garden-impulse{border-color:var(--orb-ink)!important;background:var(--orb-ink)!important;color:#fff!important}
+body.orbit-ui.idrok-garden .garden-command{border:0!important;background:var(--orb-ink)!important;color:#fff!important;box-shadow:none!important}
+body.orbit-ui.idrok-garden .garden-command .command-copy>span{color:var(--orb-lime)!important}
+body.orbit-ui.idrok-garden .garden-command .command-copy h1{color:#fff!important}
+body.orbit-ui.idrok-garden .garden-command .command-copy p{color:#aeb7b0!important;font-size:12px!important}
+body.orbit-ui.idrok-garden .garden-command .garden-live-stats>div{border-color:#363d38!important}
+body.orbit-ui.idrok-garden .garden-command .garden-live-stats small{color:#7f8982!important}
+body.orbit-ui.idrok-garden .garden-command .garden-live-stats b{color:#fff!important}
+body.orbit-ui.idrok-garden .garden-command .command-actions button{border-color:#3b423d!important;background:#181c19!important;color:#fff!important}
+body.orbit-ui.idrok-garden .garden-command .command-actions .primary{border-color:var(--orb-lime)!important;background:var(--orb-lime)!important;color:var(--orb-ink)!important}
+body.orbit-ui.idrok-garden :where(.world-badge,.world-size,.world-weather,.camera-tools,.environment-tools,.world-help){border-color:rgba(255,255,255,.16)!important;background:rgba(11,13,12,.84)!important;color:#fff!important;box-shadow:none!important}
+body.orbit-ui.idrok-garden .environment-tools button.active,body.orbit-ui.idrok-garden .camera-tools button:hover{background:var(--orb-lime)!important;color:var(--orb-ink)!important}
+body.orbit-ui.idrok-garden .garden-shop{border-color:#cbd2cb!important;background:#fff!important;color:var(--orb-ink)!important;box-shadow:none!important}
+
+/* High-specificity lesson reset: all generated course content joins Orbit. */
+body.orbit-ui.idrok-course .lesson-top{border-color:#cbd2cb!important;background:#fff!important;color:var(--orb-ink)!important;box-shadow:none!important}
+body.orbit-ui.idrok-course .lesson-top :where(h1,h2,h3,b,strong){color:var(--orb-ink)!important}
+body.orbit-ui.idrok-course .lesson-top :where(p,small,span){color:#647068!important}
+body.orbit-ui.idrok-course .lesson-tabs{border-color:#cbd2cb!important;background:#fff!important;box-shadow:none!important}
+body.orbit-ui.idrok-course .lesson-tabs button{border:0!important;background:transparent!important;color:#657068!important}
+body.orbit-ui.idrok-course .lesson-tabs button.active{background:var(--orb-ink)!important;color:#fff!important}
+body.orbit-ui.idrok-course .lesson-tabs button.active :where(span,b,strong){color:var(--orb-lime)!important}
+body.orbit-ui.idrok-course .lesson-tabs>a{display:grid!important;grid-template-columns:32px minmax(0,1fr) auto!important;align-items:center!important;gap:9px!important;min-height:58px!important;padding:8px!important;border:0!important;border-radius:12px!important;background:transparent!important;color:#657068!important;text-decoration:none!important}
+body.orbit-ui.idrok-course .lesson-tabs>a i{display:grid!important;width:32px!important;height:32px!important;place-items:center!important;border:1px solid #d2d8d2!important;border-radius:9px!important;background:#fff!important;color:#59635b!important;font-size:10px!important;font-style:normal!important}
+body.orbit-ui.idrok-course .lesson-tabs>a b{color:var(--orb-ink)!important;font-size:12px!important}
+body.orbit-ui.idrok-course .lesson-tabs>a small{display:block!important;color:#7a847c!important;font-size:11px!important;line-height:1.3!important}
+body.orbit-ui.idrok-course .lesson-tabs>a.active{background:var(--orb-ink)!important;color:#fff!important}
+body.orbit-ui.idrok-course .lesson-tabs>a.active i{border-color:var(--orb-lime)!important;background:var(--orb-lime)!important;color:var(--orb-ink)!important}
+body.orbit-ui.idrok-course .lesson-tabs>a.active b{color:#fff!important}
+body.orbit-ui.idrok-course .lesson-tabs>a.active small{color:#aeb7b0!important}
+body.orbit-ui.idrok-course .lesson-nav-title small{color:#717b73!important;font-size:10px!important;letter-spacing:.11em!important}.lesson-nav-title b{font-size:13px!important}
+body.orbit-ui.idrok-course .lesson-nav-progress i{background:var(--orb-lime-2)!important}
+body.orbit-ui.idrok-course .lesson-content{border-color:#cbd2cb!important;background:#fff!important;color:var(--orb-ink)!important;box-shadow:none!important}
+body.orbit-ui.idrok-course .lesson-section{border:0!important;background:#fff!important;color:var(--orb-ink)!important;box-shadow:none!important}
+body.orbit-ui.idrok-course .section-index{display:grid!important;place-items:center!important;border-radius:12px!important;background:var(--orb-ink)!important;color:var(--orb-lime)!important}
+body.orbit-ui.idrok-course .lesson-section .section-kicker{color:#69736b!important}
+body.orbit-ui.idrok-course .lesson-section :where(h1,h2,h3,h4,b,strong){color:var(--orb-ink)!important}
+body.orbit-ui.idrok-course .lesson-section :where(p,li){color:#3f4941!important}
+body.orbit-ui.idrok-course .theory-summary{border:1px solid #2c322e!important;border-radius:18px!important;background:var(--orb-ink)!important;color:#fff!important;box-shadow:none!important}
+body.orbit-ui.idrok-course .theory-summary :where(p,b,strong){color:#fff!important}
+body.orbit-ui.idrok-course .theory-summary .ui-icon{background:var(--orb-lime)!important;color:var(--orb-ink)!important}
+body.orbit-ui.idrok-course .concept-grid>*{border:1px solid #d1d7d1!important;border-radius:16px!important;background:#f3f5f0!important;color:var(--orb-ink)!important;box-shadow:none!important}
+body.orbit-ui.idrok-course .theory-reader{border:1px solid #cbd2cb!important;border-radius:18px!important;background:#fff!important;box-shadow:none!important}
+body.orbit-ui.idrok-course .theory-reader-head{border-bottom:1px solid #d9ded9!important;background:#f2f4ef!important;color:var(--orb-ink)!important}
+body.orbit-ui.idrok-course .theory-article{color:#354038!important}
+body.orbit-ui.idrok-course .theory-page-label{border-radius:999px!important;background:var(--orb-lime)!important;color:var(--orb-ink)!important}
+body.orbit-ui.idrok-course .lesson-figure{overflow:hidden!important;border:1px solid #d1d7d1!important;border-radius:17px!important;background:#f5f6f2!important}
+body.orbit-ui.idrok-course :where(.formula-card,.problem-card,.practice,.experiment-card,.quiz-shell,.video-frame){overflow:hidden!important;border:1px solid #cbd2cb!important;border-radius:18px!important;background:#f5f6f2!important;color:var(--orb-ink)!important;box-shadow:none!important}
+body.orbit-ui.idrok-course .formula-card{background:var(--orb-ink)!important;color:#fff!important}
+body.orbit-ui.idrok-course .formula-card :where(h3,h4,b,strong,p,span){color:#fff!important}
+body.orbit-ui.idrok-course .formula-card :where(code,.formula){color:var(--orb-lime)!important}
+body.orbit-ui.idrok-course .solution-steps>*{border-left-color:var(--orb-lime-2)!important;background:#fff!important}
+body.orbit-ui.idrok-course .answer{border-color:#b7c2b8!important;background:#edf2e9!important;color:#263126!important}
+body.orbit-ui.idrok-course .practice-row{border-color:#d0d6d0!important;background:#fff!important}
+body.orbit-ui.idrok-course .practice button,body.orbit-ui.idrok-course .quiz-navigation button,body.orbit-ui.idrok-course .stage-complete{border:0!important;border-radius:12px!important;background:var(--orb-ink)!important;color:#fff!important;box-shadow:none!important}
+body.orbit-ui.idrok-course .practice button span,body.orbit-ui.idrok-course .quiz-navigation button span{color:var(--orb-lime)!important}
+body.orbit-ui.idrok-course .experiment-symbol{background:var(--orb-lime)!important;color:var(--orb-ink)!important}
+body.orbit-ui.idrok-course .experiment-question{border-color:#d2d8d2!important;background:#fff!important}
+body.orbit-ui.idrok-course .experiment-explanation{border-color:#c8d1c7!important;background:#eef3e9!important}
+body.orbit-ui.idrok-course .quiz-progress{background:var(--orb-lime-2)!important}
+body.orbit-ui.idrok-course .quiz-options button{border:1px solid #cbd2cb!important;border-radius:13px!important;background:#fff!important;color:var(--orb-ink)!important;box-shadow:none!important}
+body.orbit-ui.idrok-course .quiz-options button:hover,body.orbit-ui.idrok-course .quiz-options button.selected{border-color:var(--orb-ink)!important;background:var(--orb-ink)!important;color:#fff!important}
+
+/* Final legibility and overflow guardrails. */
+body.orbit-ui .header-location b{
+  display:block!important;max-width:min(54vw,560px)!important;overflow:hidden!important;
+  text-overflow:ellipsis!important;white-space:nowrap!important;
+}
+body.orbit-ui.idrok-course .lesson-path,
+body.orbit-ui.idrok-course .lesson-path span,
+body.orbit-ui.idrok-course .lesson-meta span{font-size:11px!important}
+body.orbit-ui.idrok-course .ai-context span{font-size:10px!important}
+
+body.orbit-ui.idrok-garden .garden-command{grid-template-columns:minmax(240px,1fr) auto!important}
+body.orbit-ui.idrok-garden .garden-command .garden-live-stats{
+  grid-column:1/-1!important;grid-row:2!important;display:grid!important;
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;width:100%!important;
+}
+body.orbit-ui.idrok-garden .garden-command .command-actions{grid-column:2!important;grid-row:1!important}
+body.orbit-ui.idrok-garden .garden-command .garden-live-stats>div{min-width:0!important}
+body.orbit-ui.idrok-garden .garden-command .garden-live-stats small{
+  font-size:10px!important;line-height:1.25!important;white-space:normal!important;
+}
+body.orbit-ui.idrok-garden .catalog-card small{
+  display:-webkit-box!important;overflow:hidden!important;white-space:normal!important;
+  text-overflow:clip!important;-webkit-box-orient:vertical;-webkit-line-clamp:2;
+  font-size:10px!important;line-height:1.35!important;
+}
+body.orbit-ui.idrok-garden .garden-sidebar nav a small{font-size:10px!important}
+
+@media(max-width:900px){
+  body.orbit-ui.idrok-garden .garden-command{grid-template-columns:1fr!important}
+  body.orbit-ui.idrok-garden .garden-command .command-actions{grid-column:1!important;grid-row:auto!important}
+  body.orbit-ui.idrok-garden .garden-command .garden-live-stats{grid-column:1!important;grid-row:auto!important}
+}
+@media(max-width:560px){
+  body.orbit-ui.idrok-garden .garden-command .garden-live-stats{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+
+/* Text must stay readable instead of becoming a horizontal scroller. */
+body.orbit-ui.idrok-course .ai-quick-prompts,
+body.orbit-ui .home-ai-prompts{flex-wrap:wrap!important;overflow-x:hidden!important}
+body.orbit-ui.idrok-course .lesson-nav-progress b,
+body.orbit-ui.idrok-course .problem-card>span,
+body.orbit-ui.idrok-course .practice>span,
+body.orbit-ui.idrok-course .experiment-card>span{font-size:10px!important}
+body.orbit-ui.idrok-course .solution-steps>*>i{font-size:10px!important}
+body.orbit-ui.idrok-course :where(.concept-grid,.problem-card,.practice,.experiment-card) :where(p,strong,b){
+  min-width:0!important;overflow-wrap:anywhere!important;white-space:normal!important;
+}
+
+body.orbit-ui.idrok-labs .lab-card-copy{min-width:0!important;overflow:hidden!important}
+body.orbit-ui.idrok-labs .lab-card-meta{min-width:0!important}
+body.orbit-ui.idrok-labs .lab-card-meta span{
+  min-width:0!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important;
+}
+
+body.orbit-ui.idrok-garden .shop-filters{flex-wrap:wrap!important;overflow-x:hidden!important}
+body.orbit-ui.idrok-garden :where(.side-world-card>span,.camera-tools button,.world-help b,.shop-head>span,.shop-balance>span,.garden-bottom-row>article>span){font-size:10px!important}
+body.orbit-ui.idrok-garden .shop-copy em{font-size:10px!important}
+body.orbit-ui.idrok-garden .shop-price i{font-size:9px!important}
+body.orbit-ui.idrok-garden .shop-economy b{font-size:10px!important}
+body.orbit-ui.idrok-garden .garden-command .garden-live-stats small{letter-spacing:.04em!important}
+
+body.orbit-ui .journey-kicker i,
+body.orbit-ui .live-dot,
+body.orbit-ui .leader-avatar{font-size:10px!important}
+body.orbit-ui .journey-apparatus::after{font-size:10px!important}
