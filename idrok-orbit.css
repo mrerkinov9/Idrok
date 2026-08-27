@@ -500,3 +500,182 @@ body.orbit-ui .journey-kicker i,
 body.orbit-ui .live-dot,
 body.orbit-ui .leader-avatar{font-size:10px!important}
 body.orbit-ui .journey-apparatus::after{font-size:10px!important}
+
+/* ========================================================================== */
+/* ORBIT V2 — release guardrails                                               */
+/* One deliberate light theme, predictable breakpoints and readable controls. */
+/* ========================================================================== */
+
+body.orbit-ui,
+body.orbit-ui.dark{
+  --orb-muted:#505a53;
+  color:var(--orb-ink)!important;
+  background:var(--orb-paper)!important;
+  color-scheme:light!important;
+}
+body.orbit-ui :where(#themeButton,#courseTheme,#labsTheme,#simTheme,#gardenTheme){display:none!important}
+body.orbit-ui :where(p,small,em,label,.muted){text-rendering:optimizeLegibility}
+body.orbit-ui :where(button,a,input,textarea,select){font-size:max(12px,1em)}
+body.orbit-ui :where(button,[role="button"],input,select){touch-action:manipulation}
+body.orbit-ui :where(.sidebar-close,.menu-button,.course-mobile-menu,.round-arrow,.icon-button){min-width:44px!important;min-height:44px!important}
+
+/* Authentication is a true full-screen surface, never tucked under the app. */
+body.orbit-ui .auth-gateway{position:fixed!important;inset:0!important;z-index:5000!important;width:100vw!important;height:100dvh!important;margin:0!important}
+body.orbit-ui .auth-gateway .modal-backdrop{position:absolute!important;inset:0!important}
+body.orbit-ui .auth-gateway .auth-card{position:relative!important;z-index:1!important}
+body.orbit-ui .auth-gateway .auth-story-copy h2{color:#fff!important}
+body.orbit-ui .auth-gateway .auth-story-copy h2 em{color:#63e5d7!important}
+body.orbit-ui .auth-gateway .auth-story-copy p{color:#c4cedc!important}
+body.orbit-ui .auth-gateway :where(.discovery-copy>p,.discover-heading p,.discovery-final p){font-size:14px!important;line-height:1.65!important}
+body.orbit-ui .auth-gateway :where(.discovery-nav button,.discovery-actions button,.discovery-actions a,.discovery-final button){min-height:44px!important;font-size:12px!important}
+
+@media(max-width:1024px){
+  body.orbit-ui .auth-gateway .auth-card{width:100vw!important;max-width:100vw!important;overflow-x:hidden!important}
+  body.orbit-ui .auth-gateway .discovery-nav{padding-left:24px!important;padding-right:24px!important}
+  body.orbit-ui .auth-gateway .discovery-nav nav{display:none!important}
+  body.orbit-ui .auth-gateway .discovery-hero{display:grid!important;grid-template-columns:1fr!important;gap:32px!important;width:100%!important;padding:56px 32px!important;overflow:hidden!important}
+  body.orbit-ui .auth-gateway :where(.discovery-copy,.discovery-lab){min-width:0!important;width:100%!important;max-width:760px!important;margin-left:auto!important;margin-right:auto!important}
+  body.orbit-ui .auth-gateway .discovery-copy{text-align:center!important}
+  body.orbit-ui .auth-gateway :where(.discovery-kicker,.discovery-actions){justify-content:center!important}
+  body.orbit-ui .auth-gateway .discovery-copy>p{margin-left:auto!important;margin-right:auto!important}
+  body.orbit-ui .auth-gateway .discovery-copy h2{font-size:clamp(52px,10vw,78px)!important;overflow-wrap:anywhere!important}
+  body.orbit-ui .auth-gateway .discovery-proof{width:100%!important;max-width:680px!important;margin-left:auto!important;margin-right:auto!important;text-align:left!important}
+  body.orbit-ui .auth-gateway .discovery-lab{min-height:430px!important}
+}
+
+@media(max-width:560px){
+  body.orbit-ui .auth-gateway .discovery-nav{height:72px!important;padding:0 18px!important}
+  body.orbit-ui .auth-gateway .discovery-brand small,
+  body.orbit-ui .auth-gateway .discovery-login{display:none!important}
+  body.orbit-ui .auth-gateway .discovery-nav>div{margin-left:auto!important}
+  body.orbit-ui .auth-gateway .discovery-hero{padding:44px 18px!important;gap:22px!important}
+  body.orbit-ui .auth-gateway .discovery-copy h2{font-size:clamp(44px,13vw,58px)!important;letter-spacing:-.055em!important}
+  body.orbit-ui .auth-gateway .discovery-actions{flex-direction:column!important;gap:14px!important}
+  body.orbit-ui .auth-gateway .discovery-proof{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:18px 0!important}
+  body.orbit-ui .auth-gateway .discovery-proof span:nth-child(3){padding-left:0!important;border-left:0!important}
+  body.orbit-ui .auth-gateway .discovery-lab{min-height:330px!important}
+}
+
+/* Home shell and command centre. */
+body.orbit-ui.idrok-next-home :where(.home-subtitle,.command-subtitle,.journey-copy p,.course-card p,.leader-copy p,.analytics-card p){color:#505a53!important}
+body.orbit-ui.idrok-next-home .page-shell{width:auto!important;min-width:0!important}
+body.orbit-ui.idrok-next-home .course-card{min-width:0!important}
+body.orbit-ui.idrok-next-home .course-card :where(h3,p,.course-bottom span){overflow-wrap:anywhere!important}
+body.orbit-ui.idrok-next-home .course-card p{font-size:14px!important;line-height:1.6!important}
+body.orbit-ui.idrok-next-home .course-bottom span{font-size:11px!important;line-height:1.35!important}
+body.orbit-ui.idrok-next-home .round-arrow{display:grid!important;place-items:center!important}
+body.orbit-ui.idrok-next-home .home-ai-prompts button{min-height:44px!important;color:#fff!important;background:#1b1f1c!important}
+
+/* Course overview and lesson reader. */
+body.orbit-ui.idrok-course :where(.course-shell,.course-main,.course-content,.hero-copy,.lesson-reader,.lesson-content){min-width:0!important}
+body.orbit-ui.idrok-course :where(.hero-copy p,.topic-item p,.course-intro p,.lesson-reader p,.lesson-meta,.lesson-path){color:#4f5952!important}
+body.orbit-ui.idrok-course .course-name{color:#fff!important}
+body.orbit-ui.idrok-course .course-hero{overflow:hidden!important}
+body.orbit-ui.idrok-course .topic-item{opacity:1!important;color:var(--orb-ink)!important;background:#fff!important}
+body.orbit-ui.idrok-course .topic-item :where(h3,h4,b,strong,span){color:var(--orb-ink)!important}
+body.orbit-ui.idrok-course .topic-item p{font-size:13px!important;line-height:1.55!important}
+body.orbit-ui.idrok-course .topic-item button{min-width:44px!important;min-height:44px!important}
+body.orbit-ui.idrok-course .lesson-path,
+body.orbit-ui.idrok-course .lesson-path span,
+body.orbit-ui.idrok-course .lesson-meta span,
+body.orbit-ui.idrok-course .ai-context span,
+body.orbit-ui.idrok-course .lesson-nav-progress b,
+body.orbit-ui.idrok-course .problem-card>span,
+body.orbit-ui.idrok-course .practice>span,
+body.orbit-ui.idrok-course .experiment-card>span,
+body.orbit-ui.idrok-course .solution-steps>*>i{font-size:11px!important}
+body.orbit-ui.idrok-course .ai-context{background:#171a18!important}
+body.orbit-ui.idrok-course .ai-context :where(span,b){color:#fff!important}
+body.orbit-ui.idrok-course .ai-context span{color:var(--orb-lime)!important}
+body.orbit-ui.idrok-course .ai-quick-prompts button{min-height:44px!important;color:#fff!important}
+body.orbit-ui.idrok-course .ai-input-row button{min-width:44px!important;min-height:44px!important}
+
+/* Laboratory library and simulator. */
+body.orbit-ui.idrok-labs :where(.labs-page,.labs-main,.labs-library,.labs-grid,.lab-card){min-width:0!important}
+body.orbit-ui.idrok-labs .lab-card p{color:#505a53!important;font-size:13px!important;line-height:1.55!important}
+body.orbit-ui.idrok-labs .lab-card :where(button,a){min-height:44px!important}
+body.orbit-ui.idrok-lab :where(.sim-page,.sim-main,.simulator-shell,.sim-stage-column,.phet-stage-column,.sim-control-panel){min-width:0!important}
+body.orbit-ui.idrok-lab :where(.sim-hero p,.sim-control-panel p,.sim-stage-footer){color:#505a53!important}
+body.orbit-ui.idrok-lab .sim-stage-footer{color:#dce3dd!important}
+body.orbit-ui.idrok-lab :where(button,a,input,select){min-height:44px!important}
+body.orbit-ui.idrok-lab .phet-frame-wrap{width:100%!important;min-width:0!important;min-height:520px!important}
+body.orbit-ui.idrok-lab .phet-frame-wrap iframe{display:block!important;width:100%!important;min-height:520px!important;border:0!important}
+
+/* Garden stays game-like but its shop and HUD remain readable. */
+body.orbit-ui.idrok-garden :where(.garden-shell,.garden-main,.garden-game-layout,.garden-world-card,.garden-shop){min-width:0!important}
+body.orbit-ui.idrok-garden .catalog-card{min-width:0!important}
+body.orbit-ui.idrok-garden .catalog-card small{
+  display:block!important;overflow:visible!important;white-space:normal!important;
+  -webkit-line-clamp:unset!important;color:#505a53!important;font-size:11px!important;line-height:1.4!important;
+}
+body.orbit-ui.idrok-garden .garden-sidebar nav a small,
+body.orbit-ui.idrok-garden .garden-command .garden-live-stats small,
+body.orbit-ui.idrok-garden :where(.side-world-card>span,.camera-tools button,.world-help b,.shop-head>span,.shop-balance>span,.garden-bottom-row>article>span),
+body.orbit-ui.idrok-garden .shop-copy em,
+body.orbit-ui.idrok-garden .shop-price i,
+body.orbit-ui.idrok-garden .shop-economy b{font-size:11px!important}
+body.orbit-ui.idrok-garden :where(.catalog-card button,.shop-tabs button,.shop-filters button,.camera-tools button){min-height:44px!important}
+
+/* The sidebar disappears at exactly the same breakpoint as the shell offset. */
+@media(max-width:1024px){
+  body.orbit-ui.idrok-next-home .sidebar,
+  body.orbit-ui.idrok-course .course-sidebar,
+  body.orbit-ui.idrok-labs .labs-sidebar,
+  body.orbit-ui.idrok-lab .sim-sidebar,
+  body.orbit-ui.idrok-garden .garden-sidebar{width:min(300px,88vw)!important;transform:translateX(-105%)!important}
+  body.orbit-ui.idrok-next-home .sidebar.open,
+  body.orbit-ui.idrok-course .course-sidebar.open,
+  body.orbit-ui.idrok-labs .labs-sidebar.open,
+  body.orbit-ui.idrok-lab .sim-sidebar.open,
+  body.orbit-ui.idrok-garden .garden-sidebar.open{transform:translateX(0)!important}
+  body.orbit-ui.idrok-next-home .page-shell,
+  body.orbit-ui.idrok-course .course-shell,
+  body.orbit-ui.idrok-labs :where(.labs-header,.labs-page),
+  body.orbit-ui.idrok-lab :where(.sim-header,.sim-page),
+  body.orbit-ui.idrok-garden .garden-shell{margin-left:0!important}
+  body.orbit-ui.idrok-course .course-hero{grid-template-columns:minmax(0,1fr)!important}
+  body.orbit-ui.idrok-course .hero-visual{min-height:340px!important}
+  body.orbit-ui.idrok-labs .labs-hero{grid-template-columns:1fr!important}
+  body.orbit-ui.idrok-lab .simulator-shell{grid-template-columns:1fr!important}
+}
+
+@media(max-width:768px){
+  body.orbit-ui.idrok-next-home :where(.topbar,.home-header){padding-left:16px!important;padding-right:16px!important}
+  body.orbit-ui.idrok-next-home :where(.home-command,.content-wrap){padding-left:16px!important;padding-right:16px!important}
+  body.orbit-ui.idrok-course :where(.course-header,.course-main){padding-left:16px!important;padding-right:16px!important}
+  body.orbit-ui.idrok-labs .labs-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  body.orbit-ui.idrok-lab .sim-hero{grid-template-columns:1fr!important}
+  body.orbit-ui.idrok-lab .sim-control-panel{grid-template-columns:1fr!important}
+  body.orbit-ui.idrok-garden .garden-command{grid-template-columns:1fr!important}
+  body.orbit-ui.idrok-garden .garden-command .command-actions,
+  body.orbit-ui.idrok-garden .garden-command .garden-live-stats{grid-column:1!important;grid-row:auto!important}
+}
+
+@media(max-width:640px){
+  body.orbit-ui{font-size:15px!important}
+  body.orbit-ui.idrok-next-home .page-shell,
+  body.orbit-ui.idrok-course .course-shell,
+  body.orbit-ui.idrok-labs :where(.labs-header,.labs-page),
+  body.orbit-ui.idrok-lab :where(.sim-header,.sim-page),
+  body.orbit-ui.idrok-garden .garden-shell{width:100%!important;margin-left:0!important}
+  body.orbit-ui.idrok-next-home .journey-copy{padding:26px 20px 330px!important}
+  body.orbit-ui.idrok-next-home .journey-copy h2{font-size:clamp(36px,11vw,48px)!important}
+  body.orbit-ui.idrok-next-home :where(.course-grid,.course-rail,.analytics-grid.command-stats){grid-template-columns:1fr!important}
+  body.orbit-ui.idrok-course .course-hero{display:grid!important;grid-template-columns:1fr!important}
+  body.orbit-ui.idrok-course .hero-copy{width:100%!important;padding:24px 20px!important}
+  body.orbit-ui.idrok-course .hero-copy h1{font-size:clamp(38px,12vw,54px)!important;overflow-wrap:anywhere!important}
+  body.orbit-ui.idrok-course .hero-visual{width:100%!important;min-height:300px!important}
+  body.orbit-ui.idrok-labs .labs-grid{grid-template-columns:1fr!important}
+  body.orbit-ui.idrok-labs .labs-hero-copy{padding:28px 20px!important}
+  body.orbit-ui.idrok-labs .labs-hero h1{font-size:clamp(40px,12vw,54px)!important}
+  body.orbit-ui.idrok-lab .sim-hero,
+  body.orbit-ui.idrok-lab .simulator-shell{display:grid!important;grid-template-columns:1fr!important}
+  body.orbit-ui.idrok-lab .sim-hero{padding:20px!important}
+  body.orbit-ui.idrok-lab .sim-hero h1{font-size:clamp(34px,10vw,48px)!important}
+  body.orbit-ui.idrok-lab .phet-frame-wrap,
+  body.orbit-ui.idrok-lab .phet-frame-wrap iframe{min-height:430px!important}
+  body.orbit-ui.idrok-garden .garden-main{padding:10px!important}
+  body.orbit-ui.idrok-garden .garden-game-layout{display:grid!important;grid-template-columns:1fr!important}
+  body.orbit-ui.idrok-garden .garden-world-card{width:100%!important;height:64vh!important;min-height:500px!important}
+  body.orbit-ui.idrok-garden .garden-shop{width:100%!important;max-height:none!important}
+}

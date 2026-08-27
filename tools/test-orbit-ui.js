@@ -9,7 +9,7 @@ function check(value, message) { if (!value) throw new Error(message); passed +=
 const pages = ['index.html','physics7.html','physics8.html','physics.html','physics10.html','physics11.html','labs.html','lab.html','garden.html'];
 for (const file of pages) {
   const html = read(file);
-  check(html.includes('idrok-orbit.css?v=1'), `${file}: Orbit stylesheet missing`);
+  check(/idrok-orbit\.css\?v=\d+/.test(html), `${file}: Orbit stylesheet missing`);
   check(/<body class="[^"]*orbit-ui/.test(html), `${file}: orbit-ui body class missing`);
 }
 

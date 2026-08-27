@@ -19,6 +19,7 @@
     "test:studio": "node tools/test-science-studio.js",
     "test:studio-v2": "node tools/test-studio-v2.js",
     "test:orbit": "node tools/test-orbit-ui.js",
-    "test": "npm run test:auth-ui && npm run test:foundation && npm run test:supabase && npm run test:day2 && npm run test:design && npm run test:studio && npm run test:studio-v2 && npm run test:orbit && npm run test:garden && npm run test:account && npm run test:admin"
+    "test:visual-release": "node tools/test-visual-release.js",
+    "test": "npm run test:auth-ui && npm run test:foundation && npm run test:supabase && npm run test:day2 && npm run test:design && npm run test:studio && npm run test:studio-v2 && npm run test:orbit && npm run test:visual-release && npm run test:garden && npm run test:account && npm run test:admin"
   }
 }
